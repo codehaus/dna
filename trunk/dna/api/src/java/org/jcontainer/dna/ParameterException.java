@@ -11,69 +11,68 @@ package org.jcontainer.dna;
  * The ParameterException is used to signal a problem
  * retrieving a parameter from the Parameters object.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 05:36:57 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-23 02:15:56 $
  */
 public class ParameterException
-   extends Exception
+    extends Exception
 {
-   /**
-    * The exception that caused this exception if any.
-    */
-   private final Throwable m_cause;
+    /**
+     * The exception that caused this exception if any.
+     */
+    private final Throwable m_cause;
 
-   /**
-    * The parameter key that caused the problem.
-    */
-   private final String m_key;
+    /**
+     * The parameter key that caused the problem.
+     */
+    private final String m_key;
 
-   /**
-    * Create a ParameterException with specified
-    * message and key.
-    *
-    * @param message the message
-    * @param key the key
-    */
-   public ParameterException( final String message,
-                              final String key )
-   {
-      this( message, key, null );
-   }
+    /**
+     * Create a ParameterException with specified
+     * message and key.
+     *
+     * @param message the message
+     * @param key the key
+     */
+    public ParameterException( final String message,
+                               final String key )
+    {
+        this( message, key, null );
+    }
 
-   /**
-    * Create a ParameterException with specified
-    * message, key and cause.
-    *
-    * @param message the message
-    * @param key the key
-    * @param cause the cause
-    */
-   public ParameterException( final String message,
-                              final String key,
-                              final Throwable cause )
-   {
-      super( message );
-      m_key = key;
-      m_cause = cause;
-   }
+    /**
+     * Create a ParameterException with specified
+     * message, key and cause.
+     *
+     * @param message the message
+     * @param key the key
+     * @param cause the cause
+     */
+    public ParameterException( final String message,
+                               final String key,
+                               final Throwable cause )
+    {
+        super( message );
+        m_key = key;
+        m_cause = cause;
+    }
 
-   /**
-    * Return the parameter key that caused the problem.
-    *
-    * @return the parameter key that caused the problem.
-    */
-   public String getKey()
-   {
-      return m_key;
-   }
+    /**
+     * Return the parameter key that caused the problem.
+     *
+     * @return the parameter key that caused the problem.
+     */
+    public String getKey()
+    {
+        return m_key;
+    }
 
-
-   /**
-    * Return the exception that caused this exception if any.
-    *
-    * @return the exception that caused this exception if any.
-    */
-   public Throwable getCause()
-   {
-      return m_cause;
-   }
+    /**
+     * Return the exception that caused this exception if any.
+     *
+     * @return the exception that caused this exception if any.
+     */
+    public Throwable getCause()
+    {
+        return m_cause;
+    }
 }
