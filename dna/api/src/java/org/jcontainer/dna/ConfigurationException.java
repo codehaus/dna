@@ -14,7 +14,7 @@ package org.jcontainer.dna;
  * a string), have missing data (ie no attribute with specified
  * name) or may fail to be valid via some other mechanism.
  *
- * @version $Revision: 1.8 $ $Date: 2003-09-05 05:20:08 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-23 02:15:23 $
  */
 public class ConfigurationException
    extends Exception
@@ -125,6 +125,11 @@ public class ConfigurationException
       return m_cause;
    }
 
+   /**
+    * Return the string representation of exception.
+    *
+    * @return the string representation of exception.
+    */
    public String toString()
    {
       final StringBuffer sb = new StringBuffer();
