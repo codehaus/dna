@@ -10,7 +10,7 @@
         <maven:reactor
             basedir="${basedir}"
             includes="*/project.xml"
-            excludes="site/*"
+            excludes="distribution/project.xml,site/project.xml"
             goals="clean"
             banner="Cleaning"
             ignoreFailures="false"/>
@@ -21,25 +21,17 @@
         <maven:reactor
             basedir="${basedir}"
             includes="*/project.xml"
-            excludes="site/*"
+            excludes="distribution/project.xml,site/project.xml"
             goals="clean,build"
             banner="Building"
             ignoreFailures="false" />
-
-<!--
-        <maven:maven
-            descriptor="${basedir}/distribution/project.xml"
-            goals="buildDist"
-            ignoreFailures="false"/>
--->
-    </goal>
 
     <goal name="deploy">
         <echo message="Deploying all components"/>
         <maven:reactor
             basedir="${basedir}"
             includes="*/project.xml"
-            excludes="site/*"
+            excludes="distribution/project.xml,site/project.xml"
             goals="clean,deploy"
             banner="Deploying"
             ignoreFailures="false" />
