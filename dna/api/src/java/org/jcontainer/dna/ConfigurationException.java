@@ -9,12 +9,13 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.3 $ $Date: 2003-08-28 06:46:37 $
+ * @version $Revision: 1.4 $ $Date: 2003-08-30 02:03:50 $
  */
 public class ConfigurationException
     extends Exception
 {
     private final Throwable m_cause;
+    private final String m_path;
     private final String m_location;
 
     public ConfigurationException( final String message )
@@ -38,9 +39,23 @@ public class ConfigurationException
                                    final Throwable cause,
                                    final String location )
     {
+        this( message, cause, null, location );
+    }
+
+    public ConfigurationException( final String message,
+                                   final Throwable cause,
+                                   final String path,
+                                   final String location )
+    {
         super( message );
         m_cause = cause;
+        m_path = path;
         m_location = location;
+    }
+
+    public String getPath()
+    {
+        return m_path;
     }
 
     public String getLocation()
