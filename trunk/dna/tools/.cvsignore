@@ -2,4 +2,3 @@ target
 maven.log
 velocity.log
 build.properties
-cleanbuild.log
