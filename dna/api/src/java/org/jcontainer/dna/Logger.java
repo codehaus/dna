@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-26 03:59:02 $
  */
 public interface Logger
 {
@@ -42,4 +42,6 @@ public interface Logger
     void error( String message, Throwable throwable );
 
     boolean isErrorEnabled();
+
+    Logger getChildLogger( String name );
 }
