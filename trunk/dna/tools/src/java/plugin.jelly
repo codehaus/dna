@@ -16,8 +16,8 @@
         </ant:mc_interceptorSet>
 
         <ant:mc_addToInterceptorSet
-            id="maven.metaclass.interceptors"
-            refid="maven.dna.interceptors"/>
+            dest="maven.metaclass.interceptors"
+            source="maven.dna.interceptors"/>
     </goal>
 
     <goal name="dna:metagenerate"
