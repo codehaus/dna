@@ -8,6 +8,7 @@
 package org.jcontainer.dna.tools.verifier;
 
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Parameterizable;
+import org.jcontainer.dna.ResourceLocator;
 import org.realityforge.metaclass.Attributes;
 import org.realityforge.metaclass.model.Attribute;
 
@@ -25,7 +27,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.8 $ $Date: 2003-10-25 14:44:30 $
+ * @version $Revision: 1.9 $ $Date: 2003-10-26 06:07:44 $
  */
 public class ComponentVerifier
 {
@@ -58,6 +60,16 @@ public class ComponentVerifier
         Parameterizable.class,
         Active.class
     };
+
+    /**
+     * The parameter types of the Composable.compose() method.
+     */
+    private static final Class[] COMPOSE_PARAMETER_TYPES = new Class[]{ResourceLocator.class};
+
+    /**
+     * The name of the Composable.compose() method.
+     */
+    private static final String COMPOSE_METHOD_NAME = "compose";
 
     /**
      * Verfiy that specified components designate classes that implement the
@@ -98,7 +110,177 @@ public class ComponentVerifier
             Attributes.getAttribute( type, "dna.component" );
         if( null == attribute )
         {
-            final String message = getMessage( "CV001E" );
+            final String message = getMessage( "CV001" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+    }
+
+    /**
+     * Verify that the dependency metadata for component is valid.
+     *
+     * @param type the type
+     * @param issues the list of issues
+     */
+    void verifyDependencyMetaData( final Class type, final List issues )
+    {
+        if( !Composable.class.isAssignableFrom( type ) )
+        {
+            return;
+        }
+        try
+        {
+            final Method method =
+                type.getMethod( COMPOSE_METHOD_NAME, COMPOSE_PARAMETER_TYPES );
+            final Attribute[] attributes =
+                Attributes.getAttributes( method, "dna.dependency" );
+            for( int i = 0; i < attributes.length; i++ )
+            {
+                final Attribute attribute = attributes[ i ];
+                verifyDependencyMetaData( type, attribute, issues );
+            }
+        }
+        catch( final NoSuchMethodException nsme )
+        {
+        }
+    }
+
+    /**
+     * Verify that the dependency metadata tag is valid.
+     *
+     * @param type the component type
+     * @param attribute the metadata tag
+     * @param issues the list of issues
+     */
+    void verifyDependencyMetaData( final Class type,
+                                   final Attribute attribute,
+                                   final List issues )
+    {
+        final String optional = attribute.getParameter( "optional" );
+        verifyOptionalParameter( optional, issues );
+
+        final String typeName = attribute.getParameter( "type" );
+        if( null == typeName )
+        {
+            final Object[] args = new Object[]{"type"};
+            final String message = getMessage( "CV015", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+        else
+        {
+            verifyDependencyType( type, typeName, issues );
+            final String key = attribute.getParameter( "key" );
+            if( null == key )
+            {
+                final Object[] args = new Object[]{"key"};
+                final String message = getMessage( "CV015", args );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
+            }
+            else
+            {
+                verifyDependencyKeyConforms( typeName, key, issues );
+            }
+        }
+    }
+
+    /**
+     * Verify optional parameter for dependency metadata.
+     *
+     * @param optional the value of parameter
+     * @param issues the list of issues
+     */
+    void verifyOptionalParameter( final String optional, final List issues )
+    {
+        if( null == optional )
+        {
+            final Object[] args = new Object[]{"optional"};
+            final String message = getMessage( "CV015", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+        else
+        {
+            verifyDependencyOptionalValid( optional, issues );
+        }
+    }
+
+    /**
+     * Verify that value of optional value is valid.
+     *
+     * @param optional the optional value
+     * @param issues the list of issues
+     */
+    void verifyDependencyOptionalValid( final String optional,
+                                        final List issues )
+    {
+        if( !optional.equals( "true" ) && !optional.equals( "false" ) )
+        {
+            final Object[] args = new Object[]{optional};
+            final String message = getMessage( "CV018", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+    }
+
+    /**
+     * Verify that the key conforms to the expectation
+     * of being (type)[/(qualifier)]
+     *
+     * @param typeName the name of dependency type
+     * @param key the dependency key
+     * @param issues the list of issues
+     */
+    void verifyDependencyKeyConforms( final String typeName,
+                                      final String key,
+                                      final List issues )
+    {
+        final int typeLength = typeName.length();
+        final int keyLength = key.length();
+        final String prefix;
+        if( typeLength == keyLength )
+        {
+            prefix = typeName;
+        }
+        else
+        {
+            prefix = typeName + "/";
+        }
+        if( !key.startsWith( prefix ) )
+        {
+            final Object[] args = new Object[]{key};
+            final String message = getMessage( "CV017", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.NOTICE, message );
+            issues.add( issue );
+        }
+    }
+
+    /**
+     * Verify that the type specified dependency can be loaded.
+     *
+     * @param type the component type
+     * @param typeName the type of dependency
+     * @param issues the list of issues
+     */
+    void verifyDependencyType( final Class type,
+                               final String typeName,
+                               final List issues )
+    {
+        try
+        {
+            type.getClassLoader().loadClass( typeName );
+        }
+        catch( final Throwable t )
+        {
+            final Object[] args = new Object[]{typeName, t};
+            final String message = getMessage( "CV016", args );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -122,7 +304,7 @@ public class ComponentVerifier
             if( !services[ i ].isAssignableFrom( implementation ) )
             {
                 final Object[] args = new Object[]{services[ i ].getName()};
-                final String message = getMessage( "CV002E", args );
+                final String message = getMessage( "CV002", args );
                 final VerifyIssue issue =
                     new VerifyIssue( VerifyIssue.ERROR, message );
                 issues.add( issue );
@@ -152,8 +334,8 @@ public class ComponentVerifier
      * a service.
      *
      * @param clazz the class representign service
-      * @param issues the list of issues
-    */
+     * @param issues the list of issues
+     */
     void verifyService( final Class clazz, final List issues )
     {
         verifyServiceIsaInterface( clazz, issues );
@@ -176,7 +358,7 @@ public class ComponentVerifier
             Parameterizable.class.isAssignableFrom( implementation );
         if( parameterizable && configurable )
         {
-            final String message = getMessage( "CV003E" );
+            final String message = getMessage( "CV003" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -195,7 +377,7 @@ public class ComponentVerifier
         if( !clazz.isInterface() )
         {
             final Object[] args = new Object[]{clazz.getName()};
-            final String message = getMessage( "CV004E", args );
+            final String message = getMessage( "CV004", args );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -216,7 +398,7 @@ public class ComponentVerifier
         if( !isPublic )
         {
             final Object[] args = new Object[]{clazz.getName()};
-            final String message = getMessage( "CV005E", args );
+            final String message = getMessage( "CV005", args );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -239,7 +421,7 @@ public class ComponentVerifier
             {
                 final Object[] args =
                     new Object[]{clazz.getName(), lifecycle.getName()};
-                final String message = getMessage( "CV006E", args );
+                final String message = getMessage( "CV006", args );
                 final VerifyIssue issue =
                     new VerifyIssue( VerifyIssue.ERROR, message );
                 issues.add( issue );
@@ -262,7 +444,7 @@ public class ComponentVerifier
         }
         catch( final NoSuchMethodException nsme )
         {
-            final String message = getMessage( "CV008E" );
+            final String message = getMessage( "CV008" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -282,7 +464,7 @@ public class ComponentVerifier
             Modifier.isAbstract( clazz.getModifiers() );
         if( isAbstract )
         {
-            final String message = getMessage( "CV009E" );
+            final String message = getMessage( "CV009" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -302,7 +484,7 @@ public class ComponentVerifier
             Modifier.isPublic( clazz.getModifiers() );
         if( !isPublic )
         {
-            final String message = getMessage( "CV010E" );
+            final String message = getMessage( "CV010" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -320,7 +502,7 @@ public class ComponentVerifier
     {
         if( clazz.isPrimitive() )
         {
-            final String message = getMessage( "CV011E" );
+            final String message = getMessage( "CV011" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -338,7 +520,7 @@ public class ComponentVerifier
     {
         if( clazz.isInterface() )
         {
-            final String message = getMessage( "CV012E" );
+            final String message = getMessage( "CV012" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -356,7 +538,7 @@ public class ComponentVerifier
     {
         if( clazz.isArray() )
         {
-            final String message = getMessage( "CV013E" );
+            final String message = getMessage( "CV013" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -388,7 +570,7 @@ public class ComponentVerifier
             catch( final Throwable t )
             {
                 final Object[] args = new Object[]{classname, t};
-                final String message = getMessage( "CV014E", args );
+                final String message = getMessage( "CV014", args );
                 final VerifyIssue issue =
                     new VerifyIssue( VerifyIssue.ERROR, message );
                 issues.add( issue );
