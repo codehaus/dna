@@ -3,7 +3,6 @@
     <extend>${basedir}/../project.xml</extend>
     <name>DNA Distribution</name>
     <id>dna</id>
-    <currentVersion>1.0dev</currentVersion>
 
     <shortDescription>DNA Distribution component.</shortDescription>
 
@@ -15,7 +14,7 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
-            <version>1.0dev</version>
+            <version>1.0</version>
             <properties>
                 <category>shared</category>
             </properties>
@@ -23,7 +22,7 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-impl</artifactId>
-            <version>1.0dev</version>
+            <version>1.0</version>
             <properties>
                 <category>shared</category>
             </properties>
