@@ -30,16 +30,6 @@
                 components are those specified in the
                 <a href="model.html">model</a> document.
             </p>
-            <p>
-                However some DNA containers may choose to load metadata about
-                components from legacy sources. For example, the Loom container
-                historically supported loading metadata from multiple desciptors
-                BlockInfo (&lt;classname&gt;.xinfo) and MxInfo
-                (&lt;classname&gt;.mxinfo). Loom retains support for such
-                components by reading the descriptor files and merging them
-                into a single ClassDescriptor object. See Loom documentation
-                for more details.
-            </p>
         </section>
     </body>
 </document>
