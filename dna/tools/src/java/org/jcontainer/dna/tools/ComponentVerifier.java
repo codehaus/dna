@@ -9,6 +9,8 @@ package org.jcontainer.dna.tools;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ResourceBundle;
+import java.text.MessageFormat;
 import org.jcontainer.dna.Active;
 import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
@@ -24,10 +26,13 @@ import org.realityforge.salt.i18n.Resources;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.4 $ $Date: 2003-10-17 03:24:05 $
+ * @version $Revision: 1.5 $ $Date: 2003-10-19 09:40:51 $
  */
 public class ComponentVerifier
 {
+    private static final ResourceBundle BUNDLE =
+        ResourceBundle.getBundle( ComponentVerifier.class.getName() );
+
     /**
      * I18n utils.
      */
@@ -52,7 +57,7 @@ public class ComponentVerifier
         Active.class
     };
 
-/**
+    /**
      * Verfiy that specified components designate classes that implement the
      * advertised interfaces.
      *
@@ -439,15 +444,14 @@ public class ComponentVerifier
     {
         if( clazz.isArray() )
         {
+            final String pattern =
+                BUNDLE.getString( "verifier.array-class.error" );
             final String message =
-                REZ.format( "verifier.array-class.error",
-                            name,
-                            clazz.getName() );
+                MessageFormat.format( pattern, new Object[]{name,
+                                                      clazz.getName()} );
             throw new VerifyException( message );
         }
     }
-
-
 
     /**
      * Retrieve an array of Classes for all the services that a Component
