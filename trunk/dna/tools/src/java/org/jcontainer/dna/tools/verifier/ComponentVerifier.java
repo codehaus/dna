@@ -13,12 +13,14 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.net.URL;
 import org.jcontainer.dna.Active;
 import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Parameterizable;
 import org.jcontainer.dna.ResourceLocator;
+import org.jcontainer.dna.Configuration;
 import org.realityforge.metaclass.Attributes;
 import org.realityforge.metaclass.model.Attribute;
 
@@ -27,7 +29,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.11 $ $Date: 2003-10-26 06:39:53 $
+ * @version $Revision: 1.12 $ $Date: 2003-10-26 07:08:13 $
  */
 public class ComponentVerifier
 {
@@ -62,14 +64,24 @@ public class ComponentVerifier
     };
 
     /**
-     * The parameter types of the Composable.compose() method.
+     * The name of the Configurable.configure() method.
      */
-    private static final Class[] COMPOSE_PARAMETER_TYPES = new Class[]{ResourceLocator.class};
+    private static final String CONFIGURE_METHOD_NAME = "configure";
+
+    /**
+     * The parameter types of the Configurable.configure() method.
+     */
+    private static final Class[] CONFIGURE_PARAMETER_TYPES = new Class[]{Configuration.class};
 
     /**
      * The name of the Composable.compose() method.
      */
     private static final String COMPOSE_METHOD_NAME = "compose";
+
+    /**
+     * The parameter types of the Composable.compose() method.
+     */
+    private static final Class[] COMPOSE_PARAMETER_TYPES = new Class[]{ResourceLocator.class};
 
     /**
      * Verfiy that specified components designate classes that implement the
@@ -83,6 +95,7 @@ public class ComponentVerifier
         final List issues = new ArrayList();
         verifyMetaData( type, issues );
         verifyDependencyMetaData( type, issues );
+        verifyConfigurationMetaData( type, issues );
 
         final Class[] interfaces = getServiceClasses( type, issues );
 
@@ -112,6 +125,68 @@ public class ComponentVerifier
         if( null == attribute )
         {
             final String message = getMessage( "CV001" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+    }
+
+    /**
+     * Verify that the configuration metadata for component is valid.
+     *
+     * @param type the type
+     * @param issues the list of issues
+     */
+    void verifyConfigurationMetaData( final Class type, final List issues )
+    {
+        if( !Configurable.class.isAssignableFrom( type ) )
+        {
+            return;
+        }
+        try
+        {
+            final Method method =
+                type.getMethod( CONFIGURE_METHOD_NAME, CONFIGURE_PARAMETER_TYPES );
+            final Attribute attribute =
+                Attributes.getAttribute( method, "dna.configuration" );
+            if( null != attribute )
+            {
+                final String location = attribute.getParameter( "location" );
+                if( null == location )
+                {
+                    final Object[] args = new Object[]{"type"};
+                    final String message = getMessage( "CV019", args );
+                    final VerifyIssue issue =
+                        new VerifyIssue( VerifyIssue.ERROR, message );
+                    issues.add( issue );
+                }
+                else
+                {
+                    verifyLocation( type, location, issues );
+                }
+            }
+        }
+        catch( final NoSuchMethodException nsme )
+        {
+        }
+    }
+
+    /**
+     * Verify that the location specified for the schema actually exists.
+     *
+     * @param type the component type
+     * @param location the location of schmea
+     * @param issues the list of issues
+     */
+    void verifyLocation( final Class type,
+                         final String location,
+                         final List issues )
+    {
+        final URL url = type.getResource( location );
+        if( null == url )
+        {
+            final Object[] args = new Object[]{location};
+            final String message = getMessage( "CV020", args );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
