@@ -7,6 +7,7 @@
  */
 package org.jcontainer.dna.impl;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
@@ -16,7 +17,7 @@ import org.jcontainer.dna.Parameters;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-07-27 10:34:34 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-28 08:24:42 $
  */
 public class DefaultParameters
     implements Parameters, Freezable
@@ -25,6 +26,7 @@ public class DefaultParameters
     private static final String EMPTY_PREFIX = "";
 
     private final Properties m_parameters = new Properties();
+    private final Set m_children = new HashSet();
     private final String m_prefix;
     private boolean m_readOnly;
 
@@ -220,12 +222,22 @@ public class DefaultParameters
         }
 
         parameters.makeReadOnly();
+        m_children.add( parameters );
         return parameters;
     }
 
     public void makeReadOnly()
     {
         m_readOnly = true;
+        final Iterator iterator = m_children.iterator();
+        while( iterator.hasNext() )
+        {
+            final Object child = iterator.next();
+            if( child instanceof Freezable )
+            {
+                ((Freezable)child).makeReadOnly();
+            }
+        }
     }
 
     public void setParameter( final String name, final String value )
