@@ -15,7 +15,10 @@
     </goal>
 
 	<preGoal name="xdoc:transform">
-        <ant:copy todir="target/generated-xdocs"
-        		  file="../site/xdocs/navigation.xml"/>
+        <ant:copy todir=".">
+			<ant:fileset dir="../site">
+				<ant:include name="**/generated-xdocs/**"/>
+			</ant:fileset>
+        </ant:copy>
 	</preGoal>
 </project>
