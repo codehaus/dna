@@ -2,7 +2,7 @@ package org.jcontainer.dna.impl;
 
 import junit.framework.TestCase;
 
-public class AbstractFreezableTestCase
+public class FreezableTestCase
    extends TestCase
 {
    public void testMakeReadOnly()
