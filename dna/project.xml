@@ -3,8 +3,8 @@
     <pomVersion>3</pomVersion>
 
     <currentVersion>1.0</currentVersion>
-    <inceptionYear>2000</inceptionYear>
-    <!--<logo>/images/logo.gif</logo>-->
+    <inceptionYear>2003</inceptionYear>
+    <logo>/images/dna-logo.png</logo>
 
     <organization>
         <name>The JContainer Group</name>
@@ -14,12 +14,88 @@
 
     <groupId>dna</groupId>
     <package>org.jcontainer.dna</package>
+    <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10241</issueTrackingUrl>
     <url>http://dna.jcontainer.org/</url>
+    <logo>/images/dna-logo.png</logo>
+
     <distributionDirectory>/www/dist.codehaus.org/jcontainer/maven/${groupId}</distributionDirectory>
     <distributionSite>codehaus.org</distributionSite>
+    <siteAddress>dna.jcontainer.org</siteAddress>
+    <siteDirectory>/www/jcontainer.codehaus.org/dna/</siteDirectory>
 
     <repository>
         <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer/dna</connection>
         <url>http://jcontainer.cvs.codehaus.org/</url>
     </repository>
+
+    <mailingLists>
+        <mailingList>
+            <name>JContainer Interest</name>
+            <subscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-interest</subscribe>
+            <unsubscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-interest</unsubscribe>
+            <archive>http://lists.codehaus.org/pipermail/jcontainer-interest</archive>
+        </mailingList>
+        <mailingList>
+            <name>JContainer Commits</name>
+            <subscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-commits</subscribe>
+            <unsubscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-commits</unsubscribe>
+            <archive>http://lists.codehaus.org/pipermail/jcontainer-commits</archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+        <developer>
+            <name>Peter Donald</name>
+            <id>pdonald</id>
+            <email>peter@realityforge.org</email>
+            <roles>
+                <role>Founder</role>
+                <role>Hacker</role>
+            </roles>
+            <timezone>+10</timezone>
+        </developer>
+        <developer>
+            <name>Paul Hammant</name>
+            <id>paul</id>
+            <roles>
+                <role>Founder</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Peter Royal</name>
+            <id>proyal</id>
+            <email>peter.royal@pobox.com</email>
+            <url>http://fotap.org/~osi</url>
+            <roles>
+                <role>Founder</role>
+                <role>Hacker</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <name>Mauro Talevi</name>
+            <id>mauro</id>
+            <email>mauro.talevi at aquilonia.org</email>
+            <roles>
+                <role>Founder</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Johan Sjoberg</name>
+            <email>johan.sjoberg@avaintec.com</email>
+        </contributor>
+    </contributors>
+
+    <licenses>
+        <license>
+            <name>The JContainer Software License, Version 1.0</name>
+            <url>http://jcontainer.cvs.codehaus.org/viewcvs.cgi/*checkout*/jcontainer/dna/LICENSE.txt?content-type=text%2Fplain&amp;rev=1.3&amp;root=jcontainer</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
 </project>
