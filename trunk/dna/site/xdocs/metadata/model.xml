@@ -175,8 +175,8 @@ public class MyComponent
                 </p>
                 <source><![CDATA[
 /**
- * @avalon.logger
- * @avalon.logger name="auth"
+ * @dna.logger
+ * @dna.logger name="auth"
  */
 public void enableLogging( Logger logger )
 {
