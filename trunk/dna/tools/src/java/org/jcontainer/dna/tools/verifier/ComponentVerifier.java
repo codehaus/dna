@@ -27,7 +27,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.9 $ $Date: 2003-10-26 06:07:44 $
+ * @version $Revision: 1.10 $ $Date: 2003-10-26 06:27:40 $
  */
 public class ComponentVerifier
 {
@@ -556,16 +556,17 @@ public class ComponentVerifier
      */
     Class[] getServiceClasses( final Class type, final List issues )
     {
+        final List services = new ArrayList();
         final ClassLoader classLoader = type.getClassLoader();
         final Attribute[] attributes =
             Attributes.getAttributes( type, "dna.service" );
-        final Class[] classes = new Class[ attributes.length ];
         for( int i = 0; i < attributes.length; i++ )
         {
             final String classname = attributes[ i ].getParameter( "type" );
             try
             {
-                classes[ i ] = classLoader.loadClass( classname );
+                final Class clazz = classLoader.loadClass( classname );
+                services.add( clazz );
             }
             catch( final Throwable t )
             {
@@ -577,7 +578,7 @@ public class ComponentVerifier
             }
         }
 
-        return classes;
+        return (Class[])services.toArray( new Class[ services.size() ] );
     }
 
     /**
