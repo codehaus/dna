@@ -12,7 +12,7 @@ import org.jcontainer.dna.Logger;
 /**
  * A simple logger facade that simply writes to the Console.
  *
- * @version $Revision: 1.6 $ $Date: 2003-09-09 01:22:04 $
+ * @version $Revision: 1.7 $ $Date: 2003-09-09 01:23:42 $
  */
 public class ConsoleLogger
    implements Logger
@@ -324,7 +324,7 @@ public class ConsoleLogger
     *
     * @return log level of logger
     */
-   protected final int getLevel()
+   final int getLevel()
    {
       return m_level;
    }
