@@ -4,9 +4,9 @@ package org.jcontainer.dna.impl;
  * Abstract utility class for resources that can be "frozen"
  * and made read-only after being constructed.
  *
- * @version $Revision: 1.1 $ $Date: 2003-09-07 23:33:02 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-07 23:33:40 $
  */
-public class AbstractFreezable
+abstract class AbstractFreezable
    implements Freezable
 {
    /**
