@@ -21,17 +21,17 @@
         <dependency>
             <groupId>metaclass</groupId>
             <artifactId>metaclass-runtime</artifactId>
-            <version>1.0-rc3-dev</version>
+            <version>1.1-rc4-dev</version>
         </dependency>
         <dependency>
             <groupId>metaclass</groupId>
             <artifactId>metaclass-tools</artifactId>
-            <version>1.0-rc3-dev</version>
+            <version>1.1-rc4-dev</version>
         </dependency>
         <dependency>
             <groupId>metaclass</groupId>
             <artifactId>maven-metaclass-plugin</artifactId>
-            <version>1.0-rc3-dev</version>
+            <version>1.1-rc4-dev</version>
             <type>plugin</type>
         </dependency>
         <dependency>

@@ -6,16 +6,16 @@
         prereqs="metaclass:init"
         description="Initialize Plugin">
 
-        <ant:mc_interceptorSet id="maven.dna.interceptors">
+        <ant:metaclass_interceptorSet id="maven.dna.interceptors">
             <ant:interceptor
                 name="org.codehaus.dna.tools.metaclass.DNAAttributeInterceptor">
                 <ant:classpath>
                     <ant:pathelement path="${plugin.dir}"/>
                 </ant:classpath>
             </ant:interceptor>
-        </ant:mc_interceptorSet>
+        </ant:metaclass_interceptorSet>
 
-        <ant:mc_addToInterceptorSet
+        <ant:metaclass_addToInterceptorSet
             dest="maven.metaclass.interceptors"
             source="maven.dna.interceptors"/>
     </goal>
