@@ -37,6 +37,11 @@
                     process text attributes prior to them being set. Added unit
                     tests to verify operation.
                 </li>
+                <li>
+                    Add ConfigurationUtil.equals( config1, config2 ) utility
+                    method that tests equality of two configurations and added
+                    unit tests to verify functionality.
+                </li>
             </ul>
         </section>
     </body>
