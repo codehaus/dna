@@ -25,7 +25,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.6 $ $Date: 2003-10-25 14:20:47 $
+ * @version $Revision: 1.7 $ $Date: 2003-10-25 14:21:08 $
  */
 public class ComponentVerifier
 {
@@ -192,7 +192,6 @@ public class ComponentVerifier
      * @param clazz the class representign service
      */
     void verifyServiceIsPublic( final Class clazz, final List issues )
-
     {
         final boolean isPublic =
             Modifier.isPublic( clazz.getModifiers() );
