@@ -32,7 +32,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.6 $ $Date: 2003-09-08 02:00:39 $
+ * @version $Revision: 1.7 $ $Date: 2003-09-11 03:54:54 $
  */
 public class ConfigurationUtil
 {
@@ -180,9 +180,9 @@ public class ConfigurationUtil
 
          return createElement( document, configuration );
       }
-      catch ( final Exception ce )
+      catch ( final Throwable t )
       {
-         throw new IllegalStateException( ce.toString() );
+         throw new IllegalStateException( t.toString() );
       }
    }
 
