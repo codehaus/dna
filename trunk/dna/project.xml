@@ -10,6 +10,7 @@
     <inceptionYear>2003</inceptionYear>
 
     <groupId>dna</groupId>
+    <!-- note need to update version in dna-tools dependencies if this changes -->
     <currentVersion>1.1-dev</currentVersion>
     <package>org.jcontainer.dna</package>
 

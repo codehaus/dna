@@ -11,8 +11,8 @@ import org.jcontainer.dna.Configurable;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 15:03:06 $
+ * @author Peter Donald
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 06:54:53 $
  */
 interface LifecycleExtendingService
     extends Configurable

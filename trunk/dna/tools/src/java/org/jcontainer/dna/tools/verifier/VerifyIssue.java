@@ -11,8 +11,8 @@ package org.jcontainer.dna.tools.verifier;
  * Class defining a problem discovered when verifying a
  * DNA component type.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-19 09:40:38 $
+ * @author Peter Donald
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 06:54:44 $
  */
 public class VerifyIssue
 {

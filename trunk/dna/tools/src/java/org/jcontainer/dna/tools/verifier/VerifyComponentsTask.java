@@ -28,8 +28,8 @@ import org.realityforge.metaclass.model.ClassDescriptor;
 /**
  * Task to validate a set of components.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-11-13 02:49:51 $
+ * @author Peter Donald
+ * @version $Revision: 1.4 $ $Date: 2003-11-27 06:54:44 $
  */
 public class VerifyComponentsTask
     extends Task

@@ -20,8 +20,8 @@ import org.realityforge.metaclass.tools.qdox.QDoxAttributeInterceptor;
  * involves setting default values for required attributes and resolving
  * types in type-based attributes.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-16 08:53:00 $
+ * @author Peter Donald
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:39 $
  */
 public class DNAAttributeInterceptor
     extends DefaultQDoxAttributeInterceptor
