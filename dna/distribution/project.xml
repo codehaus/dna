@@ -57,9 +57,9 @@
             <type>plugin</type>
         </dependency>
         <dependency>
-            <groupId>spice</groupId>
-            <artifactId>spice-metaclass</artifactId>
-            <version>1.0-rc2</version>
+            <groupId>metaclass</groupId>
+            <artifactId>maven-metaclass-plugin</artifactId>
+            <version>1.0-rc3-dev</version>
             <type>plugin</type>
             <properties>
                 <category>shared</category>
