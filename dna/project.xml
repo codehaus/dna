@@ -10,7 +10,7 @@
     <inceptionYear>2003</inceptionYear>
 
     <groupId>dna</groupId>
-    <currentVersion>1.1-rc1</currentVersion>
+    <currentVersion>1.1-dev</currentVersion>
     <package>org.jcontainer.dna</package>
 
     <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10241</issueTrackingUrl>
