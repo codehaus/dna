@@ -11,11 +11,12 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
+import org.jcontainer.dna.Configurable;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 11:35:17 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-25 14:39:57 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -108,6 +109,144 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         verifier.verifyNonAbstract( AbstractNonPublicClassWithNonPublicCtor.class, issues );
         assertSingleIssue( issues, "The class is abstract.", true, false );
+    }
+
+    public void testVerifyNoArgConstructorThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyNoArgConstructor( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyNoArgConstructorThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyNoArgConstructor( AbstractNonPublicClassWithNonPublicCtor.class, issues );
+        assertSingleIssue( issues, "The class does not have a public default constructor.", true, false );
+    }
+
+    public void testVerifyServiceNotALifecycleThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceNotALifecycle( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyServiceNotALifecycleThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceNotALifecycle( LifecycleExtendingService.class, issues );
+        assertSingleIssue( issues, "Service " + LifecycleExtendingService.class.getName() +
+                                   " extends lifecycle interface " +
+                                   Configurable.class.getName() + ".", true, false );
+    }
+
+    public void testVerifyServiceIsPublicThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceIsPublic( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyServiceIsPublicThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceIsPublic( LifecycleExtendingService.class, issues );
+        assertSingleIssue( issues, "Service " + LifecycleExtendingService.class.getName() +
+                                   " must be public.", true, false );
+    }
+
+    public void testVerifyServiceIsaInterfaceThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceIsaInterface( ActionListener.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyServiceIsaInterfaceThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyServiceIsaInterface( Object.class, issues );
+        assertSingleIssue( issues, "Service " + Object.class.getName() +
+                                   " must be an interface.", true, false );
+    }
+
+    public void testVerifyLifecyclesThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyLifecycles( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyLifecyclesThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyLifecycles( IncompatibleLifecycles.class, issues );
+        assertSingleIssue( issues, "The class can not implement both " +
+                                   "Configurable and Parameterizable " +
+                                   "lifecycle interfaces.", true, false );
+    }
+
+    public void testVerifyClass()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyClass( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyService()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyService( ActionListener.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyImplementsServicesThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        final Class[] services = new Class[]{ActionListener.class};
+        verifier.verifyImplementsServices( IncompatibleLifecycles.class, services, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyImplementsServicesThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        final Class[] services = new Class[]{ActionListener.class};
+        verifier.verifyImplementsServices( Object.class, services, issues );
+        assertSingleIssue( issues, "The metadata declares that the class " +
+                                   "supports the service " +
+                                   ActionListener.class.getName() +
+                                   " but the class does not implement the " +
+                                   "service interface.", true, false );
     }
 
     private void assertNoIssues( final List issues )
