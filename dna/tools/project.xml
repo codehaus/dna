@@ -51,12 +51,14 @@
         </resources>
 
         <unitTest>
-            <resource>
-                <directory>${basedir}/src/test</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
+            <resources>
+                <resource>
+                    <directory>${basedir}/src/test</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                    </includes>
+                </resource>
+            </resources>
 
             <includes>
                 <include>**/*TestCase*</include>

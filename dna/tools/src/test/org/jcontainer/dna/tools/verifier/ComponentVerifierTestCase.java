@@ -13,16 +13,18 @@ import java.util.List;
 import java.util.Properties;
 import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
+import org.jcontainer.dna.Configuration;
 import org.realityforge.metaclass.introspector.MetaClassIntrospector;
 import org.realityforge.metaclass.model.Attribute;
 import org.realityforge.metaclass.model.ClassDescriptor;
 import org.realityforge.metaclass.model.FieldDescriptor;
 import org.realityforge.metaclass.model.MethodDescriptor;
+import org.realityforge.metaclass.model.ParameterDescriptor;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.6 $ $Date: 2003-10-26 06:27:40 $
+ * @version $Revision: 1.7 $ $Date: 2003-10-26 07:08:13 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -338,7 +340,7 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         verifier.verifyDependencyOptionalValid( "blah", issues );
         assertSingleIssue( issues,
-                           "The dna.dependency metadata tag specifies " +
+                           "The dna.dependency attribute specifies " +
                            "optional parameter as \"blah\" that is not one " +
                            "of true or false.",
                            true, false );
@@ -369,7 +371,7 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         verifier.verifyDependencyKeyConforms( "X", "blah", issues );
         assertSingleIssue( issues,
-                           "The dna.dependency metadata tag specifies the key " +
+                           "The dna.dependency attribute specifies the key " +
                            "blah which does not conform to recomendation of " +
                            "(type)[/(qualifier)].",
                            false, false );
@@ -417,7 +419,7 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         verifier.verifyOptionalParameter( null, issues );
         assertSingleIssue( issues,
-                           "The dna.dependency metadata tag does not " +
+                           "The dna.dependency attribute does not " +
                            "specify the parameter optional.",
                            true, false );
     }
@@ -448,7 +450,7 @@ public class ComponentVerifierTestCase
                                            new Attribute( "dna.dependency", parameters ),
                                            issues );
         assertSingleIssue( issues,
-                           "The dna.dependency metadata tag does not specify the parameter type.",
+                           "The dna.dependency attribute does not specify the parameter type.",
                            true, false );
     }
 
@@ -465,7 +467,7 @@ public class ComponentVerifierTestCase
                                            attribute,
                                            issues );
         assertSingleIssue( issues,
-                           "The dna.dependency metadata tag does not specify the parameter key.",
+                           "The dna.dependency attribute does not specify the parameter key.",
                            true, false );
     }
 
@@ -485,7 +487,7 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         MetaClassIntrospector.setAccessor( new SimpleAccessor() );
         MetaClassIntrospector.clearCompleteCache();
-        verifier.verifyDependencyMetaData( MyComposable.class, issues );
+        verifier.verifyDependencyMetaData( BasicComponent.class, issues );
         assertNoIssues( issues );
     }
 
@@ -496,8 +498,124 @@ public class ComponentVerifierTestCase
         final List issues = new ArrayList();
         MetaClassIntrospector.setAccessor( new AccessorWithDependencyMetaData() );
         MetaClassIntrospector.clearCompleteCache();
-        verifier.verifyDependencyMetaData( MyComposable.class, issues );
+        verifier.verifyDependencyMetaData( BasicComponent.class, issues );
         assertNoIssues( issues );
+    }
+
+    public void testVerifyConfigurationMetaDataThatPassesAsNotConfigurable()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new AccessorWithDependencyMetaData() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyConfigurationMetaData( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyConfigurationMetaDataThatPassesAsNoMetaData()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new SimpleAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyConfigurationMetaData( BasicComponent.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyConfigurationMetaDataThatPassesAsValidMetaData()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+
+        final Properties parameters = new Properties();
+        parameters.setProperty( "location", "BasicComponent-schema.xml" );
+        final Attribute[] attributes = new Attribute[]
+        {
+            new Attribute( "dna.configuration", parameters )
+        };
+        final ParameterDescriptor param =
+            new ParameterDescriptor( "X", Configuration.class.getName() );
+        final ParameterDescriptor[] params = new ParameterDescriptor[]{param};
+        final MethodDescriptor method =
+            new MethodDescriptor( "configure", "", 0, params, attributes );
+        final ClassDescriptor descriptor =
+            new ClassDescriptor( BasicComponent.class.getName(),
+                                 0,
+                                 Attribute.EMPTY_SET,
+                                 FieldDescriptor.EMPTY_SET,
+                                 new MethodDescriptor[]{method} );
+        final RegistrationMetaClassAccessor accessor = new RegistrationMetaClassAccessor();
+        accessor.registerDescriptor( descriptor );
+        MetaClassIntrospector.setAccessor( accessor );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyConfigurationMetaData( BasicComponent.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyConfigurationMetaDataThatNoPassesAsInvalidMetaData()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+
+        final Properties parameters = new Properties();
+        final Attribute[] attributes = new Attribute[]
+        {
+            new Attribute( "dna.configuration", parameters )
+        };
+        final ParameterDescriptor param =
+            new ParameterDescriptor( "X", Configuration.class.getName() );
+        final ParameterDescriptor[] params = new ParameterDescriptor[]{param};
+        final MethodDescriptor method =
+            new MethodDescriptor( "configure", "", 0, params, attributes );
+        final ClassDescriptor descriptor =
+            new ClassDescriptor( BasicComponent.class.getName(),
+                                 0,
+                                 Attribute.EMPTY_SET,
+                                 FieldDescriptor.EMPTY_SET,
+                                 new MethodDescriptor[]{method} );
+        final RegistrationMetaClassAccessor accessor = new RegistrationMetaClassAccessor();
+        accessor.registerDescriptor( descriptor );
+        MetaClassIntrospector.setAccessor( accessor );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyConfigurationMetaData( BasicComponent.class, issues );
+
+        assertSingleIssue( issues,
+                           "The dna.configuration attribute is missing the " +
+                           "location parameter.",
+                           true, false );
+    }
+
+    public void testverifyLocationThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new AccessorWithDependencyMetaData() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyLocation( BasicComponent.class,
+                                 "BasicComponent-schema.xml",
+                                 issues );
+        assertNoIssues( issues );
+    }
+
+    public void testverifyLocationThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new AccessorWithDependencyMetaData() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyLocation( BasicComponent.class,
+                                 "NoExist",
+                                 issues );
+        assertSingleIssue( issues,
+                           "Unable to load configuration schema from location " +
+                           "NoExist.",
+                           true, false );
     }
 
     private void assertNoIssues( final List issues )
