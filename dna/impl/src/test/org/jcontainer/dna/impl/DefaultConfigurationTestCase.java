@@ -2,6 +2,7 @@ package org.jcontainer.dna.impl;
 
 import junit.framework.TestCase;
 import org.jcontainer.dna.ConfigurationException;
+import org.jcontainer.dna.Configuration;
 
 public class DefaultConfigurationTestCase
    extends TestCase
@@ -84,7 +85,7 @@ public class DefaultConfigurationTestCase
       }
       catch ( final NullPointerException npe )
       {
-         assertEquals( "name", npe.getMessage() );
+         assertEquals( "key", npe.getMessage() );
          return;
       }
       fail( "Expected null pointer exception as passed in null to setAttribute." );
@@ -105,6 +106,91 @@ public class DefaultConfigurationTestCase
          return;
       }
       fail( "Expected null pointer exception as passed in null to setAttribute." );
+   }
+
+   public void testNullValueInSetValue()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.setValue( null );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "value", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to setValue." );
+   }
+
+   public void testNullChildinAddChild()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.addChild( null );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "configuration", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to addChild." );
+   }
+
+   public void testNullNameInGetAttribute()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.getAttribute( null );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to getAttribute." );
+   }
+
+   public void testNullNameInGetChild()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.getChild( null, false );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to getChild." );
+   }
+
+   public void testNullNameInGetChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.getChildren( null );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to getChildren." );
    }
 
    public void testGetValueAsText()
@@ -319,6 +405,7 @@ public class DefaultConfigurationTestCase
       final DefaultConfiguration configuration =
          new DefaultConfiguration( "myElement", "file.xml:20", "" );
       final String key = "key";
+      configuration.setAttribute( "AnotherKey", "someValue" );
       assertEquals( "getAttribute('key','defaultValue')",
                     "defaultValue",
                     configuration.getAttribute( key, "defaultValue" ) );
@@ -557,4 +644,206 @@ public class DefaultConfigurationTestCase
       final String[] names = configuration.getAttributeNames();
       assertEquals( "names.length", 2, names.length );
    }
+
+   public void testGetAttributesWithNoAttributesSet()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final String[] names = configuration.getAttributeNames();
+      assertEquals( "names.length", 0, names.length );
+   }
+
+   public void testGetChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "mychild", "file.xml:20", "/myElement" );
+
+      configuration.addChild( child );
+
+      final Configuration[] children = configuration.getChildren();
+      assertEquals( "children.length", 1, children.length );
+      assertEquals( "children[0]", child, children[ 0 ] );
+   }
+
+   public void testGetChildrenWithNoChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final Configuration[] children = configuration.getChildren();
+      assertEquals( "children.length", 0, children.length );
+   }
+
+   public void testGetChild()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "mychild", "file.xml:20", "/myElement" );
+      configuration.addChild( child );
+
+      final Configuration test = configuration.getChild( "mychild" );
+      assertEquals( child, test );
+   }
+
+   public void testGetNotExistentChildWithNoAutoCreateButOtherChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "meep", "file.xml:20", "/myElement" );
+      configuration.addChild( child );
+
+      final Configuration test = configuration.getChild( "mychild", false );
+      assertEquals( null, test );
+   }
+
+   public void testGetNotExistentChildWithNoAutoCreate()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final Configuration test = configuration.getChild( "mychild", false );
+      assertEquals( null, test );
+   }
+
+   public void testGetNotExistentChildWithAutoCreate()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final Configuration test = configuration.getChild( "mychild", true );
+      assertNotNull( test );
+      assertEquals( "mychild", test.getName() );
+   }
+
+   public void testGuardAgainstMixedContentWhenAddingValue()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "mychild", "file.xml:20", "/myElement" );
+      configuration.addChild( child );
+
+      try
+      {
+         configuration.setValue( "blah" );
+      }
+      catch ( IllegalStateException e )
+      {
+         return;
+      }
+      fail( "Expected to fail setting mixed content for configuration" );
+   }
+
+   public void testGuardAgainstMixedContentWhenAddingChild()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "mychild", "file.xml:20", "/myElement" );
+      configuration.setValue( "blah" );
+
+      try
+      {
+         configuration.addChild( child );
+      }
+      catch ( IllegalStateException e )
+      {
+         return;
+      }
+      fail( "Expected to fail setting mixed content for configuration" );
+   }
+
+   public void testGetChildrenWithName()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final DefaultConfiguration child1 =
+         new DefaultConfiguration( "mychild", "file.xml:20", "/myElement" );
+      final DefaultConfiguration child2 =
+         new DefaultConfiguration( "blah", "file.xml:20", "/myElement" );
+      final DefaultConfiguration child3 =
+         new DefaultConfiguration( "myOtherChild", "file.xml:20", "/myElement" );
+
+      configuration.addChild( child1 );
+      configuration.addChild( child2 );
+      configuration.addChild( child3 );
+
+      final Configuration[] children = configuration.getChildren( "mychild" );
+      assertEquals( "children.length", 1, children.length );
+   }
+
+   public void testGetChildrenWithNameAndNoExistingChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final Configuration[] children =
+         configuration.getChildren( "mychild" );
+      assertEquals( "children.length", 0, children.length );
+   }
+
+   public void testAutogeneratePath()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final Configuration child = configuration.getChild( "test" ).getChild( "blah" );
+      assertEquals( "child.path", "/myElement/test", child.getPath() );
+      assertTrue( "child.location", child.getLocation().endsWith( "<autogen>" ) );
+   }
+
+   public void testMakeReadOnlyWithNoChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      configuration.makeReadOnly();
+      assertTrue( "configuration.isReadOnly()", configuration.isReadOnly() );
+   }
+
+   public void testMakeReadOnlyWithChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final DefaultConfiguration child =
+         new DefaultConfiguration( "child", "file.xml:20", "/myElement" );
+      configuration.addChild( child );
+
+      configuration.makeReadOnly();
+      assertTrue( "configuration.isReadOnly()", configuration.isReadOnly() );
+      assertTrue( "child.isReadOnly()", child.isReadOnly() );
+   }
+
+   public void testMakeReadOnlyWithNonFreezableChildren()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      configuration.addChild( new MockConfiguration() );
+
+      configuration.makeReadOnly();
+      assertTrue( "configuration.isReadOnly()", configuration.isReadOnly() );
+   }
+
 }
