@@ -1,20 +1,10 @@
 <?xml version="1.0"?>
-<project default="main"
-    xmlns:doc="doc"
+<project default="build"
     xmlns:j="jelly:core"
     xmlns:maven="jelly:maven"
-    xmlns:define="jelly:define"
-    xmlns:util="jelly:util"
     xmlns:ant="jelly:ant">
 
-    <goal name="main">
-        <attainGoal name="build"/>
-    </goal>
-
-    <goal name="build">
-    	<attainGoal name="release:build-distribution-bin"/>
-    	<attainGoal name="release:build-distribution-src"/>
-    </goal>
+    <goal name="build" prereqs="release:build-distribution-bin,release:build-distribution-src"/>
 
     <preGoal name="release:setup-distribution-bin">
         <maven:maven
@@ -58,14 +48,6 @@
         </ant:copy>
     </postGoal>
 
-    <goal name="deploy">
-    	<attainGoal name="release:deploy-distribution-bin"/>
-    	<attainGoal name="release:deploy-distribution-src"/>
-    </goal>
-
-    <goal name="clean">
-    	<attainGoal name="clean:clean"/>
-    </goal>
-
+    <goal name="deploy" prereqs="release:deploy-distribution-bin,release:deploy-distribution-src"/>
 
 </project>
