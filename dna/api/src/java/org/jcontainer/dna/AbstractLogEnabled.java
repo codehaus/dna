@@ -1,9 +1,9 @@
 /*
- * Copyright (c) The JContainer Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the
- * JContainer Software License version 1.1, a copy of which has
- * been included with this distribution in the LICENSE.txt file.
+ * This software is published under the terms of the JContainer
+ * Software License version 1.1, a copy of which has been included
+ * with this distribution in the LICENSE.txt file.
  */
 package org.jcontainer.dna;
 
@@ -11,7 +11,7 @@ package org.jcontainer.dna;
  * Abstract utility class that components can extend to
  * make it easy to implement logging.
  *
- * @version $Revision: 1.6 $ $Date: 2003-09-23 09:21:17 $
+ * @version $Revision: 1.7 $ $Date: 2003-09-23 09:29:21 $
  */
 public abstract class AbstractLogEnabled
     implements LogEnabled
