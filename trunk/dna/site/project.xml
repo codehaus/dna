@@ -38,12 +38,12 @@
 
     <build>
         <!-- Only used if aggregating components by source -->
-        <sourceDirectory>target/aggregate-src/java</sourceDirectory>
-        <unitTestSourceDirectory>target/aggregate-src/test</unitTestSourceDirectory>
+        <sourceDirectory>${basedir}/target/aggregate-src/java</sourceDirectory>
+        <unitTestSourceDirectory>${basedir}/target/aggregate-src/test</unitTestSourceDirectory>
 
         <unitTest>
             <resource>
-                <directory>target/aggregate-src/test</directory>
+                <directory>${basedir}/target/aggregate-src/test</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
