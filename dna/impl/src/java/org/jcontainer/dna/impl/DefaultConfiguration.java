@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.11 $ $Date: 2003-09-02 03:42:55 $
+ * @version $Revision: 1.12 $ $Date: 2003-09-02 03:48:00 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -57,6 +57,11 @@ public class DefaultConfiguration
     public String getName()
     {
         return m_name;
+    }
+
+    public final String getPath()
+    {
+        return m_path;
     }
 
     public String getLocation()
@@ -490,11 +495,6 @@ public class DefaultConfiguration
                 "Configuration is read only and can not be modified.";
             throw new IllegalStateException( message );
         }
-    }
-
-    protected final String getPath()
-    {
-        return m_path;
     }
 
     protected final String generateLocation()
