@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project default="main"
+    xmlns:maven="jelly:maven"
+    xmlns:ant="jelly:ant">
+
+    <goal name="main">
+        <attainGoal name="build"/>
+    </goal>
+    
+    <goal name="build">
+        <attainGoal name="site:generate"/>    	
+    </goal>
+
+    <goal name="deploy">
+        <attainGoal name="site:deploy"/>    	
+    </goal>
+
+    <postGoal name="xdoc">
+	    <attainGoal name="aggregate-component-sites"/>
+    </postGoal>
+
+   <!-- Build all components sites and aggregate them under site docs -->
+    <goal name="aggregate-component-sites">
+        <echo message="Aggregate all components sites"/>
+        <maven:reactor
+            basedir="../"
+            includes="api/project.xml,impl/project.xml"
+            excludes="distribution/*"
+            goals="site:generate"
+            banner="Generate site"
+            ignoreFailures="false" />
+        <!-- Copy to site target - Could be done cleaner
+             but for the moment it gets the job done -->
+        <ant:copy todir="target/docs/api">
+            <ant:fileset dir="../api/target/docs"/>
+        </ant:copy>
+        <ant:copy todir="target/docs/impl">
+            <ant:fileset dir="../impl/target/docs"/>
+        </ant:copy>
+    </goal>
+
+
+</project>

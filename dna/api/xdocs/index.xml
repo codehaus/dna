@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+  <properties>
+    <title>DNA API</title>
+  </properties>
+  
+  
+  <body>
+    <section name="DNA API">
+      <p>
+        The DNA API is a set of interfaces or abstract classes that 
+        define the framework.
+	  </p>
+    </section>
+    
+  </body>
+</document>
