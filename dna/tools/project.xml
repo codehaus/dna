@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project>
-	<extend>${basedir}/../project.xml</extend>
+    <extend>${basedir}/../project.xml</extend>
     <name>DNA Tools</name>
     <id>dna-tools</id>
     <package>org.jcontainer.dna.tools</package>
@@ -12,13 +12,17 @@
     </description>
 
     <dependencies>
+        <dependency> <!-- this dependency should be removed -->
+            <groupId>spice</groupId>
+            <artifactId>spice-salt</artifactId>
+            <version>0.8dev</version>
+        </dependency>
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
-
 
     <build>
         <sourceDirectory>src/java</sourceDirectory>
