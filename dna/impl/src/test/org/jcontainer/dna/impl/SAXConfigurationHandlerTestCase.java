@@ -156,6 +156,23 @@ public class SAXConfigurationHandlerTestCase
         assertEquals( "configuration.value", value, configuration.getValue() );
     }
 
+    public void testCreateConfigurationWithValueThatIsIntercepted()
+        throws Exception
+    {
+        final SAXConfigurationHandler handler = new MockSAXConfigurationHandler();
+        final String qName = "myElement";
+        final String value = "value";
+        handler.startElement( "", "", qName, new AttributesImpl() );
+        handler.characters( value.toCharArray(), 0, value.length() );
+        handler.endElement( "", "", qName );
+        final Configuration configuration = handler.getConfiguration();
+        assertEquals( "configuration.name", qName, configuration.getName() );
+        assertEquals( "configuration.location", "", configuration.getLocation() );
+        assertEquals( "configuration.path", "", configuration.getPath() );
+        assertEquals( "configuration.value", MockSAXConfigurationHandler.REPLACEMENT,
+                      configuration.getValue() );
+    }
+
     public void testCreateConfigurationWithValueInMultipleFragments()
         throws Exception
     {
@@ -317,5 +334,26 @@ public class SAXConfigurationHandlerTestCase
         assertEquals( "names[0]", "key", names[ 0 ] );
         assertEquals( "configuration.getAttribute( names[ 0 ] )",
                       "value", configuration.getAttribute( names[ 0 ] ) );
+    }
+
+    public void testCreateConfigurationWithAttributesWithInterception()
+        throws Exception
+    {
+        final SAXConfigurationHandler handler = new MockSAXConfigurationHandler();
+        final String qName = "myElement";
+        final AttributesImpl attributes = new AttributesImpl();
+        attributes.addAttribute( "", "", "key", "CDATA", "value" );
+        handler.startElement( "", "", qName, attributes );
+        handler.endElement( "", "", qName );
+        final Configuration configuration = handler.getConfiguration();
+        assertEquals( "configuration.name", qName, configuration.getName() );
+        assertEquals( "configuration.location", "", configuration.getLocation() );
+        assertEquals( "configuration.path", "", configuration.getPath() );
+        final String[] names = configuration.getAttributeNames();
+        assertEquals( "names.length", 1, names.length );
+        assertEquals( "names[0]", "key", names[ 0 ] );
+        assertEquals( "configuration.getAttribute( names[ 0 ] )",
+                      MockSAXConfigurationHandler.REPLACEMENT,
+                      configuration.getAttribute( names[ 0 ] ) );
     }
 }
