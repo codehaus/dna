@@ -3,7 +3,7 @@
 <document>
     <properties>
         <title>MetaData Model</title>
-        <author email="peter at apache.org">Peter Donald</author>
+        <author>Peter Donald</author>
     </properties>
     <body>
         <section name="MetaData Model">
@@ -56,7 +56,8 @@
                 a particular container extension. A component could declare
                 that the component requires, supports or is incompatible with
                 the container extension. For further details on extensions see
-                the <a href="extensions.html">extensions</a> document.
+                the
+                <a href="extensions.html">extensions</a> document.
             </p>
         </section>
         <section name="Model Elements">
@@ -81,7 +82,8 @@
             </p>
             <subsection name="dna.component">
                 <p>
-                    The <code>dna.component</code> tag is specified in the class
+                    The
+                    <code>dna.component</code> tag is specified in the class
                     JavaDocs and simply declares that the class is a DNA
                     component. It must be present for tools and runtimes to
                     automatically recognize the component.
@@ -103,9 +105,11 @@ public class MyComponent
             </subsection>
             <subsection name="dna.service">
                 <p>
-                    The <code>dna.service</code> tag declares the services the
+                    The
+                    <code>dna.service</code> tag declares the services the
                     component is capable of providing to other components.
-                    The <code>dna.service</code> tag is specified as part of the
+                    The
+                    <code>dna.service</code> tag is specified as part of the
                     class JavaDocs and has the following parameters.
                 </p>
                 <table>
@@ -147,7 +151,8 @@ public class MyComponent
             </subsection>
             <subsection name="dna.extension">
                 <p>
-                    The <code>dna.extension</code> tag declares the components
+                    The
+                    <code>dna.extension</code> tag declares the components
                     relationship to a container extension. The
                     <code>dna.extension</code> tag is specified as part of the
                     class JavaDocs and has the following parameters.
@@ -194,7 +199,8 @@ public class MyComponent
             </subsection>
             <subsection name="dna.logger">
                 <p>
-                    The <code>dna.logger</code> tag declares the names of the
+                    The
+                    <code>dna.logger</code> tag declares the names of the
                     loggers that the component will use. The
                     <code>dna.logger</code> tag is specified as part of the
                     <a href="../apidocs/org/jcontainer/dna/LogEnabled.html#enableLogging(org.jcontainer.dna.Logger)">
@@ -234,9 +240,11 @@ public void enableLogging( Logger logger )
             </subsection>
             <subsection name="dna.configuration">
                 <p>
-                    The <code>dna.configuration</code> tag declares the schema
+                    The
+                    <code>dna.configuration</code> tag declares the schema
                     that can be used to validate the configuration for the
-                    component. The <code>dna.configuration</code> tag is
+                    component. The
+                    <code>dna.configuration</code> tag is
                     specified as part of the
                     <a href="../apidocs/org/jcontainer/dna/Configurable.html#configure(org.jcontainer.dna.Configuration)">
                         Configurable.configure(Configuration)</a> method JavaDocs
@@ -286,9 +294,11 @@ public void configure( Configuration config )
             </subsection>
             <subsection name="dna.dependency">
                 <p>
-                    The <code>dna.dependency</code> tag declares the services
+                    The
+                    <code>dna.dependency</code> tag declares the services
                     that the component should be able to access from the
-                    ResourceLocator. The <code>dna.dependency</code> tag is
+                    ResourceLocator. The
+                    <code>dna.dependency</code> tag is
                     specified as part of the
                     <a href="../apidocs/org/jcontainer/dna/Composable.html#compose(org.jcontainer.dna.ResourceLocator)">
                         Composable.compose(ResourceLocator)</a> method JavaDocs
