@@ -9,14 +9,21 @@ package org.jcontainer.dna.impl;
 
 import org.jcontainer.dna.Logger;
 import org.apache.log4j.Priority;
+import org.apache.log4j.Level;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-27 02:07:47 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-27 02:10:01 $
  */
 public class Log4jLogger
     implements Logger
 {
+    /**
+     * Constant for name of class to use when recording caller
+     * of log method.
+     */
+    private static final String FQCN = Log4jLogger.class.getName();
+
     private final org.apache.log4j.Logger m_logger;
 
     public Log4jLogger( final org.apache.log4j.Logger logger )
@@ -30,13 +37,13 @@ public class Log4jLogger
 
     public void trace( final String message )
     {
-        m_logger.debug( message );
+        m_logger.log( FQCN, Level.DEBUG, message, null );
     }
 
     public void trace( final String message,
                        final Throwable throwable )
     {
-        m_logger.debug( message, throwable );
+        m_logger.log( FQCN, Level.DEBUG, message, throwable );
     }
 
     public boolean isTraceEnabled()
@@ -46,13 +53,13 @@ public class Log4jLogger
 
     public void debug( final String message )
     {
-        m_logger.debug( message );
+        m_logger.log( FQCN, Level.DEBUG, message, null );
     }
 
     public void debug( final String message,
                        final Throwable throwable )
     {
-        m_logger.debug( message, throwable );
+        m_logger.log( FQCN, Level.DEBUG, message, throwable );
     }
 
     public boolean isDebugEnabled()
@@ -62,13 +69,13 @@ public class Log4jLogger
 
     public void info( final String message )
     {
-        m_logger.info( message );
+        m_logger.log( FQCN, Level.INFO, message, null );
     }
 
     public void info( final String message,
                       final Throwable throwable )
     {
-        m_logger.info( message, throwable );
+        m_logger.log( FQCN, Level.INFO, message, throwable );
     }
 
     public boolean isInfoEnabled()
@@ -78,13 +85,13 @@ public class Log4jLogger
 
     public void warn( final String message )
     {
-        m_logger.warn( message );
+        m_logger.log( FQCN, Level.WARN, message, null );
     }
 
     public void warn( final String message,
                       final Throwable throwable )
     {
-        m_logger.warn( message, throwable );
+        m_logger.log( FQCN, Level.WARN, message, throwable );
     }
 
     public boolean isWarnEnabled()
@@ -94,13 +101,13 @@ public class Log4jLogger
 
     public void error( final String message )
     {
-        m_logger.error( message );
+        m_logger.log( FQCN, Level.ERROR, message, null );
     }
 
     public void error( final String message,
                        final Throwable throwable )
     {
-        m_logger.error( message, throwable );
+        m_logger.log( FQCN, Level.ERROR, message, throwable );
     }
 
     public boolean isErrorEnabled()
