@@ -21,7 +21,7 @@ import org.realityforge.metaclass.tools.qdox.QDoxAttributeInterceptor;
  * types in type-based attributes.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-16 07:57:14 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-16 08:53:00 $
  */
 public class DNAAttributeInterceptor
     extends DefaultQDoxAttributeInterceptor
@@ -180,6 +180,14 @@ public class DNAAttributeInterceptor
     String resolveType( final JavaClass javaClass,
                         final String type )
     {
-        return javaClass.getParentSource().resolveType( type );
+        String baseType = type;
+        String postFix = "";
+        if( type.endsWith( "[]" ) || type.endsWith( "{}" ) )
+        {
+            final int index = type.length() - 2;
+            baseType = type.substring( 0, index );
+            postFix = type.substring( index );
+        }
+        return javaClass.getParentSource().resolveType( baseType ) + postFix;
     }
 }
