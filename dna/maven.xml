@@ -1,40 +1,41 @@
-<project default="main"
-    xmlns:maven="jelly:maven">
+<project default="build:components" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
 
-    <goal name="main">
-        <attainGoal name="build"/>
+    <goal name="dna:build" prereqs="build:components,build:distribution,build:site"/>
+
+    <goal name="build:components">
+        <echo message="Build components"/>
+        <maven:reactor basedir="${basedir}" includes="*/project.xml" excludes="distribution/project.xml,site/project.xml" goals="clean:clean,build" banner="Building" ignoreFailures="false"/>
     </goal>
 
-    <goal name="clean-all">
-        <echo message="Cleaning all components"/>
-        <maven:reactor
-            basedir="${basedir}"
-            includes="*/project.xml"
-            excludes="distribution/project.xml,site/project.xml"
-            goals="clean"
-            banner="Cleaning"
-            ignoreFailures="false"/>
+    <goal name="build:distribution">
+        <echo message="Build distribution"/>
+        <maven:reactor basedir="${basedir}" includes="distribution/project.xml" goals="clean:clean,build" banner="Building" ignoreFailures="false"/>
     </goal>
 
-    <goal name="build">
-        <echo message="Building all components"/>
-        <maven:reactor
-            basedir="${basedir}"
-            includes="*/project.xml"
-            excludes="distribution/project.xml,site/project.xml"
-            goals="clean,build"
-            banner="Building"
-            ignoreFailures="false" />
+    <goal name="build:site">
+        <echo message="Build site"/>
+        <maven:reactor basedir="${basedir}" includes="site/project.xml" goals="clean:clean,build" banner="Building" ignoreFailures="false"/>
     </goal>
 
-    <goal name="deploy">
+    <goal name="dna:deploy" prereqs="deploy:components,deploy:distribution,deploy:site"/>
+
+    <goal name="deploy:components">
         <echo message="Deploying all components"/>
-        <maven:reactor
-            basedir="${basedir}"
-            includes="*/project.xml"
-            goals="clean,deploy"
-            banner="Deploying"
-            ignoreFailures="false" />
+        <maven:reactor basedir="${basedir}" includes="*/project.xml" excludes="distribution/project.xml,site/project.xml" goals="clean:clean,deploy" banner="Deploying" ignoreFailures="false"/>
+    </goal>
+
+    <goal name="deploy:distribution">
+        <echo message="Deploying distribution"/>
+        <maven:reactor basedir="${basedir}" includes="distribution/project.xml" goals="clean:clean,deploy" banner="Deploying" ignoreFailures="false"/>
+    </goal>
+
+    <goal name="deploy:site">
+        <echo message="Deploying site"/>
+        <maven:reactor basedir="${basedir}" includes="site/project.xml" goals="clean:clean,deploy" banner="Deploying" ignoreFailures="false"/>
+    </goal>
+
+     <goal name="dna:clean">
+        <maven:reactor basedir="${basedir}" includes="*/project.xml" goals="clean:clean" banner="Building" ignoreFailures="false"/>
     </goal>
 
 </project>
