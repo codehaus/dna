@@ -12,11 +12,6 @@
     </description>
 
     <dependencies>
-        <dependency> <!-- this dependency should be removed -->
-            <groupId>spice</groupId>
-            <artifactId>spice-salt</artifactId>
-            <version>0.8dev</version>
-        </dependency>
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
