@@ -17,10 +17,10 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.2 $ $Date: 2003-07-26 03:57:12 $
+ * @version $Revision: 1.3 $ $Date: 2003-07-27 02:04:07 $
  */
 public class DefaultConfiguration
-    implements Configuration
+    implements Configuration, Freezable
 {
     private static final String TRUE_STRING = "true";
 
@@ -419,6 +419,15 @@ public class DefaultConfiguration
     public void makeReadOnly()
     {
         m_readOnly = true;
+        final int count = m_children.size();
+        for( int i = 0; i < count; i++ )
+        {
+            final Configuration configuration = (Configuration)m_children.get( i );
+            if( configuration instanceof Freezable )
+            {
+                ( (Freezable)configuration ).makeReadOnly();
+            }
+        }
     }
 
     public void setAttribute( final String key, final String value )
