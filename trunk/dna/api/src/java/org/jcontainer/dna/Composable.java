@@ -8,11 +8,24 @@
 package org.jcontainer.dna;
 
 /**
+ * The component implements this interface if it wishes
+ * to be supplied with services via ResourceLocator.
+ * The ResourceLocator contains the services that this
+ * component depend upon under keys specified in the
+ * components metadata.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 04:44:55 $
  */
 public interface Composable
 {
-    void compose( ResourceLocator locator )
-        throws MissingResourceException;
+   /**
+    * Supply the component with ResourceLocator object
+    * via which they can access any dependency services.
+    *
+    * @param locator the ResourceLocator
+    * @throws MissingResourceException if the ResourceLocator does not
+    *         contain all the required services
+    */
+   void compose( ResourceLocator locator )
+      throws MissingResourceException;
 }
