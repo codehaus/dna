@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <name>DNA API</name>
+    <id>dna-api</id>
+    <package>org.jcontainer.dna</package>
+
+    <shortDescription>The API for the DNA framework.</shortDescription>
+
+    <description>
+        The DNA API is a set of interfaces or abstract classes that
+        define the framework.
+    </description>
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+        <unitTest>
+            <resource>
+                <directory>${basedir}/src/test</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <includes>
+                <include>**/*TestCase*</include>
+            </includes>
+            <excludes>
+                <exclude>**/Abstract*</exclude>
+            </excludes>
+        </unitTest>
+    </build>
+
+</project>
