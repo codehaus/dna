@@ -17,7 +17,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * to a SAX2 compliant ContentHandler.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.5 $ $Date: 2003-09-23 08:10:14 $
+ * @version $Revision: 1.6 $ $Date: 2003-09-23 09:51:47 $
  */
 public class SAXConfigurationSerializer
 {
@@ -112,7 +112,8 @@ public class SAXConfigurationSerializer
       {
          final String name = names[ i ];
          final String value = configuration.getAttribute( name, "" );
-         attributes.addAttribute( EMPTY_NAMESPACE, name, name, CDATA_TYPE, value );
+         attributes.addAttribute( EMPTY_NAMESPACE, name, name,
+                                  CDATA_TYPE, value );
       }
       return attributes;
    }
