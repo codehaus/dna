@@ -16,10 +16,10 @@
     <package>org.jcontainer.dna</package>
     <url>http://dna.jcontainer.org/</url>
     <distributionDirectory>/www/dist.codehaus.org/jcontainer/maven/${groupId}</distributionDirectory>
-    <distributionSite>codehaus.org</distributionSite>   
-    
+    <distributionSite>codehaus.org</distributionSite>
+
     <repository>
-        <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer</connection>    
+        <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer/dna</connection>
         <url>http://jcontainer.cvs.codehaus.org/</url>
     </repository>
 </project>
