@@ -36,6 +36,14 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>avalon</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>1.2</version>
+            <properties>
+                <category>shared</category>
+            </properties>
+        </dependency>
+        <dependency>
             <id>log4j</id>
             <version>1.2.8</version>
             <properties>
@@ -43,12 +51,10 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>avalon</groupId>
-            <artifactId>avalon-logkit</artifactId>
-            <version>1.2</version>
-            <properties>
-                <category>shared</category>
-            </properties>
+            <groupId>maven</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>1.2-dev</version>
+            <type>plugin</type>
         </dependency>
         <dependency>
             <groupId>spice</groupId>
