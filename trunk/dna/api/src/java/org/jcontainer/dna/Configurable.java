@@ -8,11 +8,22 @@
 package org.jcontainer.dna;
 
 /**
+ * The component implements this interface if it wishes
+ * to be supplied with hierarchial configuration data.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 04:57:57 $
  */
 public interface Configurable
 {
+   /**
+    * Supply the component with configuration data in form
+    * of a Configuration object.
+    *
+    * @param configuration the Configuration object
+    * @throws ConfigurationException if the configuration data
+    *         specifies invalid configuration data or fails to
+    *         match the expected schema.
+    */
     void configure( Configuration configuration )
         throws ConfigurationException;
 }
