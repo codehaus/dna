@@ -11,7 +11,7 @@
  * Abstract utility class for resources that can be "frozen"
  * and made read-only after being constructed.
  *
- * @version $Revision: 1.3 $ $Date: 2003-09-23 08:10:14 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-23 10:02:53 $
  */
 abstract class AbstractFreezable
    implements Freezable
@@ -35,7 +35,7 @@ abstract class AbstractFreezable
     * and thus is read only. If read-only then
     * throw an IllegalStateException.
     *
-    * @throws java.lang.IllegalStateException if resource is read-only
+    * @throws IllegalStateException if resource is read-only
     */
    protected final void checkWriteable()
       throws IllegalStateException
