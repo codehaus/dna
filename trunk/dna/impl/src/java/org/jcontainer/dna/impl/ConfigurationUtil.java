@@ -23,7 +23,7 @@ import org.xml.sax.InputSource;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-28 08:21:19 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-28 08:22:32 $
  */
 public class ConfigurationUtil
 {
@@ -41,7 +41,7 @@ public class ConfigurationUtil
     public static Configuration toConfiguration( final Element element )
     {
         final DefaultConfiguration configuration =
-            new DefaultConfiguration( element.getNodeName(), "dom-created" );
+            new DefaultConfiguration( element.getNodeName(), "dom-gen" );
         final NamedNodeMap attributes = element.getAttributes();
         final int length = attributes.getLength();
         for( int i = 0; i < length; i++ )
@@ -78,7 +78,7 @@ public class ConfigurationUtil
         return configuration;
     }
 
-    public static Element toElement( final org.apache.avalon.framework.configuration.Configuration configuration )
+    public static Element toElement( final Configuration configuration )
     {
         try
         {
@@ -95,7 +95,7 @@ public class ConfigurationUtil
     }
 
     private static Element createElement( final Document document,
-                                          final org.apache.avalon.framework.configuration.Configuration configuration )
+                                          final Configuration configuration )
     {
         final Element element = document.createElement( configuration.getName() );
 
@@ -113,7 +113,7 @@ public class ConfigurationUtil
             final String value = configuration.getAttribute( name, null );
             element.setAttribute( name, value );
         }
-        final org.apache.avalon.framework.configuration.Configuration[] children = configuration.getChildren();
+        final Configuration[] children = configuration.getChildren();
         for( int i = 0; i < children.length; i++ )
         {
             final Element child = createElement( document, children[ i ] );
