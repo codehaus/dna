@@ -3,6 +3,8 @@ package org.jcontainer.dna.impl;
 import junit.framework.TestCase;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
+import org.jcontainer.dna.Configuration;
 
 public class SAXConfigurationHandlerTestCase
    extends TestCase
@@ -116,5 +118,151 @@ public class SAXConfigurationHandlerTestCase
          return;
       }
       fail( "Expected exception to be thrown" );
+   }
+
+   public void testCreateSimpleConfiguration()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.endElement( "", "", qName );
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+   }
+
+   public void testCreateConfigurationWithValue()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String value = "value";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.characters( value.toCharArray(), 0, value.length() );
+      handler.endElement( "", "", qName );
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      assertEquals( "configuration.value", value, configuration.getValue() );
+   }
+
+   public void testCreateConfigurationWithValueInMultipleFragments()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String value = "value";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.characters( value.toCharArray(), 0, value.length() );
+      handler.characters( value.toCharArray(), 0, value.length() );
+      handler.endElement( "", "", qName );
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      assertEquals( "configuration.value",
+                    value + value,
+                    configuration.getValue() );
+   }
+
+   public void testCreateConfigurationWithChildElement()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String childName = "myChild";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.startElement( "", "", childName, new AttributesImpl() );
+      handler.endElement( "", "", childName );
+      handler.endElement( "", "", qName );
+
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      final Configuration[] children = configuration.getChildren();
+      assertEquals( "children.length", 1, children.length );
+      assertEquals( "children[ 0 ].name", childName, children[ 0 ].getName() );
+      assertEquals( "children[ 0 ].location", "", children[ 0 ].getLocation() );
+      assertEquals( "children[ 0 ].path", qName, children[ 0 ].getPath() );
+   }
+
+   public void testCreateConfigurationWithDeepChildElements()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String childName = "myChild";
+      final String grandChildName = "myGrandChild";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.startElement( "", "", childName, new AttributesImpl() );
+      handler.startElement( "", "", grandChildName, new AttributesImpl() );
+      handler.endElement( "", "", grandChildName );
+      handler.endElement( "", "", childName );
+      handler.endElement( "", "", qName );
+
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      final Configuration[] children = configuration.getChildren();
+      assertEquals( "children.length", 1, children.length );
+      assertEquals( "children[ 0 ].name", childName, children[ 0 ].getName() );
+      assertEquals( "children[ 0 ].location", "", children[ 0 ].getLocation() );
+      assertEquals( "children[ 0 ].path", qName, children[ 0 ].getPath() );
+      final Configuration[] grandChildren = children[ 0 ].getChildren();
+      assertEquals( "grandChildren.length", 1, grandChildren.length );
+      assertEquals( "grandChildren[ 0 ].name", grandChildName, grandChildren[ 0 ].getName() );
+      assertEquals( "grandChildren[ 0 ].location", "", grandChildren[ 0 ].getLocation() );
+      assertEquals( "grandChildren[ 0 ].path", "myElement/myChild", grandChildren[ 0 ].getPath() );
+   }
+
+   public void testCreateConfigurationWithMixedContent()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String childName = "myChild";
+      final String value = "value";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.characters( value.toCharArray(), 0, value.length() );
+      handler.startElement( "", "", childName, new AttributesImpl() );
+      handler.endElement( "", "", childName );
+      try
+      {
+         handler.endElement( "", "", qName );
+      }
+      catch ( SAXException e )
+      {
+         return;
+      }
+      fail( "Expected to fail handling sax events as mixed content" );
+   }
+
+   public void testClearHandler()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      //TODO: This is a really bad unit test - should test internal state
+      handler.clear();
+   }
+
+   public void testCreateConfigurationContainingEmptySeparator()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final String value = "   \n   \t";
+      handler.startElement( "", "", qName, new AttributesImpl() );
+      handler.characters( value.toCharArray(), 0, value.length() );
+      handler.endElement( "", "", qName );
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      assertEquals( "configuration.value", null, configuration.getValue( null ) );
    }
 }
