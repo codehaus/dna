@@ -23,7 +23,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.15 $ $Date: 2003-09-08 01:36:44 $
+ * @version $Revision: 1.16 $ $Date: 2003-09-09 01:10:18 $
  */
 public class DefaultConfiguration
    extends AbstractFreezable
@@ -841,6 +841,26 @@ public class DefaultConfiguration
          throwMixedContentException();
       }
       m_value = value;
+   }
+
+   /**
+    * Overide toString to improve ability to debug implementation.
+    *
+    * @return string representation of object
+    */
+   public String toString()
+   {
+      final StringBuffer sb = new StringBuffer();
+      sb.append( "[Configuration name='" );
+      sb.append( getName() );
+      sb.append( "'" );
+      if ( null != m_attributes )
+      {
+         sb.append( " attributes=" );
+         sb.append( m_attributes );
+      }
+      sb.append( "]" );
+      return sb.toString();
    }
 
    /**
