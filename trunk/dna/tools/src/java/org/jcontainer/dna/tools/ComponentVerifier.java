@@ -9,7 +9,6 @@ package org.jcontainer.dna.tools;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-import org.jcontainer.dna.AbstractLogEnabled;
 import org.jcontainer.dna.Active;
 import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
@@ -23,10 +22,9 @@ import org.realityforge.salt.i18n.Resources;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-16 05:54:28 $
+ * @version $Revision: 1.3 $ $Date: 2003-10-16 06:34:00 $
  */
 public class ComponentVerifier
-    extends AbstractLogEnabled
 {
     /**
      * I18n utils.
@@ -208,7 +206,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.incompat-config.error",
                             name,
                             implementation.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -232,7 +229,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.non-interface-service.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -258,7 +254,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.non-public-service.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -286,7 +281,6 @@ public class ComponentVerifier
                                 name,
                                 clazz.getName(),
                                 lifecycle.getName() );
-                getLogger().error( message );
                 throw new VerifyException( message );
             }
         }
@@ -314,7 +308,6 @@ public class ComponentVerifier
                     REZ.format( "verifier.non-public-ctor.error",
                                 name,
                                 clazz.getName() );
-                getLogger().error( message );
                 throw new VerifyException( message );
             }
         }
@@ -324,7 +317,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.missing-noargs-ctor.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -350,7 +342,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.abstract-class.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -376,7 +367,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.nonpublic-class.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -400,7 +390,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.primitive-class.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -424,7 +413,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.interface-class.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
@@ -448,7 +436,6 @@ public class ComponentVerifier
                 REZ.format( "verifier.array-class.error",
                             name,
                             clazz.getName() );
-            getLogger().error( message );
             throw new VerifyException( message );
         }
     }
