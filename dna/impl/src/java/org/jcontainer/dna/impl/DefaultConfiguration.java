@@ -17,10 +17,11 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.12 $ $Date: 2003-09-02 03:48:00 $
+ * @version $Revision: 1.13 $ $Date: 2003-09-08 00:12:36 $
  */
 public class DefaultConfiguration
-    implements Configuration, Freezable
+    extends AbstractFreezable
+    implements Configuration
 {
     private static final String AUTOGEN_POSTFIX = "<autogen>";
     private static final String TRUE_STRING = "true";
@@ -31,7 +32,6 @@ public class DefaultConfiguration
     private final Map m_attributes = new HashMap();
     private final List m_children = new ArrayList();
     private String m_value;
-    private boolean m_readOnly;
 
     public DefaultConfiguration( final String name,
                                  final String location,
@@ -433,7 +433,7 @@ public class DefaultConfiguration
 
     public void makeReadOnly()
     {
-        m_readOnly = true;
+        super.makeReadOnly();
         final int count = m_children.size();
         for( int i = 0; i < count; i++ )
         {
@@ -479,22 +479,6 @@ public class DefaultConfiguration
     protected final Map getAttributeMap()
     {
         return m_attributes;
-    }
-
-    protected final boolean isReadOnly()
-    {
-        return m_readOnly;
-    }
-
-    protected final void checkWriteable()
-        throws IllegalStateException
-    {
-        if( m_readOnly )
-        {
-            final String message =
-                "Configuration is read only and can not be modified.";
-            throw new IllegalStateException( message );
-        }
     }
 
     protected final String generateLocation()
