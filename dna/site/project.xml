@@ -130,8 +130,6 @@
             </includes>
             <excludes>
                 <exclude>**/Abstract*</exclude>
-                <exclude>**/ConsoleLoggerTestCase*</exclude>
-                <exclude>**/ConfigurationUtilTestCase*</exclude>
             </excludes>
         </unitTest>
         <nagEmailAddress>jcontainer-interest@lists.codehaus.org</nagEmailAddress>
