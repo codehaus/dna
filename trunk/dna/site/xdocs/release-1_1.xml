@@ -31,6 +31,12 @@
                     code did not expect this behaviour but has since been fixed
                     and unit test added to avoid regression.
                 </li>
+                <li>
+                    Make it possible for users to subclass SAXConfigurationHandler
+                    and overide processValueText() and processAttributeText() to
+                    process text attributes prior to them being set. Added unit
+                    tests to verify operation.
+                </li>
             </ul>
         </section>
     </body>
