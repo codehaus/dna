@@ -3,7 +3,7 @@
 <document>
     <properties>
         <title>MetaData</title>
-        <author email="peter at apache.org">Peter Donald</author>
+        <author>Peter Donald</author>
     </properties>
     <body>
         <section name="Introduction">
@@ -22,10 +22,18 @@
                 generate the metadata.
             </p>
             <ul>
-                <li><a href="model.html">MetaData Model</a></li>
-                <li><a href="format.html">MetaData Format</a></li>
-                <li><a href="extensions.html">MetaData Extensions</a></li>
-                <li><a href="generate.html">Generating Descriptors</a></li>
+                <li>
+                    <a href="model.html">MetaData Model</a>
+                </li>
+                <li>
+                    <a href="format.html">MetaData Format</a>
+                </li>
+                <li>
+                    <a href="extensions.html">MetaData Extensions</a>
+                </li>
+                <li>
+                    <a href="generate.html">Generating Descriptors</a>
+                </li>
             </ul>
         </section>
     </body>
