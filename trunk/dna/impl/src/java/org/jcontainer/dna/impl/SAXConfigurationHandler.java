@@ -19,7 +19,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.6 $ $Date: 2003-08-28 06:57:54 $
+ * @version $Revision: 1.7 $ $Date: 2003-08-29 02:40:39 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -126,14 +126,14 @@ public class SAXConfigurationHandler
         {
             return UNKNOWN;
         }
+        else if( -1 == m_locator.getLineNumber() )
+        {
+            return m_locator.getSystemId();
+        }
         else if( -1 == m_locator.getColumnNumber() )
         {
             return m_locator.getSystemId() + ":" +
                 m_locator.getLineNumber();
-        }
-        else if( -1 == m_locator.getLineNumber() )
-        {
-            return m_locator.getSystemId();
         }
         else
         {
