@@ -9,10 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
- * @todo initialize --> init?
- * @todo dispose --> destroy?
- * @todo should we support separate start/stop???
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 04:05:53 $
  */
 public interface Active
 {
