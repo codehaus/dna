@@ -23,7 +23,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.17 $ $Date: 2003-09-11 00:40:56 $
+ * @version $Revision: 1.18 $ $Date: 2003-09-11 01:29:14 $
  */
 public class DefaultConfiguration
    extends AbstractFreezable
@@ -241,7 +241,7 @@ public class DefaultConfiguration
       }
       if ( createChild )
       {
-         final String path = getPath() + ConfigurationUtil.PATH_SEPARATOR + name;
+         final String path = getPath() + ConfigurationUtil.PATH_SEPARATOR + getName();
          return new DefaultConfiguration( name, generateLocation(), path );
       }
       else
