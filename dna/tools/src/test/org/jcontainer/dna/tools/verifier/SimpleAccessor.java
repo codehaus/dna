@@ -9,17 +9,15 @@ package org.jcontainer.dna.tools.verifier;
 
 import org.realityforge.metaclass.introspector.MetaClassAccessor;
 import org.realityforge.metaclass.introspector.MetaClassException;
-import org.realityforge.metaclass.model.ClassDescriptor;
 import org.realityforge.metaclass.model.Attribute;
+import org.realityforge.metaclass.model.ClassDescriptor;
 import org.realityforge.metaclass.model.FieldDescriptor;
 import org.realityforge.metaclass.model.MethodDescriptor;
-import java.util.Properties;
-import java.awt.event.ActionListener;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 15:03:06 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-26 05:59:34 $
  */
 class SimpleAccessor
     implements MetaClassAccessor
