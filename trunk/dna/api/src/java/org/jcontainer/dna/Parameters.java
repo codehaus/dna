@@ -9,11 +9,13 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.4 $ $Date: 2003-07-27 10:32:24 $
+ * @version $Revision: 1.5 $ $Date: 2003-08-07 04:30:06 $
  */
 public interface Parameters
 {
     String[] getParameterNames();
+
+    boolean isParameter( String name );
 
     String getParameter( String name )
         throws ParameterException;
