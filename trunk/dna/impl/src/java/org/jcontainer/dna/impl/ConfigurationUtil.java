@@ -30,7 +30,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.14 $ $Date: 2003-09-23 10:15:25 $
+ * @version $Revision: 1.15 $ $Date: 2003-10-05 10:25:26 $
  */
 public class ConfigurationUtil
 {
@@ -253,5 +253,79 @@ public class ConfigurationUtil
             element.appendChild( child );
         }
         return element;
+    }
+
+    /**
+     * Test if two configuration objects are equal. To be equal
+     * the configuration objects must have equal child configuration
+     * objects in identical orders or identical content values and
+     * must have the same attributes with the same values.
+     *
+     * @param configuration1 a configuration object
+     * @param configuration2 a configuration object
+     * @return true if the configuration objects are equal
+     */
+    public static boolean equals( final Configuration configuration1,
+                                  final Configuration configuration2 )
+    {
+        final String name1 = configuration1.getName();
+        final String name2 = configuration2.getName();
+        if( !name1.equals( name2 ) )
+        {
+            return false;
+        }
+
+        final Configuration[] children1 = configuration1.getChildren();
+        final Configuration[] children2 = configuration2.getChildren();
+        if( children1.length != children2.length )
+        {
+            return false;
+        }
+        else
+        {
+            for( int i = 0; i < children1.length; i++ )
+            {
+                if( !equals( children1[ i ], children2[ i ] ) )
+                {
+                    return false;
+                }
+            }
+        }
+
+        final String[] names1 = configuration1.getAttributeNames();
+        final String[] names2 = configuration2.getAttributeNames();
+        if( names1.length != names2.length )
+        {
+            return false;
+        }
+        else
+        {
+            for( int i = 0; i < names1.length; i++ )
+            {
+                final String value1 =
+                    configuration1.getAttribute( names1[ i ], null );
+                final String value2 =
+                    configuration2.getAttribute( names1[ i ], null );
+                if( !value1.equals( value2 ) )
+                {
+                    return false;
+                }
+            }
+        }
+
+        final String value1 = configuration1.getValue( null );
+        final String value2 = configuration2.getValue( null );
+        if( null == value1 && null == value2 )
+        {
+            return true;
+        }
+        else if( null != value1 && null != value2 )
+        {
+            return value1.equals( value2 );
+        }
+        else
+        {
+            return false;
+        }
     }
 }

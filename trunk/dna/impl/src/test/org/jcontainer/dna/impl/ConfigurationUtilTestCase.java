@@ -360,4 +360,161 @@ public class ConfigurationUtilTestCase
 
         assertEquals( "element/child", path );
     }
+
+    public void testEqualsOnEmptyConfigurations()
+        throws Exception
+    {
+        final String name = "x";
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( name, "", "" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( name, "", "" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", true, equal );
+    }
+
+    public void testEqualsWithDifferentNames()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "y", "", "" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithAttributes()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setAttribute( "key", "value" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setAttribute( "key", "value" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", true, equal );
+    }
+
+    public void testEqualsWithDifferentNumberOfAttributes()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setAttribute( "key", "value" );
+        configuration1.setAttribute( "key2", "value" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setAttribute( "key", "value" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithDifferentAttributeNames()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setAttribute( "key1", "value" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setAttribute( "key2", "value" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithDifferentAttributeValues()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setAttribute( "key", "value1" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setAttribute( "key", "value2" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithChild()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration child1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.addChild( child1 );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration child2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.addChild( child2 );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", true, equal );
+    }
+
+    public void testEqualsWithDifferentChildCount()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration child1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.addChild( child1 );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithDifferentChildren()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration child1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.addChild( child1 );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration child2 = new DefaultConfiguration( "y", "", "" );
+        configuration2.addChild( child2 );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithContent()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setValue( "content" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setValue( "content" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", true, equal );
+    }
+
+    public void testEqualsWithDifferentContent()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        configuration1.setValue( "content1" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setValue( "content2" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
+
+    public void testEqualsWithContentOnOne()
+        throws Exception
+    {
+        final DefaultConfiguration configuration1 = new DefaultConfiguration( "x", "", "" );
+        final DefaultConfiguration configuration2 = new DefaultConfiguration( "x", "", "" );
+        configuration2.setValue( "content2" );
+
+        final boolean equal =
+            ConfigurationUtil.equals( configuration1, configuration2 );
+        assertEquals( "config1 == config2", false, equal );
+    }
 }
