@@ -15,11 +15,14 @@ import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
 import org.realityforge.metaclass.introspector.MetaClassIntrospector;
 import org.realityforge.metaclass.model.Attribute;
+import org.realityforge.metaclass.model.ClassDescriptor;
+import org.realityforge.metaclass.model.FieldDescriptor;
+import org.realityforge.metaclass.model.MethodDescriptor;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.5 $ $Date: 2003-10-26 06:07:44 $
+ * @version $Revision: 1.6 $ $Date: 2003-10-26 06:27:40 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -297,10 +300,25 @@ public class ComponentVerifierTestCase
     public void testVerifyType()
         throws Exception
     {
+        final Properties parameters = new Properties();
+        parameters.setProperty( "type", ActionListener.class.getName() );
+        final Attribute[] attributes = new Attribute[]
+        {
+            new Attribute( "dna.component" ),
+            new Attribute( "dna.service", parameters )
+        };
+        final ClassDescriptor descriptor =
+            new ClassDescriptor( BasicComponent.class.getName(),
+                                 0,
+                                 attributes,
+                                 FieldDescriptor.EMPTY_SET,
+                                 MethodDescriptor.EMPTY_SET );
         final ComponentVerifier verifier = new ComponentVerifier();
-        MetaClassIntrospector.setAccessor( new SimpleAccessor() );
+        final RegistrationMetaClassAccessor accessor = new RegistrationMetaClassAccessor();
+        accessor.registerDescriptor( descriptor );
+        MetaClassIntrospector.setAccessor( accessor );
         MetaClassIntrospector.clearCompleteCache();
-        final VerifyIssue[] issues = verifier.verifyType( Object.class );
+        final VerifyIssue[] issues = verifier.verifyType( BasicComponent.class );
         assertEquals( "issues.length", 0, issues.length );
     }
 
