@@ -5,6 +5,7 @@
     <id>dna-tools</id>
     <package>org.jcontainer.dna.tools</package>
     <shortDescription>The DNA Tools Collection.</shortDescription>
+    <currentVersion>1.1-dev</currentVersion>
 
     <description>
         The DNA Tool Project contains a set of tools useful for
