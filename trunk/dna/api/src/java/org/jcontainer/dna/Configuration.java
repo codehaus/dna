@@ -15,7 +15,7 @@ package org.jcontainer.dna;
  * Configuration elements can not have both a value and child
  * elements.
  *
- * @version $Revision: 1.8 $ $Date: 2003-09-23 09:49:47 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-23 10:14:10 $
  */
 public interface Configuration
 {
@@ -75,7 +75,7 @@ public interface Configuration
      * element will be autocreated otherwise null will be returned.
      *
      * @param name the name of child configuration object
-     * @param createChild if child should be created if it does not exist
+     * @param createChild true if child should be created if it does not exist
      * @return a child Configuration element with specified name.
      */
     Configuration getChild( String name, boolean createChild );
