@@ -15,7 +15,7 @@ import org.jcontainer.dna.Parameters;
  * Class containing utility methods to work with Parameters
  * objects.
  *
- * @version $Revision: 1.1 $ $Date: 2003-10-26 04:32:25 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-26 04:40:10 $
  */
 public class ParametersUtil
 {
@@ -36,5 +36,41 @@ public class ParametersUtil
             parameters.setParameter( name, value );
         }
         return parameters;
+    }
+
+    /**
+     * Create a Parameters object that is the result of merging
+     * the two parameters objects. If the same key appears in both
+     * then the value will be the value in parameters2 parameter.
+     *
+     * @param parameters1 the first parameters object
+     * @param parameters2 the second parameters object
+     * @return the new Parameters object
+     */
+    public static Parameters merge( final Parameters parameters1,
+                                    final Parameters parameters2 )
+    {
+        final DefaultParameters parameters = new DefaultParameters();
+        copy( parameters, parameters1 );
+        copy( parameters, parameters2 );
+        return parameters;
+    }
+
+    /**
+     * Copy parameters from input into output.
+     *
+     * @param output the output parameters
+     * @param input the input parameters
+     */
+    static void copy( final DefaultParameters output,
+                       final Parameters input )
+    {
+        final String[] names = input.getParameterNames();
+        for( int i = 0; i < names.length; i++ )
+        {
+            final String name = names[ i ];
+            final String value = input.getParameter( name, null );
+            output.setParameter( name, value );
+        }
     }
 }
