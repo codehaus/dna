@@ -1,22 +1,12 @@
 <?xml version="1.0"?>
-<project default="main"
-    xmlns:j="jelly:core"
-    xmlns:maven="jelly:maven"
+<project default="build"
     xmlns:ant="jelly:ant">
 
-    <goal name="main">
-        <attainGoal name="build"/>
-    </goal>
+    <goal name="build" prereqs="site:generate"/>
+    
+    <goal name="deploy" prereqs="site:deploy"/>
 
-    <goal name="build">
-        <attainGoal name="site:generate"/>
-    </goal>
-
-    <goal name="deploy">
-        <attainGoal name="site:deploy"/>
-    </goal>
-
-    <preGoal name="java:compile">
+    <preGoal name="site:run-reports">
         <attainGoal name="aggregate-components"/>
     </preGoal>
 
@@ -24,14 +14,14 @@
        Build a single site documentation for whole set of DNA projects.
     -->
     <goal name="aggregate-components">
-        <echo message="Aggregate components by source"/>
-        <ant:mkdir dir="${maven.build.dir}/aggregate-src/java"/>
-        <ant:copy todir="${maven.build.dir}/aggregate-src/java">
+        <ant:echo message="Aggregate components by source"/>
+        <ant:mkdir dir="${basedir}/target/aggregate-src/java"/>
+        <ant:copy todir="${basedir}/target/aggregate-src/java">
             <ant:fileset dir="${basedir}/../api/src/java"/>
             <ant:fileset dir="${basedir}/../impl/src/java"/>
         </ant:copy>
-        <ant:mkdir dir="${maven.build.dir}/aggregate-src/test"/>
-        <ant:copy todir="${maven.build.dir}/aggregate-src/test">
+        <ant:mkdir dir="${basedir}/target/aggregate-src/test"/>
+        <ant:copy todir="${basedir}/target/aggregate-src/test">
             <ant:fileset dir="${basedir}/../api/src/test"/>
             <ant:fileset dir="${basedir}/../impl/src/test"/>
         </ant:copy>
