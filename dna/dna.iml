@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module version="4" relativePaths="false">
+<module version="4" relativePaths="false" type="JAVA_MODULE">
   <component name="ModuleRootManager" />
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/api/target/classes" />
@@ -24,6 +24,7 @@
     <orderEntry type="library" name="Ant" level="application" />
     <orderEntry type="library" name="Log4j" level="application" />
     <orderEntry type="library" name="LogKit" level="application" />
+    <orderEntryProperties />
   </component>
 </module>
 
