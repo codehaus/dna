@@ -25,7 +25,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.7 $ $Date: 2003-10-25 14:21:08 $
+ * @version $Revision: 1.8 $ $Date: 2003-10-25 14:44:30 $
  */
 public class ComponentVerifier
 {
@@ -69,15 +69,7 @@ public class ComponentVerifier
     public VerifyIssue[] verifyType( final Class type )
     {
         final List issues = new ArrayList();
-        final Attribute attribute =
-            Attributes.getAttribute( type, "dna.component" );
-        if( null == attribute )
-        {
-            final String message = getMessage( "CV001E" );
-            final VerifyIssue issue =
-                new VerifyIssue( VerifyIssue.ERROR, message );
-            issues.add( issue );
-        }
+        verifyMetaData( type, issues );
 
         final Class[] interfaces = getServiceClasses( type, issues );
 
@@ -94,11 +86,32 @@ public class ComponentVerifier
     }
 
     /**
+     * Verify that the component is annotated with the
+     * dna.component metadata.
+     *
+     * @param type the type
+     * @param issues the list of issues
+     */
+    void verifyMetaData( final Class type, final List issues )
+    {
+        final Attribute attribute =
+            Attributes.getAttribute( type, "dna.component" );
+        if( null == attribute )
+        {
+            final String message = getMessage( "CV001E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
+        }
+    }
+
+    /**
      * Verify that the supplied implementation implements the specified
      * services.
      *
      * @param implementation the class representign component
      * @param services the services that the implementation must provide
+     * @param issues the list of issues
      */
     void verifyImplementsServices( final Class implementation,
                                    final Class[] services,
@@ -122,6 +135,7 @@ public class ComponentVerifier
      * a component.
      *
      * @param type the class representing component
+     * @param issues the list of issues
      */
     void verifyClass( final Class type, final List issues )
     {
@@ -138,7 +152,8 @@ public class ComponentVerifier
      * a service.
      *
      * @param clazz the class representign service
-     */
+      * @param issues the list of issues
+    */
     void verifyService( final Class clazz, final List issues )
     {
         verifyServiceIsaInterface( clazz, issues );
@@ -151,6 +166,7 @@ public class ComponentVerifier
      * implement incompatible lifecycle interfaces.
      *
      * @param implementation the implementation class
+     * @param issues the list of issues
      */
     void verifyLifecycles( final Class implementation, final List issues )
     {
@@ -172,6 +188,7 @@ public class ComponentVerifier
      * specified component is an interface.
      *
      * @param clazz the class representign service
+     * @param issues the list of issues
      */
     void verifyServiceIsaInterface( final Class clazz, final List issues )
     {
@@ -190,6 +207,7 @@ public class ComponentVerifier
      * specified component is public.
      *
      * @param clazz the class representign service
+     * @param issues the list of issues
      */
     void verifyServiceIsPublic( final Class clazz, final List issues )
     {
@@ -210,6 +228,7 @@ public class ComponentVerifier
      * specified component does not extend any lifecycle interfaces.
      *
      * @param clazz the class representign service
+     * @param issues the list of issues
      */
     void verifyServiceNotALifecycle( final Class clazz, final List issues )
     {
@@ -233,6 +252,7 @@ public class ComponentVerifier
      * constructor.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyNoArgConstructor( final Class clazz, final List issues )
     {
@@ -254,6 +274,7 @@ public class ComponentVerifier
      * abstract class.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyNonAbstract( final Class clazz, final List issues )
     {
@@ -273,6 +294,7 @@ public class ComponentVerifier
      * abstract class.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyPublic( final Class clazz, final List issues )
     {
@@ -292,6 +314,7 @@ public class ComponentVerifier
      * primitive class.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyNonPrimitive( final Class clazz, final List issues )
     {
@@ -309,6 +332,7 @@ public class ComponentVerifier
      * interface class.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyNonInterface( final Class clazz, final List issues )
     {
@@ -326,6 +350,7 @@ public class ComponentVerifier
      * an array class.
      *
      * @param clazz the class representign component
+     * @param issues the list of issues
      */
     void verifyNonArray( final Class clazz, final List issues )
     {
@@ -344,6 +369,7 @@ public class ComponentVerifier
      * interfaces.
      *
      * @param type the component type
+     * @param issues the list of issues
      * @return an array of Classes for all the services
      */
     Class[] getServiceClasses( final Class type, final List issues )
