@@ -26,7 +26,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-10-25 06:20:28 $
+ * @version $Revision: 1.4 $ $Date: 2003-10-25 10:34:30 $
  */
 public class ComponentVerifier
 {
@@ -366,7 +366,7 @@ public class ComponentVerifier
      * @param type the component type
      * @return an array of Classes for all the services
      */
-    protected Class[] getServiceClasses( final Class type, final List issues )
+    Class[] getServiceClasses( final Class type, final List issues )
     {
         final ClassLoader classLoader = type.getClassLoader();
         final Attribute[] attributes =
