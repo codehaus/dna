@@ -14,6 +14,8 @@ import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Parameterizable;
+import org.realityforge.metaclass.Attributes;
+import org.realityforge.metaclass.model.Attribute;
 import org.realityforge.salt.i18n.ResourceManager;
 import org.realityforge.salt.i18n.Resources;
 
@@ -22,7 +24,7 @@ import org.realityforge.salt.i18n.Resources;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-10-16 06:34:00 $
+ * @version $Revision: 1.4 $ $Date: 2003-10-17 03:24:05 $
  */
 public class ComponentVerifier
 {
@@ -50,22 +52,27 @@ public class ComponentVerifier
         Active.class
     };
 
-    /**
-     * Verify that the supplied implementation class
-     * and service classes are valid for a component.
+/**
+     * Verfiy that specified components designate classes that implement the
+     * advertised interfaces.
      *
      * @param name the name of component
-     * @param implementation the implementation class of component
-     * @param services the classes representing services
-     * @throws VerifyException if error thrown on failure and
-     *         component fails check
+     * @param type the component type
+     * @throws VerifyException if an error occurs
      */
-    public void verifyComponent( final String name,
-                                 final Class implementation,
-                                 final Class[] services )
+    public void verifyType( final String name, final Class type )
         throws VerifyException
     {
-        verifyComponent( name, implementation, services, true );
+        final Attribute attribute =
+            Attributes.getAttribute( type, "dna.component" );
+        if( null == attribute )
+        {
+            final String message =
+                "Component " + name + " does not specify correct metadata";
+            throw new VerifyException( message );
+        }
+        final Class[] interfaces = getServiceClasses( name, type );
+        verifyComponent( name, type, interfaces, true );
     }
 
     /**
@@ -438,5 +445,45 @@ public class ComponentVerifier
                             clazz.getName() );
             throw new VerifyException( message );
         }
+    }
+
+
+
+    /**
+     * Retrieve an array of Classes for all the services that a Component
+     * offers. This method also makes sure all services offered are
+     * interfaces.
+     *
+     * @param name the name of component
+     * @param type the component type
+     * @return an array of Classes for all the services
+     * @throws VerifyException if an error occurs
+     */
+    protected Class[] getServiceClasses( final String name,
+                                         final Class type )
+        throws VerifyException
+    {
+        final ClassLoader classLoader = type.getClassLoader();
+        final Attribute[] attributes =
+            Attributes.getAttributes( type, "dna.service" );
+        final Class[] classes = new Class[ attributes.length ];
+        for( int i = 0; i < attributes.length; i++ )
+        {
+            final String classname = attributes[ i ].getParameter( "type" );
+            try
+            {
+                classes[ i ] = classLoader.loadClass( classname );
+            }
+            catch( final Throwable t )
+            {
+                final String message =
+                    "Unable to load service class \"" +
+                    classname + "\" for Component named \"" +
+                    name + "\". (Reason: " + t + ").";
+                throw new VerifyException( message, t );
+            }
+        }
+
+        return classes;
     }
 }
