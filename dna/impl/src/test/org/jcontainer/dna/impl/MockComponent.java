@@ -15,17 +15,13 @@ import org.jcontainer.dna.ConfigurationException;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Logger;
 import org.jcontainer.dna.MissingResourceException;
-import org.jcontainer.dna.ParameterException;
-import org.jcontainer.dna.Parameterizable;
-import org.jcontainer.dna.Parameters;
 import org.jcontainer.dna.ResourceLocator;
 
 class MockComponent
-    implements LogEnabled, Composable, Parameterizable, Configurable, Active
+    implements LogEnabled, Composable, Configurable, Active
 {
     private Logger m_logger;
     private ResourceLocator m_services;
-    private Parameters m_parameters;
     private Configuration m_configuration;
     private boolean m_initialized;
     private boolean m_disposed;
@@ -39,12 +35,6 @@ class MockComponent
         throws MissingResourceException
     {
         m_services = locator;
-    }
-
-    public void parameterize( Parameters parameters )
-        throws ParameterException
-    {
-        m_parameters = parameters;
     }
 
     public void configure( Configuration configuration )
@@ -73,11 +63,6 @@ class MockComponent
     ResourceLocator getServices()
     {
         return m_services;
-    }
-
-    Parameters getParameters()
-    {
-        return m_parameters;
     }
 
     Configuration getConfiguration()

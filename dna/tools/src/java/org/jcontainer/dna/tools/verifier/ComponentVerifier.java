@@ -7,20 +7,19 @@
  */
 package org.jcontainer.dna.tools.verifier;
 
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.net.URL;
 import org.jcontainer.dna.Active;
 import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
-import org.jcontainer.dna.LogEnabled;
-import org.jcontainer.dna.Parameterizable;
-import org.jcontainer.dna.ResourceLocator;
 import org.jcontainer.dna.Configuration;
+import org.jcontainer.dna.LogEnabled;
+import org.jcontainer.dna.ResourceLocator;
 import org.realityforge.metaclass.Attributes;
 import org.realityforge.metaclass.model.Attribute;
 
@@ -29,7 +28,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.12 $ $Date: 2003-10-26 07:08:13 $
+ * @version $Revision: 1.13 $ $Date: 2003-10-29 22:36:21 $
  */
 public class ComponentVerifier
 {
@@ -59,7 +58,6 @@ public class ComponentVerifier
         LogEnabled.class,
         Composable.class,
         Configurable.class,
-        Parameterizable.class,
         Active.class
     };
 
@@ -100,7 +98,6 @@ public class ComponentVerifier
         final Class[] interfaces = getServiceClasses( type, issues );
 
         verifyClass( type, issues );
-        verifyLifecycles( type, issues );
         verifyImplementsServices( type, interfaces, issues );
         for( int i = 0; i < interfaces.length; i++ )
         {
@@ -417,28 +414,6 @@ public class ComponentVerifier
         verifyServiceIsaInterface( clazz, issues );
         verifyServiceIsPublic( clazz, issues );
         verifyServiceNotALifecycle( clazz, issues );
-    }
-
-    /**
-     * Verify that the implementation class does not
-     * implement incompatible lifecycle interfaces.
-     *
-     * @param implementation the implementation class
-     * @param issues the list of issues
-     */
-    void verifyLifecycles( final Class implementation, final List issues )
-    {
-        final boolean configurable =
-            Configurable.class.isAssignableFrom( implementation );
-        final boolean parameterizable =
-            Parameterizable.class.isAssignableFrom( implementation );
-        if( parameterizable && configurable )
-        {
-            final String message = getMessage( "CV003" );
-            final VerifyIssue issue =
-                new VerifyIssue( VerifyIssue.ERROR, message );
-            issues.add( issue );
-        }
     }
 
     /**

@@ -15,16 +15,13 @@ import org.jcontainer.dna.ConfigurationException;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Logger;
 import org.jcontainer.dna.MissingResourceException;
-import org.jcontainer.dna.ParameterException;
-import org.jcontainer.dna.Parameterizable;
-import org.jcontainer.dna.Parameters;
 import org.jcontainer.dna.ResourceLocator;
 
 /**
  * Utility class to make it easier to process a object
  * through its lifecycle stages.
  *
- * @version $Revision: 1.4 $ $Date: 2003-09-23 08:10:14 $
+ * @version $Revision: 1.5 $ $Date: 2003-10-29 22:36:21 $
  */
 public class ContainerUtil
 {
@@ -103,33 +100,6 @@ public class ContainerUtil
                 throw new IllegalArgumentException( message );
             }
             ( (Configurable)object ).configure( configuration );
-        }
-    }
-
-    /**
-     * Supply specified object with Parameters if it implements the
-     * Parameterizable interface.
-     *
-     * @param object the object to process
-     * @param parameters the Parameters. If null then the specified
-     *        object must not implement Parameterizable.
-     * @throws IllegalArgumentException if the object is Parameterizable
-     *         and parameters is null
-     * @throws ParameterException if processing lifecycle stage on
-     *         object throws exception
-     */
-    public static void parameterize( final Object object,
-                                     final Parameters parameters )
-        throws ParameterException
-    {
-        if( object instanceof Parameterizable )
-        {
-            if( null == parameters )
-            {
-                final String message = "Null parameters.";
-                throw new IllegalArgumentException( message );
-            }
-            ( (Parameterizable)object ).parameterize( parameters );
         }
     }
 
