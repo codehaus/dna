@@ -70,6 +70,7 @@ public class DefaultParametersTestCase
       catch ( NullPointerException npe )
       {
          assertEquals( "name", npe.getMessage() );
+         return;
       }
       fail( "Expected getParameter(null) to fail due to passing null " );
    }
@@ -85,6 +86,7 @@ public class DefaultParametersTestCase
       catch ( NullPointerException npe )
       {
          assertEquals( "name", npe.getMessage() );
+         return;
       }
       fail( "Expected getParameter(null,'blah') to fail due to passing null " );
    }
@@ -100,6 +102,7 @@ public class DefaultParametersTestCase
       catch ( NullPointerException npe )
       {
          assertEquals( "name", npe.getMessage() );
+         return;
       }
       fail( "Expected setParameter(null,'blah') to fail due to passing null " );
    }
@@ -115,6 +118,7 @@ public class DefaultParametersTestCase
       catch ( NullPointerException npe )
       {
          assertEquals( "value", npe.getMessage() );
+         return;
       }
       fail( "Expected setParameter('blah',null) to fail due to passing null " );
    }
@@ -129,6 +133,7 @@ public class DefaultParametersTestCase
       catch ( NullPointerException npe )
       {
          assertEquals( "prefix", npe.getMessage() );
+         return;
       }
       fail( "Expected to fail due to passing null " );
    }
