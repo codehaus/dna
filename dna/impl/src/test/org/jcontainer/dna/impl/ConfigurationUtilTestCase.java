@@ -329,4 +329,30 @@ public class ConfigurationUtilTestCase
       final DocumentBuilder builder = factory.newDocumentBuilder();
       return builder.newDocument();
    }
+
+   public void testGeneratePathNameFromRootForRoot()
+      throws Exception
+   {
+      final String path =
+         ConfigurationUtil.generatePathName( "", "" );
+      assertEquals( "", path );
+   }
+
+   public void testGeneratePathNameFromRoot()
+      throws Exception
+   {
+      final String path =
+         ConfigurationUtil.generatePathName( "", "element" );
+
+      assertEquals( "element", path );
+   }
+
+   public void testGeneratePathNameFromNonRoot()
+      throws Exception
+   {
+      final String path =
+         ConfigurationUtil.generatePathName( "element", "child" );
+
+      assertEquals( "element/child", path );
+   }
 }
