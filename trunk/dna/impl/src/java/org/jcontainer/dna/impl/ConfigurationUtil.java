@@ -31,7 +31,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.8 $ $Date: 2003-09-11 05:41:41 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-11 06:56:08 $
  */
 public class ConfigurationUtil
 {
@@ -123,14 +123,14 @@ public class ConfigurationUtil
     * a configuration object.
     *
     * @param element the Element
-    * @param path the path to root of document
+    * @param parentPath the path to root of document
     * @return the Configuration object
     */
    private static Configuration toConfiguration( final Element element,
-                                                 final String path )
+                                                 final String parentPath )
    {
       final DefaultConfiguration configuration =
-         new DefaultConfiguration( element.getNodeName(), ELEMENT_LOCATION, path );
+         new DefaultConfiguration( element.getNodeName(), ELEMENT_LOCATION, parentPath );
       final NamedNodeMap attributes = element.getAttributes();
       final int length = attributes.getLength();
       for ( int i = 0; i < length; i++ )
@@ -141,15 +141,8 @@ public class ConfigurationUtil
          configuration.setAttribute( name, value );
       }
 
-      final String childPath;
-      if ( ROOT_PATH.equals( path ) )
-      {
-         childPath = configuration.getName();
-      }
-      else
-      {
-         childPath = path + PATH_SEPARATOR + configuration.getName();
-      }
+      final String childPath =
+         generatePathName( parentPath, configuration.getName() );
 
       String content = null;
       final NodeList nodes = element.getChildNodes();
@@ -182,6 +175,28 @@ public class ConfigurationUtil
       }
 
       return configuration;
+   }
+
+   /**
+    * Add in utity method to generate path string from parent.
+    *
+    * @param path parents path
+    * @param name parents name
+    * @return the path string
+    */
+   static String generatePathName( final String path,
+                                   final String name )
+   {
+      String childPath;
+      if ( ROOT_PATH.equals( path ) )
+      {
+         childPath = name;
+      }
+      else
+      {
+         childPath = path + PATH_SEPARATOR + name;
+      }
+      return childPath;
    }
 
    /**
