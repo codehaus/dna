@@ -24,7 +24,7 @@ import org.realityforge.metaclass.model.ParameterDescriptor;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.7 $ $Date: 2003-10-26 07:08:13 $
+ * @version $Revision: 1.8 $ $Date: 2003-10-29 22:36:21 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -195,26 +195,6 @@ public class ComponentVerifierTestCase
                                    " must be an interface.", true, false );
     }
 
-    public void testVerifyLifecyclesThatPasses()
-        throws Exception
-    {
-        final ComponentVerifier verifier = new ComponentVerifier();
-        final List issues = new ArrayList();
-        verifier.verifyLifecycles( Object.class, issues );
-        assertNoIssues( issues );
-    }
-
-    public void testVerifyLifecyclesThatNoPasses()
-        throws Exception
-    {
-        final ComponentVerifier verifier = new ComponentVerifier();
-        final List issues = new ArrayList();
-        verifier.verifyLifecycles( IncompatibleLifecycles.class, issues );
-        assertSingleIssue( issues, "The class can not implement both " +
-                                   "Configurable and Parameterizable " +
-                                   "lifecycle interfaces.", true, false );
-    }
-
     public void testVerifyClass()
         throws Exception
     {
@@ -239,7 +219,7 @@ public class ComponentVerifierTestCase
         final ComponentVerifier verifier = new ComponentVerifier();
         final List issues = new ArrayList();
         final Class[] services = new Class[]{ActionListener.class};
-        verifier.verifyImplementsServices( IncompatibleLifecycles.class, services, issues );
+        verifier.verifyImplementsServices( ActionListenerComponent.class, services, issues );
         assertNoIssues( issues );
     }
 

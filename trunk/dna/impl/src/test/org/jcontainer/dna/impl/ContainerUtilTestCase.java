@@ -85,42 +85,6 @@ public class ContainerUtilTestCase
               "resource but object implements stage." );
     }
 
-    public void testParameterizeOnComponentNotImplementingStage()
-        throws Exception
-    {
-        final Object object = new Object();
-        ContainerUtil.parameterize( object, null );
-    }
-
-    public void testParameterizeOnComponentImplementingStage()
-        throws Exception
-    {
-        final MockComponent object = new MockComponent();
-        final DefaultParameters resource = new DefaultParameters();
-
-        ContainerUtil.parameterize( object, resource );
-
-        assertEquals( resource, object.getParameters() );
-    }
-
-    public void testParameterizeOnComponentImplementingStageButNullLogger()
-        throws Exception
-    {
-        final MockComponent object = new MockComponent();
-        final DefaultParameters resource = null;
-
-        try
-        {
-            ContainerUtil.parameterize( object, resource );
-        }
-        catch( IllegalArgumentException iae )
-        {
-            return;
-        }
-        fail( "Expected stage to fail as passing in null " +
-              "resource but object implements stage." );
-    }
-
     public void testConfigureOnComponentNotImplementingStage()
         throws Exception
     {
