@@ -236,7 +236,81 @@ public void configure( Configuration config )
 }
                     ]]></source>
             </subsection>
-
+            <subsection name="dna.dependency">
+                <p>
+                    The <code>dna.dependency</code> tag declares the services
+                    that the component should be able to access from the
+                    ResourceLocator. The <code>dna.dependency</code> tag is
+                    specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/Composable.html#compose(org.jcontainer.dna.ResourceLocator)">
+                        Composable.compose(ResourceLocator)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>n/a</td>
+                        <td>
+                            The type name of the dependency. This follows the
+                            type resolution rules specified above.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td>optional</td>
+                        <td>false</td>
+                        <td>
+                            Specifies whether the dependency is optional or
+                            required.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>qualifier</td>
+                        <td>""</td>
+                        <td>
+                            Specifies the qualifier used to default key value.
+                            See description of key parameter for further
+                            details. This parameter can not be specified if the
+                            key parameter is specified.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>key</td>
+                        <td>See Description</td>
+                        <td>
+                            The key specifies the name used to access service
+                            from the ResourceLocator. The default value for
+                            this parameter is either the type name or
+                            &lt;type-name$gt;/&lt;qualifier&gt; if the
+                            qualifier parameter is specified.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.dependency type="Store"
+ * @dna.dependency key="persist" type="PersistenceEngine"
+ * @dna.dependency qualifier="TempSpool" type="Store" optional="true"
+ */
+public void compose( ResourceLocator locator )
+    throws MissingResourceException
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
         </section>
     </body>
 </document>
