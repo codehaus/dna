@@ -17,10 +17,11 @@ import org.jcontainer.dna.Parameters;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.4 $ $Date: 2003-09-07 23:48:14 $
+ * @version $Revision: 1.5 $ $Date: 2003-09-07 23:49:33 $
  */
 public class DefaultParameters
-    implements Parameters, Freezable
+    extends AbstractFreezable
+    implements Parameters
 {
     private static final String SEPARATOR = ".";
     private static final String EMPTY_PREFIX = "";
@@ -28,7 +29,6 @@ public class DefaultParameters
     private final Properties m_parameters = new Properties();
     private final Set m_children = new HashSet();
     private final String m_prefix;
-    private boolean m_readOnly;
 
     public DefaultParameters()
     {
@@ -233,7 +233,7 @@ public class DefaultParameters
 
     public void makeReadOnly()
     {
-        m_readOnly = true;
+        super.makeReadOnly();
         final Iterator iterator = m_children.iterator();
         while( iterator.hasNext() )
         {
@@ -256,24 +256,8 @@ public class DefaultParameters
         return m_parameters;
     }
 
-    protected final boolean isReadOnly()
-    {
-        return m_readOnly;
-    }
-
     protected final String getPrefix()
     {
         return m_prefix;
-    }
-
-    protected final void checkWriteable()
-        throws IllegalStateException
-    {
-        if( m_readOnly )
-        {
-            final String message =
-                "Parameters are read only and can not be modified.";
-            throw new IllegalStateException( message );
-        }
     }
 }
