@@ -236,6 +236,57 @@ public void configure( Configuration config )
 }
                     ]]></source>
             </subsection>
+            <subsection name="dna.parameters">
+                <p>
+                    The <code>dna.parameters</code> tag declares the schema
+                    that can be used to validate the parameters for the
+                    component. The <code>dna.parameters</code> tag is
+                    specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/Parameterizable.html#parameterize(org.jcontainer.dna.Parameters)">
+                        Parameterizable.parameterize(Parameters)</a> method
+                    JavaDocs and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>location</td>
+                        <td>&lt;classname&gt;-schema.xml</td>
+                        <td>
+                            The location of the parameters schema file
+                            relative to the .class file.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>""</td>
+                        <td>
+                            The type of the schema file. If not specified then
+                            the underlying validator will attempt to guess the
+                            schema type.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.parameters location="MyComponentParametersSchema.xml"
+ */
+public void parameterize( Parameters parameters )
+    throws ParametersException
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
             <subsection name="dna.dependency">
                 <p>
                     The <code>dna.dependency</code> tag declares the services
