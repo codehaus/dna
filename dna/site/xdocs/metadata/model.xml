@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>MetaData Model</title>
+        <author email="peter at apache.org">Peter Donald</author>
+    </properties>
+    <body>
+        <section name="MetaData Model">
+            <p>
+                This document describes the minimal set of metadata requirements
+                for DNA components.The metadata includes what resources the
+                component can provide to other components and what resources the
+                component requires from the container.
+            </p>
+            <p>
+                DNA components must declare the resources that they are capable
+                of providing to other components.
+            </p>
+            <ul>
+                <li>
+                    <a href="#dna.component">dna.component</a>: The object must
+                    declare that they are DNA components and not just some
+                    random java object.
+                </li>
+                <li>
+                    <a href="#dna.service">dna.service</a>: The object must
+                    declare what services (aka work interfaces) that the
+                    component implements and is capable of providing to other
+                    components.
+                </li>
+            </ul>
+            <p>
+                DNA components must also declare what resources they require
+                to operate.
+            </p>
+            <ul>
+                <li>
+                    <a href="#dna.logger">dna.logger</a>: The object must
+                    declare the Logger objects that they will use.
+                </li>
+                <li>
+                    <a href="#dna.configuration">dna.configuration</a>: The
+                    object must declare location of the configuration schema
+                    (if any) that can be used to validate any configuraiton
+                    data that they are provided.
+                </li>
+                <li>
+                    <a href="#dna.parameters">dna.parameters</a>: The
+                    object must declare location of the parameters schema
+                    (if any) that can be used to validate any parameters
+                    data that they are provided.
+                </li>
+                <li>
+                    <a href="#dna.dependency">dna.dependency</a>: The
+                    object must declare the services that it expects to find
+                    in the ResourceLocator.
+                </li>
+            </ul>
+        </section>
+        <section name="Model Elements">
+            <p>
+                The following sections describe the metadata elements that
+                should be interpreted for DNA components. The metadata is
+                represented as JavaDoc tags as that format is capable of being
+                pre-processed by tools and should be familiar to the developer.
+            </p>
+            <p>
+                Several of the JavaDoc tags have parameters that represent a
+                type name. These type names may either be the full qualified
+                name of a class or it may be a name resolvable in the Java
+                source file. The resolution process follows the standard rules
+                for resolution. ie First the runtime will check if the class is
+                explicitly imported, then it will check to see if it is imported
+                using a '*' import, then it will check to see if it is a member
+                of the current package, then it will check to see if the class
+                is part of the java.lang package and if none of the above
+                conditions hold true it will assume that the full qualified name
+                has been specified.
+            </p>
+            <subsection name="dna.component">
+                <p>
+                    The <code>dna.component</code> tag is specified in the class
+                    JavaDocs and simply declares that the class is a DNA
+                    component. It must be present for tools and runtimes to
+                    automatically recognize the component.
+                </p>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * This is a DNA component.
+ *
+ * @avalon.dna
+ */
+public class MyComponent
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.service">
+                <p>
+                    The <code>dna.service</code> tag declares the services the
+                    component is capable of providing to other components.
+                    The <code>dna.service</code> tag is specified as part of the
+                    class JavaDocs and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>n/a</td>
+                        <td>
+                            The type parameter specifies the name of the
+                            interface for service. This parameter follows
+                            type resolution rules as specified above.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+package com.biz;
+
+import com.biz.services.MyService1;
+
+/**
+ * @dna.service type="MyService1"
+ * @dna.service type="MyService2"
+ */
+public class MyComponent
+  implements MyService1, MyService2, SomeOtherInterface
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.logger">
+                <p>
+                    The <code>dna.logger</code> tag declares the names of the
+                    loggers that the component will use. The
+                    <code>dna.logger</code> tag is specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/LogEnabled.html#enableLogging(org.jcontainer.dna.Logger)">
+                        LogEnabled.enableLogging(Logger)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>""</td>
+                        <td>
+                            The name of the logger. The Logger object passed to
+                            the component has the name "".
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @avalon.logger
+ * @avalon.logger name="auth"
+ */
+public void enableLogging( Logger logger )
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+
+        </section>
+    </body>
+</document>
