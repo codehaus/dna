@@ -20,7 +20,7 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
-            <version>1.0</version>
+            <version>${pom.currentVersion}</version>
         </dependency>
         <dependency>
             <groupId>spice</groupId>
