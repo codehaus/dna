@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.2 $ $Date: 2003-07-27 08:24:03 $
+ * @version $Revision: 1.3 $ $Date: 2003-07-27 10:27:26 $
  */
 public interface Parameters
 {
@@ -36,7 +36,7 @@ public interface Parameters
     boolean getParameterAsBoolean( String name, boolean defaultValue );
 
     float getParameterAsFloat( String name )
-        throws ConfigurationException;
+        throws ParameterException;
 
     float getParameterAsFloat( String name, float defaultValue );
 
