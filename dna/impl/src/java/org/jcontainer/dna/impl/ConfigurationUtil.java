@@ -12,14 +12,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.Result;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
 
 import org.jcontainer.dna.Configuration;
-import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -32,7 +31,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.7 $ $Date: 2003-09-11 03:54:54 $
+ * @version $Revision: 1.8 $ $Date: 2003-09-11 05:41:41 $
  */
 public class ConfigurationUtil
 {
@@ -44,7 +43,13 @@ public class ConfigurationUtil
    /**
     * Constant defining root path of document.
     */
-   public static final String ROOT_PATH = PATH_SEPARATOR;
+   public static final String ROOT_PATH = "";
+
+   /**
+    * Constant indicating location was generated from DOM
+    * Element.
+    */
+   private static final String ELEMENT_LOCATION = "dom-gen";
 
    /**
     * Serialize Configuration object to sepcified Result object.
@@ -125,7 +130,7 @@ public class ConfigurationUtil
                                                  final String path )
    {
       final DefaultConfiguration configuration =
-         new DefaultConfiguration( element.getNodeName(), "dom-gen", path );
+         new DefaultConfiguration( element.getNodeName(), ELEMENT_LOCATION, path );
       final NamedNodeMap attributes = element.getAttributes();
       final int length = attributes.getLength();
       for ( int i = 0; i < length; i++ )
@@ -136,7 +141,15 @@ public class ConfigurationUtil
          configuration.setAttribute( name, value );
       }
 
-      final String childPath = path + PATH_SEPARATOR + configuration.getName();
+      final String childPath;
+      if ( ROOT_PATH.equals( path ) )
+      {
+         childPath = configuration.getName();
+      }
+      else
+      {
+         childPath = path + PATH_SEPARATOR + configuration.getName();
+      }
 
       String content = null;
       final NodeList nodes = element.getChildNodes();
@@ -149,10 +162,17 @@ public class ConfigurationUtil
             final Configuration child = toConfiguration( (Element) node, childPath );
             configuration.addChild( child );
          }
-         else if ( node instanceof CharacterData )
+         else if ( node instanceof Text )
          {
-            final CharacterData data = (CharacterData) node;
-            content += data.getData();
+            final Text data = (Text) node;
+            if ( null != content )
+            {
+               content += data.getData();
+            }
+            else
+            {
+               content = data.getData();
+            }
          }
       }
 
