@@ -57,6 +57,13 @@
                     in the ResourceLocator.
                 </li>
             </ul>
+            <p>
+                DNA components can optionally declare their compatibility with
+                a particular container extension. A component could declare
+                that the component requires, supports or is incompatible with
+                the container extension. For further details on extensions see
+                the <a href="extensions.html">extensions</a> document.
+            </p>
         </section>
         <section name="Model Elements">
             <p>
@@ -139,6 +146,53 @@ import com.biz.services.MyService1;
  */
 public class MyComponent
   implements MyService1, MyService2, SomeOtherInterface
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.extension">
+                <p>
+                    The <code>dna.extension</code> tag declares the components
+                    relationship to a container extension. The
+                    <code>dna.extension</code> tag is specified as part of the
+                    class JavaDocs and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>n/a</td>
+                        <td>
+                            The name of the container extension.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td>compatibility</td>
+                        <td>required</td>
+                        <td>
+                            The compatibility of container with extension. Must
+                            be one of "required", "supports" or "incompatible".
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.extension name="tx"
+ * @dna.extension name="mx" compatibility="supports"
+ * @dna.extension name="remote" compatibility="incompatible"
+ */
+public class MyComponent
 {
    ...
 }
