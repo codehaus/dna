@@ -12,7 +12,6 @@ import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.Configuration;
 import org.jcontainer.dna.ConfigurationException;
-import org.jcontainer.dna.Contextualizable;
 import org.jcontainer.dna.LogEnabled;
 import org.jcontainer.dna.Logger;
 import org.jcontainer.dna.MissingResourceException;
@@ -25,7 +24,7 @@ import org.jcontainer.dna.ResourceLocator;
  * Utility class to make it easier to process a object
  * through its lifecycle stages.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-08 01:45:06 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-14 03:48:30 $
  */
 public class ContainerUtil
 {
@@ -50,33 +49,6 @@ public class ContainerUtil
                 throw new IllegalArgumentException( message );
             }
             ( (LogEnabled)object ).enableLogging( logger );
-        }
-    }
-
-    /**
-     * Supply specified object with ResourceLocator if it implements the
-     * Contextualizable interface.
-     *
-     * @param object the object to process
-     * @param locator the ResourceLocator. If null then the specified
-     *        object must not implement Contextualizable.
-     * @throws IllegalArgumentException if the object is Contextualizable
-     *         and locator is null
-     * @throws MissingResourceException if processing lifecycle stage on
-     *         object throws exception
-     */
-    public static void contextualize( final Object object,
-                                      final ResourceLocator locator )
-        throws MissingResourceException
-    {
-        if( object instanceof Contextualizable )
-        {
-            if( null == locator )
-            {
-                final String message = "Null locator.";
-                throw new IllegalArgumentException( message );
-            }
-            ( (Contextualizable)object ).contextualize( locator );
         }
     }
 
