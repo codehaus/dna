@@ -340,4 +340,58 @@ public class DefaultParametersTestCase
       }
       fail( "Expected getChildParameters to fail when passing null prefix" );
    }
+
+   public void testIsParameterWithNullName()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      try
+      {
+         parameters.isParameter( null );
+      }
+      catch ( NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected to fail as name is null" );
+   }
+
+   public void testGetParameterAsBooleanWithDefault()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      assertEquals( true, parameters.getParameterAsBoolean( "blah", true ) );
+   }
+
+   public void testGetParameterAsIntegerWithDefault()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      assertEquals( 1, parameters.getParameterAsInteger( "blah", 1 ) );
+   }
+
+   public void testGetParameterAsLongWithDefault()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      assertEquals( 1, parameters.getParameterAsLong( "blah", 1 ) );
+   }
+
+   public void testGetParameterAsFloatWithDefault()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      assertTrue( 1.0f == parameters.getParameterAsFloat( "blah", 1.0f ) );
+   }
+
+   public void testMakeReadOnlyWithNonFreezableChildParameters()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      parameters.getChildren().add( new NoopParameters() );
+      parameters.makeReadOnly();
+      assertEquals( true, parameters.isReadOnly() );
+   }
+
 }
