@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>MetaData Extensions</title>
+        <author>Peter Donald</author>
+    </properties>
+    <body>
+        <section name="MetaData Extensions">
+            <p>
+                A container may support features beyond and above standard DNA
+                lifecycle processing. These container extensions are given an
+                identifier and this allows components to refer to specific
+                extensions and
+                <a href="model.html#dna.extension">declare</a>
+                their compatibility with the extension.
+            </p>
+            <subsection name="Naming">
+                <p>
+                    Extension names are usually derived from the names of the
+                    extra JavaDoc tags (or MetaClass Attributes) that they
+                    support. For example, a container that supports the
+                    "sec.role" (Security Role) JavaDoc tag implements the
+                    container extension "sec". Alternatively the container may
+                    support extensions such as "sec.auth" which indicates they
+                    support a superset or subset of the "sec" tag.
+                </p>
+                <p>
+                    If a particular container extension or feature does not
+                    interpret specific tags or touches multiple tags then it is
+                    recomended that the short name of the container be used to
+                    name the feature (ie "plexus" or "plexus.aspect") to
+                    indicate a plexus specific "aspect" container extension.
+                </p>
+                <p>
+                    Once a name has been found for a partciular extension it
+                    should be documented and listed in the extension registry
+                    (unless it is container specific). No other extension may
+                    be defined with the same name.
+                </p>
+            </subsection>
+        </section>
+        <section name="Extension Development">
+            <p>
+                The development of container extension essentially can be
+                broken down into two parts. Documenting and designing the
+                metadata a component has to expose for container extension
+                and implementing the container extension. The implementation
+                of container extensions is beyond the scope of this document.
+            </p>
+            <p>
+                When the metadata requirements for the container extension are
+                being developed then it is useful to be able to name a
+                particular extension so that components can declare
+                compatibility with the extension.
+            </p>
+            <p>
+                In this scenario it is best to use an extension name that
+                clearly indicates the extension is under development. It is
+                recomended that a prefix be added to the extension name with
+                that prefix either being "x-" or the short name of the
+                container. For example if JMX extensions were being developed
+                for the Loom container the extension could be named either
+                "x-mx" or "loom.mx"
+            </p>
+            <p>
+                After the extension has matured and been completed then the
+                developer should remove the the prefix and add the extension
+                name and a description of the extension to the registry. 
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <name>DNA Site</name>
+    <id>dna-site</id>
+
+    <shortDescription>DNA web site</shortDescription>
+
+    <description>
+    	DNA web site provides accesses to the DNA project
+    	information and reports.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>avalon</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <id>xalan</id>
+            <version>2.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-velocity</artifactId>
+            <version>20030303.205659</version>
+        </dependency>
+        <dependency>
+            <id>velocity</id>
+            <version>1.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Only used if aggregating components by source -->
+        <sourceDirectory>${basedir}/target/aggregate-src/java</sourceDirectory>
+        <unitTestSourceDirectory>${basedir}/target/aggregate-src/test</unitTestSourceDirectory>
+
+        <unitTest>
+            <resource>
+                <directory>${basedir}/target/aggregate-src/test</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <includes>
+                <include>**/*TestCase*</include>
+            </includes>
+            <excludes>
+                <exclude>**/Abstract*</exclude>
+            </excludes>
+        </unitTest>
+        <nagEmailAddress>dev@dna.codehaus.org</nagEmailAddress>
+    </build>
+
+</project>

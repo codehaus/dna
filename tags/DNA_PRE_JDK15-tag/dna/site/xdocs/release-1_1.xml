@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <title>DNA Release 1.1</title>
+        <author>Peter Donald</author>
+        <author>Mauro Talevi</author>
+    </properties>
+
+    <body>
+        <section name="Introduction">
+            <p>
+                This is the second release of DNA. This release
+                introduces several bug fixes and feature enhancements.
+                The primary purpose of this release is the introduction
+                of a high level User Guide. 
+          	</p>
+        </section>
+        <section name="Changes">
+            <ul>
+                <li>
+                	DNA packages renamed to org.codehaus.dna, following the
+                	promotion of DNA to a top-level Codehaus project.
+                </li>
+                <li>
+                    Fixed a bug in SAXConfigurationHandler that could cause a
+                    ArrayStoreException using some parsers. Some parsers would
+                    not pass the ContentHandler text content if it would be
+                    removed during normalization of the XML document. The DNA
+                    code did not expect this behaviour but has since been fixed
+                    and unit test added to avoid regression.
+                </li>
+                <li>
+                    Make it possible for users to subclass SAXConfigurationHandler
+                    and overide processValueText() and processAttributeText() to
+                    process text attributes prior to them being set. Added unit
+                    tests to verify operation.
+                </li>
+                <li>
+                    Add ConfigurationUtil.equals( config1, config2 ) utility
+                    method that tests equality of two configurations and added
+                    unit tests to verify functionality.
+                </li>
+                <li>
+                    Support passing a PrintStream object into constructor of
+                    ConsoleLogger to specify where the output is output.
+                </li>
+                <li>
+                    MetaClass metadata annotations introduced. This makes it
+                    possible to annotate a Java source file with JavaDoc tags
+                    and generate a MetaClass descriptor from annotations. See
+                    docs/metadata/index.html or
+                    <a href="http://dna.codehaus.org/metadata">http://dna.codehaus.org/metadata</a>
+                    for detailed description of new DNA metadata model.
+                </li>
+                <li>
+                    Create a new dna-tools jar that contains tools to help
+                    creating DNA components. Initially the jar includes tools
+                    to generate metadata descriptors and validate DNA
+                    components.  The tools jars is also packaged as a Maven
+                    plugin, following the usual Maven name convention maven-dna-plugin.
+                </li>
+                <li>
+                    Parameters, DefaultParameters and Parameterizable have
+                    been removed from the DNA framework in the quest for
+                    a simpler framework. 
+                </li>
+            </ul>
+        </section>
+    </body>
+
+</document>
