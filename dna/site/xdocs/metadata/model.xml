@@ -92,7 +92,7 @@
 /**
  * This is a DNA component.
  *
- * @avalon.dna
+ * @dna.dna
  */
 public class MyComponent
 {
