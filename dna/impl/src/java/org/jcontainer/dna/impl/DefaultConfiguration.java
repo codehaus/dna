@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.10 $ $Date: 2003-09-02 03:41:51 $
+ * @version $Revision: 1.11 $ $Date: 2003-09-02 03:42:55 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -277,7 +277,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Attribute named " + name + " not specified.";
-           throw new ConfigurationException( message, getPath(), getLocation(), null );
+           throw new ConfigurationException( message, getPath(), getLocation() );
         }
     }
 
