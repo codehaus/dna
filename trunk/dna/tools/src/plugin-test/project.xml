@@ -8,7 +8,7 @@
     <dependencies>
         <dependency>
             <groupId>dna</groupId>
-            <artifactId>dna-tools-plugin</artifactId>
+            <artifactId>maven-dna-plugin</artifactId>
             <version>${pom.currentVersion}</version>
             <type>plugin</type>
         </dependency>
