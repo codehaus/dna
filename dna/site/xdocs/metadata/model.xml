@@ -203,7 +203,7 @@ public class MyComponent
                     <code>dna.logger</code> tag declares the names of the
                     loggers that the component will use. The
                     <code>dna.logger</code> tag is specified as part of the
-                    <a href="../apidocs/org/jcontainer/dna/LogEnabled.html#enableLogging(org.jcontainer.dna.Logger)">
+                    <a href="../apidocs/org/codehaus/dna/LogEnabled.html#enableLogging(org.codehaus.dna.Logger)">
                         LogEnabled.enableLogging(Logger)</a> method JavaDocs
                     and has the following parameters.
                 </p>
@@ -246,7 +246,7 @@ public void enableLogging( Logger logger )
                     component. The
                     <code>dna.configuration</code> tag is
                     specified as part of the
-                    <a href="../apidocs/org/jcontainer/dna/Configurable.html#configure(org.jcontainer.dna.Configuration)">
+                    <a href="../apidocs/org/codehaus/dna/Configurable.html#configure(org.codehaus.dna.Configuration)">
                         Configurable.configure(Configuration)</a> method JavaDocs
                     and has the following parameters.
                 </p>
@@ -300,7 +300,7 @@ public void configure( Configuration config )
                     ResourceLocator. The
                     <code>dna.dependency</code> tag is
                     specified as part of the
-                    <a href="../apidocs/org/jcontainer/dna/Composable.html#compose(org.jcontainer.dna.ResourceLocator)">
+                    <a href="../apidocs/org/codehaus/dna/Composable.html#compose(org.codehaus.dna.ResourceLocator)">
                         Composable.compose(ResourceLocator)</a> method JavaDocs
                     and has the following parameters.
                 </p>

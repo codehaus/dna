@@ -8,7 +8,7 @@
 
         <ant:mc_interceptorSet id="maven.dna.interceptors">
             <ant:interceptor
-                name="org.jcontainer.dna.tools.metaclass.DNAAttributeInterceptor">
+                name="org.codehaus.dna.tools.metaclass.DNAAttributeInterceptor">
                 <ant:classpath>
                     <ant:pathelement path="${plugin.dir}"/>
                 </ant:classpath>

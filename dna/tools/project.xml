@@ -3,9 +3,9 @@
     <extend>${basedir}/../project.xml</extend>
     <name>DNA Tools</name>
     <id>dna-tools</id>
-    <package>org.jcontainer.dna.tools</package>
+    <package>org.codehaus.dna.tools</package>
     <shortDescription>The DNA Tools Collection.</shortDescription>
-    <currentVersion>1.1-rc3-dev</currentVersion>
+    <currentVersion>1.1-rc4-dev</currentVersion>
     
     <description>
         The DNA Tool Project contains a set of tools useful for
