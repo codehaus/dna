@@ -42,6 +42,10 @@
                     method that tests equality of two configurations and added
                     unit tests to verify functionality.
                 </li>
+                <li>
+                    Support passing a PrintStream object into constructor of
+                    ConsoleLogger to specify where the output is output.
+                </li>
             </ul>
         </section>
     </body>
