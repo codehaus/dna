@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-08-12 08:04:15 $
  */
 public class ConfigurationException
     extends Exception
@@ -17,10 +17,21 @@ public class ConfigurationException
     private final Throwable m_cause;
     private final String m_location;
 
+    public ConfigurationException( final String message )
+    {
+        this( message, null, null );
+    }
+
     public ConfigurationException( final String message,
                                    final String location )
     {
         this( message, null, location );
+    }
+
+    public ConfigurationException( final String message,
+                                   final Throwable cause )
+    {
+        this( message, cause, null );
     }
 
     public ConfigurationException( final String message,
