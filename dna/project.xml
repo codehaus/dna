@@ -36,6 +36,16 @@
             <tag>HEAD</tag>
         </version>
         <version>
+            <id>1.2-pre-jdk15</id>
+            <name>1.2-pre-jdk15</name>
+            <tag>DNA_PRE_JDK15-tag</tag>
+        </version>
+        <version>
+            <id>1.2-pre-jdk15-branch</id>
+            <name>1.2-pre-jdk15-branch</name>
+            <tag>DNA_PRE_JDK15-branch</tag>
+        </version>
+        <version>
             <id>1.1</id>
             <name>1.1</name>
             <tag>DNA_1_1-tag</tag>
