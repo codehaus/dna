@@ -17,7 +17,7 @@
         <attainGoal name="site:deploy"/>
     </goal>
 
-    <preGoal name="site:generate">
+    <preGoal name="xdoc:init">
         <attainGoal name="aggregate-components"/>
     </preGoal>
 
