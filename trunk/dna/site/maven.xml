@@ -17,7 +17,7 @@
         <attainGoal name="site:deploy"/>
     </goal>
 
-    <preGoal name="site">
+    <preGoal name="site:generate">
 	    <attainGoal name="aggregate-components"/>
     </preGoal>
 
