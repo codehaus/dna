@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-26 03:39:55 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-26 03:57:12 $
  */
 public class DefaultConfiguration
     implements Configuration
@@ -288,7 +288,7 @@ public class DefaultConfiguration
     public boolean getAttributeAsBoolean( final String name )
         throws ConfigurationException
     {
-        return getAttribute( name ).equals( TRUE_STRING  );
+        return getAttribute( name ).equals( TRUE_STRING );
     }
 
     public boolean getAttributeAsBoolean( final String name,
@@ -419,6 +419,18 @@ public class DefaultConfiguration
     public void makeReadOnly()
     {
         m_readOnly = true;
+    }
+
+    public void setAttribute( final String key, final String value )
+    {
+        checkWriteable();
+        m_attributes.put( key, value );
+    }
+
+    public void addChild( final Configuration configuration )
+    {
+        checkWriteable();
+        m_children.add( configuration );
     }
 
     public void setValue( final String value )
