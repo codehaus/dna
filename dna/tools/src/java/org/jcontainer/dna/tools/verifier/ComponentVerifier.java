@@ -7,12 +7,11 @@
  */
 package org.jcontainer.dna.tools.verifier;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.List;
+import java.util.ResourceBundle;
 import org.jcontainer.dna.Active;
 import org.jcontainer.dna.Composable;
 import org.jcontainer.dna.Configurable;
@@ -26,7 +25,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.5 $ $Date: 2003-10-25 11:38:12 $
+ * @version $Revision: 1.6 $ $Date: 2003-10-25 14:20:47 $
  */
 public class ComponentVerifier
 {
@@ -240,14 +239,7 @@ public class ComponentVerifier
     {
         try
         {
-            final Constructor ctor = clazz.getConstructor( EMPTY_TYPES );
-            if( !Modifier.isPublic( ctor.getModifiers() ) )
-            {
-                final String message = getMessage( "CV007E" );
-                final VerifyIssue issue =
-                    new VerifyIssue( VerifyIssue.ERROR, message );
-                issues.add( issue );
-            }
+            clazz.getConstructor( EMPTY_TYPES );
         }
         catch( final NoSuchMethodException nsme )
         {
