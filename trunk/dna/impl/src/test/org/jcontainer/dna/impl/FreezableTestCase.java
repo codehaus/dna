@@ -35,4 +35,11 @@ public class FreezableTestCase
             "IllegalStateException as freezable is" +
             "marked as read-only." );
    }
+
+   public void testCheckWriteableOnWriteable()
+      throws Exception
+   {
+      final MockFreezable freezable = new MockFreezable();
+      freezable.checkWriteable();
+   }
 }
