@@ -12,12 +12,12 @@ package org.jcontainer.dna.impl;
  * implementation to indicate which classes can be "frozen"
  * and be made read-only after being mutable.
  *
- * @version $Revision: 1.3 $ $Date: 2003-09-23 08:10:14 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-23 10:14:46 $
  */
 public interface Freezable
 {
-   /**
-    * Make resource read-only.
-    */
-   void makeReadOnly();
+    /**
+     * Make resource read-only.
+     */
+    void makeReadOnly();
 }
