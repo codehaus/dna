@@ -22,6 +22,19 @@
             <artifactId>dna-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>spice</groupId>
+            <artifactId>spice-metaclass</artifactId>
+            <version>20031005.002435</version>
+        </dependency>
+        <dependency>
+            <id>ant</id>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <id>qdox</id>
+            <version>1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
