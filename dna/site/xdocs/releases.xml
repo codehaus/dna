@@ -4,17 +4,19 @@
     <properties>
         <title>DNA Releases</title>
         <author>Peter Donald</author>
+        <author>Mauro Talevi</author>
     </properties>
 
     <body>
         <section name="DNA Releases">
             <p>
-                The following DNA releases have been made.
-            </p>
+                The following DNA releases have been made:
             <ul>
-                <!--<li><a href="release-1_1.html">1.1</a></li>-->
+                <li><a href="release-1_1.html">1.1</a></li>
                 <li><a href="release-1_0.html">1.0</a></li>
             </ul>
+            and are accessible from <a href="download.html">download</a> page.
+            </p>
         </section>
     </body>
 

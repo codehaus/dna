@@ -4,6 +4,7 @@
     <properties>
         <title>DNA Release 1.1</title>
         <author>Peter Donald</author>
+        <author>Mauro Talevi</author>
     </properties>
 
     <body>
@@ -12,17 +13,15 @@
                 This is the second release of DNA. This release
                 introduces several bug fixes and feature enhancements.
                 The primary purpose of this release is the introduction
-                of a high level User Guide. The release can be downloaded
-                from;
-            </p>
-            <ul>
-                <li>
-                    <li><a href="http://dist.codehaus.org/dna/distributions/">Codehaus Distribution Server</a></li>
-                </li>
-            </ul>
+                of a high level User Guide. 
+          	</p>
         </section>
         <section name="Changes">
             <ul>
+                <li>
+                	DNA packages renamed to org.codehaus.dna, following the
+                	promotion of DNA to a top-level Codehaus project.
+                </li>
                 <li>
                     Fixed a bug in SAXConfigurationHandler that could cause a
                     ArrayStoreException using some parsers. Some parsers would
@@ -51,14 +50,15 @@
                     possible to annotate a Java source file with JavaDoc tags
                     and generate a MetaClass descriptor from annotations. See
                     docs/metadata/index.html or
-                    <a href="http://dna.codehaus.org/metaclass">http://dna.codehaus.org/metaclass</a>
+                    <a href="http://dna.codehaus.org/metadata">http://dna.codehaus.org/metadata</a>
                     for detailed description of new DNA metadata model.
                 </li>
                 <li>
                     Create a new dna-tools jar that contains tools to help
                     creating DNA components. Initially the jar includes tools
                     to generate metadata descriptors and validate DNA
-                    components.
+                    components.  The tools jars is also packaged as a Maven
+                    plugin, following the usual Maven name convention maven-dna-plugin.
                 </li>
                 <li>
                     Parameters, DefaultParameters and Parameterizable have

@@ -5,8 +5,8 @@
 
     <body>
         <links>
-            <item href="http://spice.codehaus.org/metaclass" name="MetaClass"/>
             <item href="http://dna.codehaus.org" name="DNA"/>
+            <item href="http://spice.codehaus.org/metaclass" name="MetaClass"/>
             <item href="http://jcontainer.codehaus.org" name="JContainer"/>
             <item href="http://codehaus.org" name="Codehaus"/>
         </links>
@@ -15,8 +15,9 @@
             <item name="Introduction" href="/index.html"/>
             <item name="Releases" href="/releases.html">
                 <item name="Release 1.0" href="/release-1_0.html"/>
-                <!--<item name="Release 1.1" href="/release-1_1.html"/>-->
+                <item name="Release 1.1" href="/release-1_1.html"/>
             </item>
+            <item name="Download" href="/download.html"/>
         </menu>
 
         <menu name="Developer Documentation">

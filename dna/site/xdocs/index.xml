@@ -9,7 +9,6 @@
     <section name="Introduction">
       <p>
         DNA is a lightweight Inversion of Control (IOC) framework.
-        It is sometimes called a 'type-1' IOC.  
 	  </p>
     </section>
     

@@ -9,12 +9,8 @@
     <body>
         <section name="Introduction">
             <p>
-                This is the first release of DNA, the lightweight
-                service framework. The release can be downloaded from;
-            </p>
-            <ul>
-                <li><a href="http://dist.codehaus.org/dna/distributions/">Codehaus Distribution Server</a></li>
-            </ul>
+                This is the first release of DNA. 
+          	</p>
         </section>
     </body>
 
