@@ -8,10 +8,16 @@
 package org.jcontainer.dna.impl;
 
 /**
+ * This interface is used internally to DNA framework
+ * implementation to indicate which classes can be "frozen"
+ * and be made read-only after being mutable.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-27 02:03:46 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 06:57:20 $
  */
 public interface Freezable
 {
-    void makeReadOnly();
+   /**
+    * Make resource read-only.
+    */
+   void makeReadOnly();
 }
