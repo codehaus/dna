@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.3 $ $Date: 2003-07-27 02:04:07 $
+ * @version $Revision: 1.4 $ $Date: 2003-07-27 10:33:20 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -454,7 +454,7 @@ public class DefaultConfiguration
         if( m_readOnly )
         {
             final String message =
-                "ResourceLocator is read only and can not be modified";
+                "Configuration is read only and can not be modified.";
             throw new IllegalStateException( message );
         }
     }
