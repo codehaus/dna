@@ -11,7 +11,7 @@
  * Abstract utility class for resources that can be "frozen"
  * and made read-only after being constructed.
  *
- * @version $Revision: 1.4 $ $Date: 2003-09-23 10:02:53 $
+ * @version $Revision: 1.5 $ $Date: 2003-09-23 10:12:06 $
  */
 abstract class AbstractFreezable
    implements Freezable
@@ -38,7 +38,6 @@ abstract class AbstractFreezable
     * @throws IllegalStateException if resource is read-only
     */
    protected final void checkWriteable()
-      throws IllegalStateException
    {
       if ( m_readOnly )
       {
