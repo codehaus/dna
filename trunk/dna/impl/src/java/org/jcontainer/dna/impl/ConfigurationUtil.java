@@ -7,10 +7,18 @@
  */
 package org.jcontainer.dna.impl;
 
+import java.io.OutputStream;
+import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+
 import org.jcontainer.dna.Configuration;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
@@ -23,10 +31,27 @@ import org.xml.sax.InputSource;
 
 /**
  *
- * @version $Revision: 1.2 $ $Date: 2003-07-28 08:22:32 $
+ * @version $Revision: 1.3 $ $Date: 2003-08-29 02:45:30 $
  */
 public class ConfigurationUtil
 {
+    public static void serializeToStream( final OutputStream output,
+                                          final Configuration configuration )
+        throws Exception
+    {
+        final SAXTransformerFactory factory = (SAXTransformerFactory)TransformerFactory.newInstance();
+        final TransformerHandler handler = factory.newTransformerHandler();
+
+        final Properties format = new Properties();
+        format.put( OutputKeys.METHOD, "xml" );
+        format.put( OutputKeys.INDENT, "yes" );
+        handler.setResult( new StreamResult( output ) );
+        handler.getTransformer().setOutputProperties( format );
+
+        final SAXConfigurationSerializer serializer = new SAXConfigurationSerializer();
+        serializer.serialize( configuration, handler );
+    }
+
     public static Configuration buildFromXML( final InputSource input )
         throws Exception
     {
