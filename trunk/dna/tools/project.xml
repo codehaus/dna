@@ -43,6 +43,13 @@
                     <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>project.xml</include>
+                    <include>project.properties</include>
+                </includes>
+            </resource>
         </resources>
 
         <unitTest>
