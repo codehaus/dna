@@ -31,7 +31,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.9 $ $Date: 2003-09-11 06:56:08 $
+ * @version $Revision: 1.10 $ $Date: 2003-09-11 06:56:47 $
  */
 public class ConfigurationUtil
 {
@@ -187,16 +187,14 @@ public class ConfigurationUtil
    static String generatePathName( final String path,
                                    final String name )
    {
-      String childPath;
       if ( ROOT_PATH.equals( path ) )
       {
-         childPath = name;
+         return name;
       }
       else
       {
-         childPath = path + PATH_SEPARATOR + name;
+         return path + PATH_SEPARATOR + name;
       }
-      return childPath;
    }
 
    /**
