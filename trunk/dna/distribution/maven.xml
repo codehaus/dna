@@ -37,48 +37,45 @@
             </j:if>
         </define:tag>
         <define:tag name="deploy">
-		    <deploy:artifact
-	    	  artifact="${maven.build.dir}/${distribution}"
-	      		  type="distributions"
-	          assureDirectoryCommand="mkdir -p"
-	      	  siteCommand="cd @deployDirectory@; chmod g+w ${distribution}; chgrp ${maven.remote.group} ${distribution}"
-	    	/>
+            <deploy:artifact
+                artifact="${maven.build.dir}/${distribution}"
+                type="distributions"
+                assureDirectoryCommand="mkdir -p"
+                siteCommand="cd @deployDirectory@; chmod g+w ${distribution}; chgrp ${maven.remote.group} ${distribution}"
+                />
         </define:tag>
     </define:taglib>
 
-
     <goal name="main">
-    	<attainGoal name="build"/>
+        <attainGoal name="build"/>
     </goal>
 
     <goal name="build">
         <j:set var="distDir" value='${maven.build.dir}/${maven.final.name}'/>
         <ant:mkdir dir="${distDir}/lib"/>
         <archive:copy-deps todir="${distDir}/lib" category="shared"/>
-       <archive:copy-deps todir="${distDir}" category="core"/>
+        <archive:copy-deps todir="${distDir}" category="core"/>
         <ant:copy todir="${distDir}">
-        	<ant:fileset dir="../site/target">
-        		<ant:include name="docs/**"/>
-        	</ant:fileset>
+            <ant:fileset dir="../site/target">
+                <ant:include name="docs/**"/>
+            </ant:fileset>
         </ant:copy>
 
+        <!-- Create a tar.gz file -->
+        <ant:tar longfile="gnu" tarfile="${maven.build.dir}/${maven.final.name}.tar">
+            <ant:tarfileset dir="${distDir}" prefix="${maven.final.name}"/>
+        </ant:tar>
 
-	    <!-- Create a tar.gz file -->
-	    <ant:tar longfile="gnu" tarfile="${maven.build.dir}/${maven.final.name}.tar">
-	      <ant:tarfileset dir="${distDir}" prefix="${maven.final.name}"/>
-	    </ant:tar>
+        <ant:gzip zipfile="${maven.build.dir}/${maven.final.name}.tar.gz"
+            src="${maven.build.dir}/${maven.final.name}.tar"/>
+        <ant:delete file="${maven.build.dir}/${maven.final.name}.tar"/>
 
-	    <ant:gzip zipfile="${maven.build.dir}/${maven.final.name}.tar.gz"
-	    	src="${maven.build.dir}/${maven.final.name}.tar" />
-	    <ant:delete file="${maven.build.dir}/${maven.final.name}.tar"/>
-
-	    <!-- Create a zip file -->
-	    <ant:zip destfile="${maven.build.dir}/${maven.final.name}.zip">
-	      <ant:zipfileset dir="${distDir}" prefix="${maven.final.name}"/>
-	    </ant:zip>
+        <!-- Create a zip file -->
+        <ant:zip destfile="${maven.build.dir}/${maven.final.name}.zip">
+            <ant:zipfileset dir="${distDir}" prefix="${maven.final.name}"/>
+        </ant:zip>
 
     </goal>
-
 
     <preGoal name="build">
         <maven:maven
@@ -86,7 +83,6 @@
             goals="build"
             ignoreFailures="false"/>
     </preGoal>
-
 
     <goal name="deploy">
         <archive:deploy distribution="${maven.final.name}.zip"/>
