@@ -22,7 +22,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.11 $ $Date: 2003-09-09 05:46:27 $
+ * @version $Revision: 1.12 $ $Date: 2003-09-09 05:46:47 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -386,9 +386,6 @@ public class DefaultParameters
          {
             final String value = getParameter( key, null );
             final String newKey = key.substring( length );
-            System.out.println( "key = " + key );
-            System.out.println( "length = " + length );
-            System.out.println( "newKey = " + newKey );
             parameters.setParameter( newKey, value );
          }
       }
