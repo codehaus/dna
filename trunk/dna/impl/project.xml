@@ -3,7 +3,7 @@
 	<extend>${basedir}/../project.xml</extend>
     <name>DNA Default Implementation</name>
     <id>dna-impl</id>
-    <package>org.jcontainer.dna.impl</package>
+    <package>org.codehaus.dna.impl</package>
     <shortDescription>The Default DNA Implementation.</shortDescription>
 
     <description>
