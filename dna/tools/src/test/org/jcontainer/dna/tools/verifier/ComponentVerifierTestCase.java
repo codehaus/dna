@@ -25,8 +25,8 @@ import org.realityforge.metaclass.Attributes;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.9 $ $Date: 2003-11-27 03:51:59 $
+ * @author Peter Donald
+ * @version $Revision: 1.10 $ $Date: 2003-11-27 06:54:53 $
  */
 public class ComponentVerifierTestCase
     extends TestCase

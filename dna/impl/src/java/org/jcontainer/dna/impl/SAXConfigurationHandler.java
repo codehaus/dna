@@ -20,8 +20,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * The SAXConfigurationHandler builds a Configuration tree
  * from SAX events.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.21 $ $Date: 2003-10-05 09:04:55 $
+ * @author Peter Donald
+ * @version $Revision: 1.22 $ $Date: 2003-11-27 06:54:23 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler

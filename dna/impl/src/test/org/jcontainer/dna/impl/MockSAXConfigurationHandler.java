@@ -11,8 +11,8 @@ import org.jcontainer.dna.Configuration;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-05 09:10:02 $
+ * @author Peter Donald
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 06:54:31 $
  */
 class MockSAXConfigurationHandler
     extends SAXConfigurationHandler

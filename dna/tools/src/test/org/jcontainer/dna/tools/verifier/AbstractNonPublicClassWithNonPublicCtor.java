@@ -9,8 +9,8 @@ package org.jcontainer.dna.tools.verifier;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 11:35:17 $
+ * @author Peter Donald
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 06:54:53 $
  */
 abstract class AbstractNonPublicClassWithNonPublicCtor
 {

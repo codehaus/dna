@@ -27,8 +27,8 @@ import org.realityforge.metaclass.model.Attribute;
  * Utility class to help verify that component respects the
  * rules of an DNA component.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.14 $ $Date: 2003-11-03 06:54:00 $
+ * @author Peter Donald
+ * @version $Revision: 1.15 $ $Date: 2003-11-27 06:54:44 $
  */
 public class ComponentVerifier
 {

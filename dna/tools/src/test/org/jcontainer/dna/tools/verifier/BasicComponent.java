@@ -18,8 +18,8 @@ import org.jcontainer.dna.MissingResourceException;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-26 07:08:13 $
+ * @author Peter Donald
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
  */
 public class BasicComponent
     implements ActionListener, Composable, Configurable

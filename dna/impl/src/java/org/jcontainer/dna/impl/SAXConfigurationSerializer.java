@@ -16,8 +16,8 @@ import org.xml.sax.helpers.AttributesImpl;
  * Utility class that serializes a Configuration object
  * to a SAX2 compliant ContentHandler.
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.7 $ $Date: 2003-09-23 10:14:46 $
+ * @author Peter Donald
+ * @version $Revision: 1.8 $ $Date: 2003-11-27 06:54:23 $
  */
 public class SAXConfigurationSerializer
 {

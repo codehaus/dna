@@ -14,8 +14,8 @@ import org.realityforge.metaclass.model.Attribute;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-16 08:53:00 $
+ * @author Peter Donald
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
  */
 public class DNAAttributeInterceptorTestCase
     extends TestCase

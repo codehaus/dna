@@ -18,8 +18,8 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-11-27 03:51:59 $
+ * @author Peter Donald
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
  */
 class BadServiceAccessor
     implements MetaClassAccessor

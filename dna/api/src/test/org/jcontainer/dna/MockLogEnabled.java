@@ -9,8 +9,8 @@ package org.jcontainer.dna;
 
 /**
  *
- * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-09-23 08:10:14 $
+ * @author Peter Donald
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:13 $
  */
 class MockLogEnabled
     extends AbstractLogEnabled
