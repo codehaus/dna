@@ -17,7 +17,7 @@ import org.jcontainer.dna.Parameters;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-08-07 04:30:11 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-07 23:48:14 $
  */
 public class DefaultParameters
     implements Parameters, Freezable
@@ -108,7 +108,7 @@ public class DefaultParameters
             final String message =
                 "Unable to parse parameter named " + name +
                 " with value '" + value + "'";
-            throw new ParameterException( message, nfe, name );
+            throw new ParameterException( message, name, nfe );
         }
     }
 
@@ -146,7 +146,7 @@ public class DefaultParameters
             final String message =
                 "Unable to parse parameter named " + name +
                 " with value '" + value + "'";
-            throw new ParameterException( message, nfe, name );
+            throw new ParameterException( message, name, nfe );
         }
     }
 
@@ -184,7 +184,7 @@ public class DefaultParameters
             final String message =
                 "Unable to parse parameter named " + name +
                 " with value '" + value + "'";
-            throw new ParameterException( message, nfe, name );
+            throw new ParameterException( message, name, nfe );
         }
     }
 
