@@ -51,7 +51,7 @@
                     possible to annotate a Java source file with JavaDoc tags
                     and generate a MetaClass descriptor from annotations. See
                     docs/metadata/index.html or
-                    <a href="http://dna.jcontainer.org/metaclass">http://dna.jcontainer.org/metaclass</a>
+                    <a href="http://dna.codehaus.org/metaclass">http://dna.codehaus.org/metaclass</a>
                     for detailed description of new DNA metadata model.
                 </li>
                 <li>

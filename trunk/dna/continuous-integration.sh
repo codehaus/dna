@@ -15,7 +15,7 @@ export CVS_RSH
 export CVSROOT
 
 #mailto=osi@pobox.com
-mailto=jcontainer-interest@lists.codehaus.org
+mailto=dev@dna.codehaus.org
 builddir=.
 logfile=cleanbuild.log
 name=DNA

@@ -4,10 +4,10 @@
     <name>DNA Site</name>
     <id>dna-site</id>
 
-    <shortDescription>JContainer DNA web site</shortDescription>
+    <shortDescription>DNA web site</shortDescription>
 
     <description>
-    	JContainer DNA web site provides accesses to the DNA project
+    	DNA web site provides accesses to the DNA project
     	information and reports.
     </description>
 
@@ -56,7 +56,7 @@
                 <exclude>**/Abstract*</exclude>
             </excludes>
         </unitTest>
-        <nagEmailAddress>jcontainer-interest@lists.codehaus.org</nagEmailAddress>
+        <nagEmailAddress>dev@dna.codehaus.org</nagEmailAddress>
     </build>
 
 </project>

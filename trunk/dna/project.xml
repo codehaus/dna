@@ -25,8 +25,8 @@
     <siteDirectory>/home/projects/dna/public_html</siteDirectory>
 
     <repository>
-        <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:dna</connection>
-        <url>http://cvs.codehaus.org/viewcvs.cgi/jcontainer/dna/?root=jcontainer</url>
+        <connection>scm:cvs:pserver:anonymous@cvs.dna.codehaus.org:/home/projects/dna/scm:dna</connection>
+        <url>http://cvs.dna.codehaus.org/dna</url>
     </repository>
 
     <versions>
@@ -54,16 +54,16 @@
 
     <mailingLists>
         <mailingList>
-            <name>JContainer Interest</name>
-            <subscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-interest</subscribe>
-            <unsubscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-interest</unsubscribe>
-            <archive>http://lists.codehaus.org/pipermail/jcontainer-interest</archive>
+            <name>DNA Dev</name>
+            <subscribe>dev-subscribe@dna.codehaus.org</subscribe>
+            <unsubscribe>dev-unsubscribe@dna.codehaus.org</unsubscribe>
+            <archive>http://archive.dna.codehaus.org/dev</archive>
         </mailingList>
         <mailingList>
-            <name>JContainer Commits</name>
-            <subscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-commits</subscribe>
-            <unsubscribe>http://lists.codehaus.org/mailman/listinfo/jcontainer-commits</unsubscribe>
-            <archive>http://lists.codehaus.org/pipermail/jcontainer-commits</archive>
+            <name>DNA SCM</name>
+            <subscribe>scm-subscribe@dna.codehaus.org</subscribe>
+            <unsubscribe>scm-unsubscribe@dna.codehaus.org</unsubscribe>
+            <archive>http://archive.dna.codehaus.org/scm</archive>
         </mailingList>
     </mailingLists>
 
@@ -71,7 +71,6 @@
         <developer>
             <name>Peter Donald</name>
             <id>pdonald</id>
-            
             <roles>
                 <role>Founder</role>
                 <role>Hacker</role>
@@ -119,8 +118,8 @@
 
     <licenses>
         <license>
-            <name>The JContainer Software License, Version 1.1</name>
-            <url>http://jcontainer.cvs.codehaus.org/viewcvs.cgi/*checkout*/jcontainer/dna/LICENSE.txt</url>
+            <name>The DNA Software License, Version 1.1</name>
+            <url>http://cvs.dna.codehaus.org/dna/LICENSE.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
