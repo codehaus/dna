@@ -24,7 +24,7 @@
 
     <repository>
         <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer/dna</connection>
-        <url>http://jcontainer.cvs.codehaus.org/</url>
+        <url>http://cvs.codehaus.org/viewcvs.cgi/jcontainer/dna/?root=jcontainer</url>
     </repository>
     
     <versions>
