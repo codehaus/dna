@@ -9,7 +9,6 @@ package org.jcontainer.dna.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jcontainer.dna.MissingResourceException;
 import org.jcontainer.dna.ResourceLocator;
 
@@ -25,7 +24,7 @@ import org.jcontainer.dna.ResourceLocator;
  * associated with itself and if unable to locate resource
  * locally it will delegate to parent ResourceLocator.</p>
  *
- * @version $Revision: 1.10 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.11 $ $Date: 2003-09-23 10:15:26 $
  */
 public class DefaultResourceLocator
     extends AbstractFreezable

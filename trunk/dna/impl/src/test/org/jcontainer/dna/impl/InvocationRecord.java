@@ -5,13 +5,13 @@
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
- package org.jcontainer.dna.impl;
+package org.jcontainer.dna.impl;
 
 import java.lang.reflect.Method;
 
 class InvocationRecord
 {
-   Method m_method;
-   Object[] m_args;
-   Object m_result;
+    Method m_method;
+    Object[] m_args;
+    Object m_result;
 }

@@ -7,9 +7,8 @@
  */
 package org.jcontainer.dna.impl;
 
-import org.jcontainer.dna.Logger;
-
 import java.util.logging.Level;
+import org.jcontainer.dna.Logger;
 
 /**
  * Logging facade implmentation for JDK1.4 logging toolkit.
@@ -24,7 +23,7 @@ import java.util.logging.Level;
  *   <li>error ==&gt; severe</li>
  * </ul>
  *
- * @version $Revision: 1.4 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.5 $ $Date: 2003-09-23 10:15:26 $
  */
 public class Jdk14Logger
     implements Logger

@@ -7,14 +7,13 @@
  */
 package org.jcontainer.dna.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.jcontainer.dna.Configuration;
 import org.jcontainer.dna.ConfigurationException;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Set;
 
 /**
  * In memory Configuration implementation.
@@ -23,7 +22,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.21 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.22 $ $Date: 2003-09-23 10:15:25 $
  */
 public class DefaultConfiguration
     extends AbstractFreezable

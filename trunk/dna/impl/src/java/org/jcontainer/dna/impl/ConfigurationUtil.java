@@ -17,7 +17,6 @@ import javax.xml.transform.Result;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-
 import org.jcontainer.dna.Configuration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,7 +30,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.13 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.14 $ $Date: 2003-09-23 10:15:25 $
  */
 public class ConfigurationUtil
 {

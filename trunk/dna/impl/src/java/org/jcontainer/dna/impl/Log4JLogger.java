@@ -7,9 +7,9 @@
  */
 package org.jcontainer.dna.impl;
 
-import org.jcontainer.dna.Logger;
-import org.apache.log4j.Priority;
 import org.apache.log4j.Level;
+import org.apache.log4j.Priority;
+import org.jcontainer.dna.Logger;
 
 /**
  * Logging facade implmentation for Apache Log4J project.
@@ -24,7 +24,7 @@ import org.apache.log4j.Level;
  *   <li>error ==&gt; error</li>
  * </ul>
  *
- * @version $Revision: 1.5 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.6 $ $Date: 2003-09-23 10:15:26 $
  */
 public class Log4JLogger
     implements Logger
