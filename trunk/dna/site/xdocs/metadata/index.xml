@@ -25,6 +25,7 @@
                 <li><a href="model.html">MetaData Model</a></li>
                 <li><a href="format.html">MetaData Format</a></li>
                 <li><a href="extensions.html">MetaData Extensions</a></li>
+                <li><a href="generate.html">Generating Descriptors</a></li>
             </ul>
         </section>
     </body>
