@@ -19,7 +19,7 @@
     <url>http://dna.codehaus.org/</url>
     <logo>/images/dna-logo.png</logo>
 
-    <distributionDirectory>/dist/</distributionDirectory>
+    <distributionDirectory>/home/projects/dna/dist</distributionDirectory>
     <distributionSite>dist.codehaus.org</distributionSite>
     <siteAddress>dna.codehaus.org</siteAddress>
     <siteDirectory>/home/projects/dna/public_html</siteDirectory>
