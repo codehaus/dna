@@ -13,11 +13,16 @@ import com.thoughtworks.qdox.model.JavaSource;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-16 07:57:15 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 03:51:54 $
  */
 class MockJavaClass
     extends JavaClass
 {
+    public MockJavaClass()
+    {
+        super( new MockJavaSource() );
+    }
+
     public String getFullyQualifiedName()
     {
         return getName();

@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Arrays;
 import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.Configuration;
@@ -20,11 +21,12 @@ import org.realityforge.metaclass.model.ClassDescriptor;
 import org.realityforge.metaclass.model.FieldDescriptor;
 import org.realityforge.metaclass.model.MethodDescriptor;
 import org.realityforge.metaclass.model.ParameterDescriptor;
+import org.realityforge.metaclass.Attributes;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.8 $ $Date: 2003-10-29 22:36:21 $
+ * @version $Revision: 1.9 $ $Date: 2003-11-27 03:51:59 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -244,7 +246,7 @@ public class ComponentVerifierTestCase
         MetaClassIntrospector.setAccessor( new SimpleAccessor() );
         MetaClassIntrospector.clearCompleteCache();
         final List issues = new ArrayList();
-        verifier.verifyMetaData( Object.class, issues );
+        verifier.verifyMetaData( ComponentVerifierTestCase.class, issues );
         assertNoIssues( issues );
     }
 
@@ -291,7 +293,7 @@ public class ComponentVerifierTestCase
         };
         final ClassDescriptor descriptor =
             new ClassDescriptor( BasicComponent.class.getName(),
-                                 0,
+                                 attributes,
                                  attributes,
                                  FieldDescriptor.EMPTY_SET,
                                  MethodDescriptor.EMPTY_SET );
@@ -520,10 +522,10 @@ public class ComponentVerifierTestCase
             new ParameterDescriptor( "X", Configuration.class.getName() );
         final ParameterDescriptor[] params = new ParameterDescriptor[]{param};
         final MethodDescriptor method =
-            new MethodDescriptor( "configure", "", 0, params, attributes );
+            new MethodDescriptor( "configure", "", params, attributes, attributes );
         final ClassDescriptor descriptor =
             new ClassDescriptor( BasicComponent.class.getName(),
-                                 0,
+                                 Attribute.EMPTY_SET,
                                  Attribute.EMPTY_SET,
                                  FieldDescriptor.EMPTY_SET,
                                  new MethodDescriptor[]{method} );
@@ -550,10 +552,10 @@ public class ComponentVerifierTestCase
             new ParameterDescriptor( "X", Configuration.class.getName() );
         final ParameterDescriptor[] params = new ParameterDescriptor[]{param};
         final MethodDescriptor method =
-            new MethodDescriptor( "configure", "", 0, params, attributes );
+            new MethodDescriptor( "configure", "", params, attributes, attributes );
         final ClassDescriptor descriptor =
             new ClassDescriptor( BasicComponent.class.getName(),
-                                 0,
+                                 Attribute.EMPTY_SET,
                                  Attribute.EMPTY_SET,
                                  FieldDescriptor.EMPTY_SET,
                                  new MethodDescriptor[]{method} );
@@ -600,6 +602,16 @@ public class ComponentVerifierTestCase
 
     private void assertNoIssues( final List issues )
     {
+        if( 0 != issues.size() )
+        {
+            final int count = issues.size();
+            for( int i = 0; i < count; i++ )
+            {
+                final VerifyIssue issue = (VerifyIssue)issues.get( i );
+                System.out.println(
+                    "issue.getDescription() = " + issue.getDescription() );
+            }
+        }
         assertEquals( "issues.length", 0, issues.size() );
     }
 

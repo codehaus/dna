@@ -15,7 +15,9 @@
     <goal name="deploy">
         <attainGoal name="jar:deploy"/>
         <attainGoal name="plugin:deploy"/>
-        <ant:property name="artifact" value="${maven.final.name}.jar"/>
+        <ant:copy file="${maven.build.dir}/${maven.final.name}.jar"
+            toFile="${maven.build.dir}/${maven.final.name}-plugin.jar"/>
+        <ant:property name="artifact" value="${maven.final.name}-plugin.jar"/>
         <deploy:artifact
             artifact="${maven.build.dir}/${artifact}"
             type="plugins"
