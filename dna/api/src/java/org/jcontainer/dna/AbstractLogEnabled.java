@@ -11,9 +11,9 @@ package org.jcontainer.dna;
  * Abstract utility class that components can extend to
  * make it easy to implement logging.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 04:50:12 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-23 02:02:40 $
  */
-public class AbstractLogEnabled
+public abstract class AbstractLogEnabled
    implements LogEnabled
 {
    /**
