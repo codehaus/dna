@@ -61,6 +61,10 @@
             </ant:fileset>
         </ant:copy>
 
+        <j:file name="${distDir}/README.txt" omitXmlDeclaration="true" escapeText="false">
+            DNA Component Framework: See docs/index.html for documentation.
+        </j:file>
+
         <!-- Create a tar.gz file -->
         <ant:tar longfile="gnu" tarfile="${maven.build.dir}/${maven.final.name}.tar">
             <ant:tarfileset dir="${distDir}" prefix="${maven.final.name}"/>
