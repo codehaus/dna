@@ -18,12 +18,11 @@ import org.jcontainer.dna.Parameters;
 /**
  * Parameters implementation backed by a Properties object.
  * The developer should create the DefaultParameters,
- * associate resources with locator and then invoke
- * {@link #makeReadOnly()} before passing the Locator to
- * the client component.
+ * associate parameters and then invoke {@link #makeReadOnly()}
+ * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.7 $ $Date: 2003-09-08 00:04:09 $
+ * @version $Revision: 1.8 $ $Date: 2003-09-08 01:28:54 $
  */
 public class DefaultParameters
    extends AbstractFreezable
