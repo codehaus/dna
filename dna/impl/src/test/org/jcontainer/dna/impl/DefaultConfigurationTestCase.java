@@ -19,6 +19,94 @@ public class DefaultConfigurationTestCase
       assertEquals( "path", path, configuration.getPath() );
    }
 
+   public void testNullNameInCtor()
+      throws Exception
+   {
+      final String name = null;
+      final String location = "file.xml:20";
+      final String path = "";
+      try
+      {
+         new DefaultConfiguration( name, location, path );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to ctor." );
+   }
+
+   public void testNullLocationInCtor()
+      throws Exception
+   {
+      final String name = "name";
+      final String location = null;
+      final String path = "";
+      try
+      {
+         new DefaultConfiguration( name, location, path );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "location", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to ctor." );
+   }
+
+   public void testNullPathInCtor()
+      throws Exception
+   {
+      final String name = "name";
+      final String location = "";
+      final String path = null;
+      try
+      {
+         new DefaultConfiguration( name, location, path );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "path", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to ctor." );
+   }
+
+   public void testNullNameInSetAttribute()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.setAttribute( null, "" );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "name", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to setAttribute." );
+   }
+
+   public void testNullValueInSetAttribute()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "name", "", "" );
+      try
+      {
+         configuration.setAttribute( "", null );
+      }
+      catch ( final NullPointerException npe )
+      {
+         assertEquals( "value", npe.getMessage() );
+         return;
+      }
+      fail( "Expected null pointer exception as passed in null to setAttribute." );
+   }
+
    public void testGetValueAsText()
       throws Exception
    {
@@ -456,5 +544,17 @@ public class DefaultConfigurationTestCase
          return;
       }
       fail( "Expected to fail with getAttribute for malformed attribute" );
+   }
+
+   public void testGetAttributes()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      configuration.setAttribute( "key1", "value1" );
+      configuration.setAttribute( "key2", "value2" );
+
+      final String[] names = configuration.getAttributeNames();
+      assertEquals( "names.length", 2, names.length );
    }
 }
