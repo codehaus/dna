@@ -17,7 +17,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * to a SAX2 compliant ContentHandler.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-09-05 06:30:24 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-11 03:10:06 $
  */
 public class SAXConfigurationSerializer
 {
@@ -34,12 +34,12 @@ public class SAXConfigurationSerializer
    /**
     * Constant for start of CDATA content sections.
     */
-   private static final String CDATA_PREFIX = "<![CDATA[";
+   //private static final String CDATA_PREFIX = "<![CDATA[";
 
    /**
     * Constant for end of CDATA content sections.
     */
-   private static final String CDATA_POSTFIX = "]]>";
+   //private static final String CDATA_POSTFIX = "]]>";
 
    /**
     * Serialize the configuration to as a Document to the
@@ -87,10 +87,11 @@ public class SAXConfigurationSerializer
       }
       else
       {
-         if ( needsEscaping( value ) )
+         /*if ( needsEscaping( value ) )
          {
             value = CDATA_PREFIX + value + CDATA_POSTFIX;
          }
+         */
          handler.characters( value.toCharArray(), 0, value.length() );
       }
 
@@ -103,7 +104,7 @@ public class SAXConfigurationSerializer
     * @param configuration the configuration
     * @return the AttributesImpl instance
     */
-   private AttributesImpl serializeAttributes( final Configuration configuration )
+   AttributesImpl serializeAttributes( final Configuration configuration )
    {
       final AttributesImpl attributes = new AttributesImpl();
       final String[] names = configuration.getAttributeNames();
@@ -123,9 +124,10 @@ public class SAXConfigurationSerializer
     * @param value the string value
     * @return true if value needs escaping, false otherwise
     */
+   /*
    boolean needsEscaping( final String value )
    {
-      //TODO: Implement this
       return false;
    }
+   */
 }
