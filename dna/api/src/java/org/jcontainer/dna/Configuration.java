@@ -9,11 +9,13 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-02 03:47:34 $
  */
 public interface Configuration
 {
     String getName();
+
+    String getPath();
 
     String getLocation();
 
