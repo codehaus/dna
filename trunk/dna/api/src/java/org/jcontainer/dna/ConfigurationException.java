@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.5 $ $Date: 2003-08-30 02:05:52 $
+ * @version $Revision: 1.6 $ $Date: 2003-09-02 03:40:49 $
  */
 public class ConfigurationException
     extends Exception
@@ -20,7 +20,7 @@ public class ConfigurationException
 
     public ConfigurationException( final String message )
     {
-        this( message, null, null );
+        this( message, null, null, null );
     }
 
     public ConfigurationException( final String message,
@@ -30,22 +30,29 @@ public class ConfigurationException
     }
 
     public ConfigurationException( final String message,
-                                   final Throwable cause )
-    {
-        this( message, cause, null );
-    }
-
-    public ConfigurationException( final String message,
-                                   final Throwable cause,
-                                   final String location )
-    {
-        this( message, cause, null, location );
-    }
-
-    public ConfigurationException( final String message,
-                                   final Throwable cause,
                                    final String path,
                                    final String location )
+    {
+        this( message, path, location, null );
+    }
+
+    public ConfigurationException( final String message,
+                                   final Throwable cause )
+    {
+        this( message, null, cause );
+    }
+
+    public ConfigurationException( final String message,
+                                   final String location,
+                                   final Throwable cause )
+    {
+        this( message, null, location, cause );
+    }
+
+    public ConfigurationException( final String message,
+                                   final String path,
+                                   final String location,
+                                   final Throwable cause )
     {
         super( message );
         m_cause = cause;
