@@ -55,11 +55,16 @@
                     for detailed description of new DNA metadata model.
                 </li>
                 <li>
-                    Create new dna-tools jar that contains tools useful when
-                    creating DNA components. The jar initially includes tools
-                    to generate MetaClass descriptors from annotated Java
-                    source files and a class to verify a component conforms
-                    to DNA expectations. 
+                    Create a new dna-tools jar that contains tools to help
+                    creating DNA components. Initially the jar includes tools
+                    to generate metadata descriptors and validate DNA
+                    components.
+                </li>
+                <li>
+                    Parameters, DefaultParameters and Parameterizable have
+                    been removed from the DNA framework to simplify usage of
+                    the framework. The usage pattern can be replaced by usages
+                    of Configuration and Configurable.
                 </li>
             </ul>
         </section>
