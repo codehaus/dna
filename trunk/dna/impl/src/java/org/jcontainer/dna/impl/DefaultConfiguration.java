@@ -23,7 +23,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.14 $ $Date: 2003-09-08 01:29:46 $
+ * @version $Revision: 1.15 $ $Date: 2003-09-08 01:36:44 $
  */
 public class DefaultConfiguration
    extends AbstractFreezable
@@ -176,7 +176,10 @@ public class DefaultConfiguration
     */
    public Configuration[] getChildren( final String name )
    {
-      final ArrayList results = new ArrayList();
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       final List children = getChildList();
       if ( null == children )
       {
@@ -184,6 +187,7 @@ public class DefaultConfiguration
       }
       else
       {
+         final ArrayList results = new ArrayList();
          final int count = children.size();
          for ( int i = 0; i < count; i++ )
          {
@@ -218,6 +222,10 @@ public class DefaultConfiguration
    public Configuration getChild( final String name,
                                   final boolean createChild )
    {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       final List children = getChildList();
       if ( null != children )
       {
@@ -492,19 +500,17 @@ public class DefaultConfiguration
    public String getAttribute( final String name )
       throws ConfigurationException
    {
-      final Map attributeMap = getAttributeMap();
-      if ( null != attributeMap )
+      final String value = doGetAttribute( name );
+      if ( null != value )
       {
-         final String value = (String) attributeMap.get( name );
-         if ( null != value )
-         {
-            return value;
-         }
+         return value;
       }
-
-      final String message =
-         "Attribute named " + name + " not specified.";
-      throw new ConfigurationException( message, getPath(), getLocation() );
+      else
+      {
+         final String message =
+            "Attribute named " + name + " not specified.";
+         throw new ConfigurationException( message, getPath(), getLocation() );
+      }
    }
 
    /**
@@ -519,6 +525,31 @@ public class DefaultConfiguration
    public String getAttribute( final String name,
                                final String defaultValue )
    {
+      final String value = doGetAttribute( name );
+      if ( null != value )
+      {
+         return value;
+      }
+      else
+      {
+         return defaultValue;
+      }
+   }
+
+
+   /**
+    * Return attribute value with specified name or null
+    * if no such attribute.
+    *
+    * @param name the attribute name
+    * @return the attribute value
+    */
+   private String doGetAttribute( final String name )
+   {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       final Map attributeMap = getAttributeMap();
       if ( null != attributeMap )
       {
@@ -528,7 +559,7 @@ public class DefaultConfiguration
             return value;
          }
       }
-      return defaultValue;
+      return null;
    }
 
    /**
@@ -559,14 +590,10 @@ public class DefaultConfiguration
    public boolean getAttributeAsBoolean( final String name,
                                          final boolean defaultValue )
    {
-      final Map attributeMap = getAttributeMap();
-      if ( null != attributeMap )
+      final String value = getAttribute( name, null );
+      if ( null != value )
       {
-         final String value = (String) attributeMap.get( name );
-         if ( null != value )
-         {
-            return value.equals( TRUE_STRING );
-         }
+         return value.equals( TRUE_STRING );
       }
       return defaultValue;
    }
@@ -609,19 +636,15 @@ public class DefaultConfiguration
    public int getAttributeAsInteger( final String name,
                                      final int defaultValue )
    {
-      final Map attributeMap = getAttributeMap();
-      if ( null != attributeMap )
+      final String value = getAttribute( name, null );
+      if ( null != value )
       {
-         final String value = (String) attributeMap.get( name );
-         if ( null != value )
+         try
          {
-            try
-            {
-               return Integer.parseInt( value );
-            }
-            catch ( final NumberFormatException nfe )
-            {
-            }
+            return Integer.parseInt( value );
+         }
+         catch ( final NumberFormatException nfe )
+         {
          }
       }
       return defaultValue;
@@ -665,19 +688,15 @@ public class DefaultConfiguration
    public long getAttributeAsLong( final String name,
                                    final long defaultValue )
    {
-      final Map attributeMap = getAttributeMap();
-      if ( null != attributeMap )
+      final String value = getAttribute( name, null );
+      if ( null != value )
       {
-         final String value = (String) attributeMap.get( name );
-         if ( null != value )
+         try
          {
-            try
-            {
-               return Long.parseLong( value );
-            }
-            catch ( final NumberFormatException nfe )
-            {
-            }
+            return Long.parseLong( value );
+         }
+         catch ( final NumberFormatException nfe )
+         {
          }
       }
       return defaultValue;
@@ -721,19 +740,15 @@ public class DefaultConfiguration
    public float getAttributeAsFloat( final String name,
                                      final float defaultValue )
    {
-      final Map attributeMap = getAttributeMap();
-      if ( null != attributeMap )
+      final String value = getAttribute( name, null );
+      if ( null != value )
       {
-         final String value = (String) attributeMap.get( name );
-         if ( null != value )
+         try
          {
-            try
-            {
-               return Float.parseFloat( value );
-            }
-            catch ( final NumberFormatException nfe )
-            {
-            }
+            return Float.parseFloat( value );
+         }
+         catch ( final NumberFormatException nfe )
+         {
          }
       }
       return defaultValue;
@@ -769,6 +784,14 @@ public class DefaultConfiguration
    public void setAttribute( final String key,
                              final String value )
    {
+      if ( null == key )
+      {
+         throw new NullPointerException( "key" );
+      }
+      if ( null == value )
+      {
+         throw new NullPointerException( "value" );
+      }
       checkWriteable();
       if ( null == m_attributes )
       {
@@ -784,6 +807,10 @@ public class DefaultConfiguration
     */
    public void addChild( final Configuration configuration )
    {
+      if ( null == configuration )
+      {
+         throw new NullPointerException( "configuration" );
+      }
       checkWriteable();
       if ( null != m_value )
       {
@@ -803,6 +830,10 @@ public class DefaultConfiguration
     */
    public void setValue( final String value )
    {
+      if ( null == value )
+      {
+         throw new NullPointerException( "value" );
+      }
       checkWriteable();
       final List children = getChildList();
       if ( null != children && 0 != children.size() )
