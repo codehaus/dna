@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<project>
+    <pomVersion>3</pomVersion>
+
+    <organization>
+        <name>Codehaus</name>
+        <url>http://codehaus.org/</url>
+        <logo>http://codehaus.org/codehaus-small.gif</logo>
+    </organization>
+
+    <inceptionYear>2003</inceptionYear>
+
+    <groupId>dna</groupId>
+    <!-- note need to update version in dna-tools dependencies if this changes -->
+    <currentVersion>1.1</currentVersion>
+    <package>org.codehaus.dna</package>
+
+    <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10241</issueTrackingUrl>
+    <url>http://dna.codehaus.org/</url>
+    <logo>/images/dna-logo.png</logo>
+
+    <distributionDirectory>/home/projects/dna/dist</distributionDirectory>
+    <distributionSite>dist.codehaus.org</distributionSite>
+    <siteAddress>dna.codehaus.org</siteAddress>
+    <siteDirectory>/home/projects/dna/public_html</siteDirectory>
+
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.dna.codehaus.org:/home/projects/dna/scm:dna</connection>
+        <url>http://cvs.dna.codehaus.org/dna</url>
+    </repository>
+
+    <versions>
+        <version>
+            <id>1.2-dev</id>
+            <name>1.2-dev</name>
+            <tag>HEAD</tag>
+        </version>
+        <version>
+            <id>1.1</id>
+            <name>1.1</name>
+            <tag>DNA_1_1-tag</tag>
+        </version>
+        <version>
+            <id>1.1-rc2</id>
+            <name>1.1-rc2</name>
+            <tag>DNA_1_1_RC2-tag</tag>
+        </version>
+        <version>
+            <id>1.1-rc1</id>
+            <name>1.1-rc1</name>
+            <tag>DNA_1_1_RC1-tag</tag>
+        </version>
+        <version>
+            <id>1.0</id>
+            <name>1.0</name>
+            <tag>DNA_1_0-tag</tag>
+        </version>
+    </versions>
+
+    <mailingLists>
+        <mailingList>
+            <name>DNA Dev</name>
+            <subscribe>dev-subscribe@dna.codehaus.org</subscribe>
+            <unsubscribe>dev-unsubscribe@dna.codehaus.org</unsubscribe>
+            <archive>http://archive.dna.codehaus.org/dev</archive>
+        </mailingList>
+        <mailingList>
+            <name>DNA SCM</name>
+            <subscribe>scm-subscribe@dna.codehaus.org</subscribe>
+            <unsubscribe>scm-unsubscribe@dna.codehaus.org</unsubscribe>
+            <archive>http://archive.dna.codehaus.org/scm</archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+        <developer>
+            <name>Peter Donald</name>
+            <id>pdonald</id>
+            <roles>
+                <role>Founder</role>
+                <role>Hacker</role>
+            </roles>
+            <timezone>+10</timezone>
+        </developer>
+        <developer>
+            <name>Paul Hammant</name>
+            <id>paul</id>
+            <roles>
+                <role>Founder</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Peter Royal</name>
+            <id>proyal</id>
+            <email>peter.royal@pobox.com</email>
+            <url>http://fotap.org/~osi</url>
+            <roles>
+                <role>Founder</role>
+                <role>Hacker</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <name>Mauro Talevi</name>
+            <id>mauro</id>
+            <roles>
+                <role>Founder</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Johan Sjoberg</name>
+            <email>johan.sjoberg#avaintec.com</email>
+        </contributor>
+        <contributor>
+            <name>Mircea Toma</name>
+            <email>mirceatoma@apache.org</email>
+        </contributor>
+    </contributors>
+
+    <licenses>
+        <license>
+            <name>The DNA Software License, Version 1.1</name>
+            <url>http://cvs.dna.codehaus.org/dna/LICENSE.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <reports>
+        <report>maven-jdepend-plugin</report>
+        <report>maven-checkstyle-plugin</report>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-jxr-plugin</report>
+        <report>maven-junit-report-plugin</report>
+        <report>maven-license-plugin</report>
+        <report>maven-clover-plugin</report>
+    </reports>
+
+</project>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>${basedir}/../../../project.xml</extend>
+    <id>test-dna-tools-plugin</id>
+    <name>Test project for DNA Tools Plugin</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>maven-dna-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
+
+</project>
