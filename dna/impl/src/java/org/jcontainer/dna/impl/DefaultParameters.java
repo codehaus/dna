@@ -22,7 +22,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.12 $ $Date: 2003-09-09 05:46:47 $
+ * @version $Revision: 1.13 $ $Date: 2003-09-09 05:54:39 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -142,8 +142,7 @@ public class DefaultParameters
       {
          throw new NullPointerException( "name" );
       }
-      final String fullname = getPrefix() + name;
-      return getParameters().getProperty( fullname, defaultValue );
+      return getParameters().getProperty( name, defaultValue );
    }
 
    /**
@@ -201,10 +200,11 @@ public class DefaultParameters
       }
       catch ( final NumberFormatException nfe )
       {
+         final String prefixedName = prefixedName( name );
          final String message =
-            "Unable to parse parameter named " + name +
+            "Unable to parse parameter named " + prefixedName +
             " with value '" + value + "'";
-         throw new ParameterException( message, name, nfe );
+         throw new ParameterException( message, prefixedName, nfe );
       }
    }
 
@@ -257,10 +257,11 @@ public class DefaultParameters
       }
       catch ( final NumberFormatException nfe )
       {
+         final String prefixedName = prefixedName( name );
          final String message =
-            "Unable to parse parameter named " + name +
+            "Unable to parse parameter named " + prefixedName +
             " with value '" + value + "'";
-         throw new ParameterException( message, name, nfe );
+         throw new ParameterException( message, prefixedName, nfe );
       }
    }
 
@@ -312,10 +313,11 @@ public class DefaultParameters
       }
       catch ( final NumberFormatException nfe )
       {
+         final String prefixedName = prefixedName( name );
          final String message =
             "Unable to parse parameter named " + name +
             " with value '" + value + "'";
-         throw new ParameterException( message, name, nfe );
+         throw new ParameterException( message, prefixedName, nfe );
       }
    }
 
@@ -368,15 +370,7 @@ public class DefaultParameters
       }
       final String prefixAndSeparator = prefix + SEPARATOR;
       final int length = prefix.length() + 1;
-      final String child;
-      if ( getPrefix().equals( EMPTY_PREFIX ) )
-      {
-         child = prefix;
-      }
-      else
-      {
-         child = getPrefix() + SEPARATOR + prefix;
-      }
+      final String child = prefixedName( prefix );
       final DefaultParameters parameters = new DefaultParameters( child );
       final Iterator iterator = getParameters().keySet().iterator();
       while ( iterator.hasNext() )
@@ -393,6 +387,25 @@ public class DefaultParameters
       parameters.makeReadOnly();
       m_children.add( parameters );
       return parameters;
+   }
+
+   /**
+    * Return name that may be prefixed with full property
+    * name unless prefix is empty.
+    *
+    * @param name the name
+    * @return the name with prefix decorated
+    */
+   private String prefixedName( final String name )
+   {
+      if ( getPrefix().equals( EMPTY_PREFIX ) )
+      {
+         return name;
+      }
+      else
+      {
+         return getPrefix() + SEPARATOR + name;
+      }
    }
 
    /**
