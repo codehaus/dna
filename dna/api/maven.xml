@@ -1,24 +1,8 @@
 <?xml version="1.0"?>
-<project default="main"
-    xmlns:ant="jelly:ant">
+<project default="build">
 
-    <goal name="main">
-        <attainGoal name="build"/>
-    </goal>
-    
-    <goal name="build">
-        <attainGoal name="jar:install"/>    	
-    </goal>
+    <goal name="build" prereqs="jar:install"/>
 
-    <goal name="deploy">
-        <attainGoal name="jar:deploy"/>    	
-    </goal>
+    <goal name="deploy" prereqs="jar:deploy"/>    	
 
-	<preGoal name="xdoc:transform">
-        <ant:copy todir=".">
-			<ant:fileset dir="../site">
-				<ant:include name="**/generated-xdocs/**"/>
-			</ant:fileset>
-        </ant:copy>
-	</preGoal>
 </project>
