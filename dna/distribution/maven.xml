@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<project default="main"
+    xmlns:doc="doc"
+    xmlns:j="jelly:core"
+    xmlns:maven="jelly:maven"
+    xmlns:define="jelly:define"
+    xmlns:util="jelly:util"
+    xmlns:ant="jelly:ant"
+    xmlns:deploy="deploy"
+    xmlns:archive="dna:archive">
+
+    <define:taglib uri="dna:archive">
+        <define:tag name="copy-deps">
+            <j:if test="${projectDescriptor != null}">
+                <maven:pom var="pom" projectDescriptor="${projectDescriptor}"/>
+            </j:if>
+
+            <j:set var="mavenRepoLocal" value='${context.getVariable("maven.repo.local")}'/>
+            <j:forEach var="dep" items="${pom.dependencies}">
+                <j:if test='${category.equals(dep.getProperty("category"))}'>
+                    <j:set var="addDeps" value='true'/>
+                </j:if>
+            </j:forEach>
+
+            <j:if test='${addDeps == "true" }'>
+                <ant:mkdir dir="${todir}"/>
+                <ant:copy todir="${todir}" flatten="true">
+                    <ant:fileset dir="${mavenRepoLocal}">
+                        <j:forEach var="dep" items="${pom.dependencies}">
+                            <j:if test='${category.equals(dep.getProperty("category"))}'>
+                                <ant:include name="${dep.artifactDirectory}/jars/${dep.artifact}"/>
+                                <ant:include name="${dep.artifactDirectory}/licenses/${dep.artifactId}.license"/>
+                            </j:if>
+                        </j:forEach>
+                    </ant:fileset>
+                </ant:copy>
+            </j:if>
+        </define:tag>
+        <define:tag name="deploy">
+		    <deploy:artifact
+	    	  artifact="${maven.build.dir}/${distribution}"
+	      		  type="distributions"
+	          assureDirectoryCommand="mkdir -p"
+	      	  siteCommand="cd @deployDirectory@; chmod g+w ${distribution}; chgrp ${maven.remote.group} ${distribution}"
+	    	/>
+        </define:tag>
+    </define:taglib>
+
+
+    <goal name="main">
+    	<attainGoal name="build"/>
+    </goal>
+    
+    <goal name="build">
+        <j:set var="distDir" value='${maven.build.dir}/${maven.final.name}'/>
+        <ant:mkdir dir="${distDir}/lib"/>
+        <archive:copy-deps todir="${distDir}/lib" category="shared"/>
+        <ant:copy todir="${distDir}">
+        	<ant:fileset dir="../site/target">
+        		<ant:include name="docs/**"/>
+        	</ant:fileset>
+        </ant:copy>
+
+        
+	    <!-- Create a tar.gz file -->
+	    <ant:tar longfile="gnu" tarfile="${maven.build.dir}/${maven.final.name}.tar">
+	      <ant:tarfileset dir="${distDir}" prefix="${maven.final.name}"/>
+	    </ant:tar>
+	
+	    <ant:gzip zipfile="${maven.build.dir}/${maven.final.name}.tar.gz"
+	    	src="${maven.build.dir}/${maven.final.name}.tar" />
+	    <ant:delete file="${maven.build.dir}/${maven.final.name}.tar"/>
+	
+	    <!-- Create a zip file -->
+	    <ant:zip destfile="${maven.build.dir}/${maven.final.name}.zip">
+	      <ant:zipfileset dir="${distDir}" prefix="${maven.final.name}"/>
+	    </ant:zip>
+    	
+    </goal>
+    
+    
+    <preGoal name="build">
+        <maven:maven
+            descriptor="../site/project.xml"
+            goals="build"
+            ignoreFailures="false"/>
+    </preGoal>
+
+
+    <goal name="deploy">
+        <archive:deploy distribution="${maven.final.name}.zip"/>
+        <archive:deploy distribution="${maven.final.name}.tar.gz"/>
+    </goal>
+
+</project>
