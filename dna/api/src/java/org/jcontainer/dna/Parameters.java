@@ -9,29 +9,29 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-27 08:24:03 $
  */
 public interface Parameters
 {
     String[] getParameterNames();
 
     String getParameter( String name )
-        throws ConfigurationException;
+        throws ParameterException;
 
     String getParameter( String name, String defaultValue );
 
     int getParameterAsInteger( String name )
-        throws ConfigurationException;
+        throws ParameterException;
 
     int getParameterAsInteger( String name, int defaultValue );
 
     long getParameterAsLong( String name )
-        throws ConfigurationException;
+        throws ParameterException;
 
     long getParameterAsLong( String name, long defaultValue );
 
     boolean getParameterAsBoolean( String name )
-        throws ConfigurationException;
+        throws ParameterException;
 
     boolean getParameterAsBoolean( String name, boolean defaultValue );
 
