@@ -11,10 +11,10 @@ package org.jcontainer.dna;
  * The component implements this interface if it wishes
  * to be supplied with services via ResourceLocator.
  * The ResourceLocator contains the services that this
- * component depend upon under keys specified in the
+ * component depends upon under keys specified in the
  * components metadata.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 04:44:55 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-05 05:24:54 $
  */
 public interface Composable
 {
