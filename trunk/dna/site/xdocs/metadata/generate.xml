@@ -16,7 +16,15 @@
                 default values and types resolved. The following ant
                 snippet can be used to generate DNA metadata descriptors.
             </p>
-<source><![CDATA[
+            <p>
+                NOTE: There is one limitation when using the MetaClass
+                generator. The source code must have fully-qualified
+                imports. The MetaClass tool may not be able to resolve
+                names of classes if they are not fully qualified. This
+                is particularly important when specifying type fields
+                of dependency and service tags.
+            </p>
+            <source><![CDATA[
 <!-- define the custom task -->
 <taskdef name="metaclassGen"
     classname="org.realityforge.metaclass.tools.tasks.GenerateClassDescriptorsTask">
@@ -37,7 +45,7 @@
         <include name="**/*.java"/>
     </fileset>
 </metaclassGen>
-]]></source>
+            ]]></source>
         </section>
     </body>
 </document>
