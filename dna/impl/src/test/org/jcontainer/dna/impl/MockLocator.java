@@ -5,21 +5,18 @@ import org.xml.sax.Locator;
 class MockLocator
    implements Locator
 {
-   private final String _publicId;
    private final String _systemId;
    private int _lineNumber = -1;
    private int _columnNumber = -1;
 
-   public MockLocator( final String publicId,
-                       final String systemId )
+   public MockLocator( final String systemId )
    {
-      _publicId = publicId;
       _systemId = systemId;
    }
 
    public String getPublicId()
    {
-      return _publicId;
+      return null;
    }
 
    public String getSystemId()
