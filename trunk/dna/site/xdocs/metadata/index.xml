@@ -8,6 +8,10 @@
     <body>
         <section name="Introduction">
             <p>
+                WARNING: This is experimental and subject to change at anytime.
+                You have been warned.
+            </p>
+            <p>
                 DNA components have associated metadata that declares what
                 resources they need to be provided and what resources they are
                 capable of providing to other components. The DNA metadata
