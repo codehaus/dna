@@ -30,10 +30,13 @@ import org.xml.sax.InputSource;
 
 /**
  *
- * @version $Revision: 1.4 $ $Date: 2003-08-29 02:47:23 $
+ * @version $Revision: 1.5 $ $Date: 2003-08-30 02:08:35 $
  */
 public class ConfigurationUtil
 {
+    public static final String ROOT_PATH = "/";
+    public static final String PATH_SEPARATOR = "/";
+
     public static void serializeToResult( final Result result,
                                           final Configuration configuration )
         throws Exception
@@ -64,8 +67,14 @@ public class ConfigurationUtil
 
     public static Configuration toConfiguration( final Element element )
     {
+        return toConfiguration( element, ROOT_PATH );
+    }
+
+    private static Configuration toConfiguration( final Element element,
+                                                  final String path )
+    {
         final DefaultConfiguration configuration =
-            new DefaultConfiguration( element.getNodeName(), "dom-gen" );
+            new DefaultConfiguration( element.getNodeName(), "dom-gen", path );
         final NamedNodeMap attributes = element.getAttributes();
         final int length = attributes.getLength();
         for( int i = 0; i < length; i++ )
@@ -76,6 +85,8 @@ public class ConfigurationUtil
             configuration.setAttribute( name, value );
         }
 
+        final String childPath = path + PATH_SEPARATOR + configuration.getName();
+
         String content = null;
         final NodeList nodes = element.getChildNodes();
         final int count = nodes.getLength();
@@ -84,7 +95,7 @@ public class ConfigurationUtil
             final Node node = nodes.item( i );
             if( node instanceof Element )
             {
-                final Configuration child = toConfiguration( (Element)node );
+                final Configuration child = toConfiguration( (Element)node, childPath );
                 configuration.addChild( child );
             }
             else if( node instanceof CharacterData )
