@@ -17,7 +17,7 @@ import org.jcontainer.dna.Parameters;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-07-28 08:24:42 $
+ * @version $Revision: 1.3 $ $Date: 2003-08-07 04:30:11 $
  */
 public class DefaultParameters
     implements Parameters, Freezable
@@ -48,6 +48,11 @@ public class DefaultParameters
     {
         final Set set = m_parameters.keySet();
         return (String[])set.toArray( new String[ set.size() ] );
+    }
+
+    public boolean isParameter( final String name )
+    {
+        return m_parameters.containsKey( name );
     }
 
     public String getParameter( final String name )
@@ -271,4 +276,4 @@ public class DefaultParameters
             throw new IllegalStateException( message );
         }
     }
- }
+}
