@@ -11,7 +11,7 @@ package org.jcontainer.dna;
  * Parameters present flat configuration data. Contained
  * in the Parameters object is a set of name-value pairs.
  *
- * @version $Revision: 1.6 $ $Date: 2003-09-05 05:58:23 $
+ * @version $Revision: 1.7 $ $Date: 2003-09-08 02:10:27 $
  */
 public interface Parameters
 {
@@ -140,8 +140,9 @@ public interface Parameters
 
    /**
     * Return a Parameters object that represents a
-    * subset of parameters with specified prefix + the '.'
-    * character. if the prefix was "foo" then the parameter
+    * subset of parameters with specified prefix. The child
+    * parameters has a prefix with the separator ('.') appended.
+    * ie. if the prefix was "foo" then the parameter
     * "foo.baz" would be included in child Parameters object
     * using the key "baz".
     *

@@ -22,7 +22,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.8 $ $Date: 2003-09-08 01:28:54 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-08 02:14:16 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -351,8 +351,9 @@ public class DefaultParameters
 
    /**
     * Return a Parameters object that represents a
-    * subset of parameters with specified prefix + the '.'
-    * character. if the prefix was "foo" then the parameter
+    * subset of parameters with specified prefix. The child
+    * parameters has a prefix with the separator ('.') appended.
+    * ie. if the prefix was "foo" then the parameter
     * "foo.baz" would be included in child Parameters object
     * using the key "baz".
     *
