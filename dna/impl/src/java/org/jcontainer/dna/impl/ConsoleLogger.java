@@ -11,7 +11,7 @@ import org.jcontainer.dna.Logger;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-27 07:29:52 $
+ * @version $Revision: 1.2 $ $Date: 2003-08-07 09:11:08 $
  */
 public class ConsoleLogger
     implements Logger
@@ -31,6 +31,11 @@ public class ConsoleLogger
     private static final String LEVEL_ERROR_STR = "ERROR";
 
     private final int m_level;
+
+    public ConsoleLogger()
+    {
+        this( LEVEL_ALL );
+    }
 
     public ConsoleLogger( final int level )
     {
