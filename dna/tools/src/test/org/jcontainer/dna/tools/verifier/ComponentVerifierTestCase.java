@@ -17,7 +17,7 @@ import org.realityforge.metaclass.introspector.MetaClassIntrospector;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-10-25 15:03:06 $
+ * @version $Revision: 1.4 $ $Date: 2003-10-25 15:06:12 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -298,9 +298,8 @@ public class ComponentVerifierTestCase
         final ComponentVerifier verifier = new ComponentVerifier();
         MetaClassIntrospector.setAccessor( new SimpleAccessor() );
         MetaClassIntrospector.clearCompleteCache();
-        final List issues = new ArrayList();
-        verifier.getServiceClasses( Object.class, issues );
-        assertNoIssues( issues );
+        final VerifyIssue[] issues = verifier.verifyType( Object.class );
+        assertEquals( "issues.length", 0, issues.length );
     }
 
     private void assertNoIssues( final List issues )
