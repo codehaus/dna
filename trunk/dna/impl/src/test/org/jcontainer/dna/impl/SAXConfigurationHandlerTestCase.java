@@ -227,6 +227,32 @@ public class SAXConfigurationHandlerTestCase
         assertEquals( "grandChildren[ 0 ].path", "myElement/myChild", grandChildren[ 0 ].getPath() );
     }
 
+
+    public void testCreateConfigurationWithChildElementContaingContent()
+        throws Exception
+    {
+        final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+        final String qName = "myElement";
+        final String childName = "myChild";
+        final String value = "value";
+        handler.startElement( "", "", qName, new AttributesImpl() );
+        handler.startElement( "", "", childName, new AttributesImpl() );
+        handler.characters( value.toCharArray(), 0, value.length() );
+        handler.endElement( "", "", childName );
+        handler.endElement( "", "", qName );
+
+        final Configuration configuration = handler.getConfiguration();
+        assertEquals( "configuration.name", qName, configuration.getName() );
+        assertEquals( "configuration.location", "", configuration.getLocation() );
+        assertEquals( "configuration.path", "", configuration.getPath() );
+        final Configuration[] children = configuration.getChildren();
+        assertEquals( "children.length", 1, children.length );
+        assertEquals( "children[ 0 ].name", childName, children[ 0 ].getName() );
+        assertEquals( "children[ 0 ].location", "", children[ 0 ].getLocation() );
+        assertEquals( "children[ 0 ].path", qName, children[ 0 ].getPath() );
+        assertEquals( "children[ 0 ].value", value, children[ 0 ].getValue() );
+    }
+
     public void testCreateConfigurationWithMixedContent()
         throws Exception
     {
