@@ -46,6 +46,14 @@
                     Support passing a PrintStream object into constructor of
                     ConsoleLogger to specify where the output is output.
                 </li>
+                <li>
+                    MetaClass metadata annotations introduced. This makes it
+                    possible to annotate a Java source file with JavaDoc tags
+                    and generate a MetaClass descriptor from annotations. See
+                    docs/metadata/index.html or
+                    <a href="http://dna.jcontainer.org/metaclass">http://dna.jcontainer.org/metaclass</a>
+                    for detailed description of new DNA metadata model.
+                </li>
             </ul>
         </section>
     </body>
