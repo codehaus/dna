@@ -19,12 +19,12 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.8 $ $Date: 2003-08-29 04:19:57 $
+ * @version $Revision: 1.9 $ $Date: 2003-08-30 02:08:35 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
 {
-    private static final String UNKNOWN = "Unknown";
+    private static final String UNKNOWN = "";
 
     private final List m_elements = new ArrayList();
     private final List m_values = new ArrayList();
@@ -55,13 +55,19 @@ public class SAXConfigurationHandler
                               final Attributes attributes )
         throws SAXException
     {
-        final DefaultConfiguration configuration =
-            new DefaultConfiguration( qName, getLocationDescription() );
+        DefaultConfiguration parent = null;
+        String path = ConfigurationUtil.ROOT_PATH;
         if( m_elements.size() > 0 )
         {
             final int index = m_elements.size() - 1;
-            final DefaultConfiguration parent =
+            parent =
                 (DefaultConfiguration)m_elements.get( index );
+            path = parent.getPath() + ConfigurationUtil.PATH_SEPARATOR + qName;
+        }
+        final DefaultConfiguration configuration =
+            new DefaultConfiguration( qName, getLocationDescription(), path );
+        if( null != parent )
+        {
             parent.addChild( configuration );
         }
         m_elements.add( configuration );
@@ -150,8 +156,8 @@ public class SAXConfigurationHandler
         }
         else
         {
-            return m_locator.getSystemId() + ":" +
-                m_locator.getLineNumber() + ":" +
+            return m_locator.getSystemId() + ':' +
+                m_locator.getLineNumber() + ':' +
                 m_locator.getColumnNumber();
         }
     }

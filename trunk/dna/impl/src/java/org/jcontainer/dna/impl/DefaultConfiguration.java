@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.7 $ $Date: 2003-08-29 04:24:06 $
+ * @version $Revision: 1.8 $ $Date: 2003-08-30 02:08:35 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -27,23 +27,30 @@ public class DefaultConfiguration
 
     private final String m_name;
     private final String m_location;
+    private final String m_path;
     private final Map m_attributes = new HashMap();
     private final List m_children = new ArrayList();
     private String m_value;
     private boolean m_readOnly;
 
     public DefaultConfiguration( final String name,
-                                 final String location )
+                                 final String location,
+                                 final String path )
     {
         if( null == name )
         {
             throw new NullPointerException( "name" );
+        }
+        if( null == path )
+        {
+            throw new NullPointerException( "location" );
         }
         if( null == location )
         {
             throw new NullPointerException( "location" );
         }
         m_name = name;
+        m_path = path;
         m_location = location;
     }
 
@@ -96,7 +103,8 @@ public class DefaultConfiguration
         }
         if( createChild )
         {
-            return new DefaultConfiguration( name, generateLocation() );
+            final String path = getPath() + ConfigurationUtil.PATH_SEPARATOR + name;
+            return new DefaultConfiguration( name, generateLocation(), path );
         }
         else
         {
@@ -481,6 +489,11 @@ public class DefaultConfiguration
                 "Configuration is read only and can not be modified.";
             throw new IllegalStateException( message );
         }
+    }
+
+    protected final String getPath()
+    {
+        return m_path;
     }
 
     protected final String generateLocation()
