@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>MetaData Model</title>
+        <author email="peter at apache.org">Peter Donald</author>
+    </properties>
+    <body>
+        <section name="MetaData Model">
+            <p>
+                This document describes the minimal set of metadata requirements
+                for DNA components.The metadata includes what resources the
+                component can provide to other components and what resources the
+                component requires from the container.
+            </p>
+            <p>
+                DNA components must declare the resources that they are capable
+                of providing to other components.
+            </p>
+            <ul>
+                <li>
+                    <a href="#dna.component">dna.component</a>: The object must
+                    declare that they are DNA components and not just some
+                    random java object.
+                </li>
+                <li>
+                    <a href="#dna.service">dna.service</a>: The object must
+                    declare what services (aka work interfaces) that the
+                    component implements and is capable of providing to other
+                    components.
+                </li>
+            </ul>
+            <p>
+                DNA components must also declare what resources they require
+                to operate.
+            </p>
+            <ul>
+                <li>
+                    <a href="#dna.logger">dna.logger</a>: The object must
+                    declare the Logger objects that they will use.
+                </li>
+                <li>
+                    <a href="#dna.configuration">dna.configuration</a>: The
+                    object must declare location of the configuration schema
+                    (if any) that can be used to validate any configuraiton
+                    data that they are provided.
+                </li>
+                <li>
+                    <a href="#dna.dependency">dna.dependency</a>: The
+                    object must declare the services that it expects to find
+                    in the ResourceLocator.
+                </li>
+            </ul>
+            <p>
+                DNA components can optionally declare their compatibility with
+                a particular container extension. A component could declare
+                that the component requires, supports or is incompatible with
+                the container extension. For further details on extensions see
+                the <a href="extensions.html">extensions</a> document.
+            </p>
+        </section>
+        <section name="Model Elements">
+            <p>
+                The following sections describe the metadata elements that
+                should be interpreted for DNA components. The metadata is
+                represented as JavaDoc tags as that format is capable of being
+                pre-processed by tools and should be familiar to the developer.
+            </p>
+            <p>
+                Several of the JavaDoc tags have parameters that represent a
+                type name. These type names may either be the full qualified
+                name of a class or it may be a name resolvable in the Java
+                source file. The resolution process follows the standard rules
+                for resolution. ie First the runtime will check if the class is
+                explicitly imported, then it will check to see if it is imported
+                using a '*' import, then it will check to see if it is a member
+                of the current package, then it will check to see if the class
+                is part of the java.lang package and if none of the above
+                conditions hold true it will assume that the full qualified name
+                has been specified.
+            </p>
+            <subsection name="dna.component">
+                <p>
+                    The <code>dna.component</code> tag is specified in the class
+                    JavaDocs and simply declares that the class is a DNA
+                    component. It must be present for tools and runtimes to
+                    automatically recognize the component.
+                </p>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * This is a DNA component.
+ *
+ * @dna.component
+ */
+public class MyComponent
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.service">
+                <p>
+                    The <code>dna.service</code> tag declares the services the
+                    component is capable of providing to other components.
+                    The <code>dna.service</code> tag is specified as part of the
+                    class JavaDocs and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>n/a</td>
+                        <td>
+                            The type parameter specifies the name of the
+                            interface for service. This parameter follows
+                            type resolution rules as specified above.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+package com.biz;
+
+import com.biz.services.MyService1;
+
+/**
+ * @dna.service type="MyService1"
+ * @dna.service type="MyService2"
+ */
+public class MyComponent
+  implements MyService1, MyService2, SomeOtherInterface
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.extension">
+                <p>
+                    The <code>dna.extension</code> tag declares the components
+                    relationship to a container extension. The
+                    <code>dna.extension</code> tag is specified as part of the
+                    class JavaDocs and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>n/a</td>
+                        <td>
+                            The name of the container extension.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td>compatibility</td>
+                        <td>required</td>
+                        <td>
+                            The compatibility of container with extension. Must
+                            be one of "required", "supports" or "incompatible".
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.extension name="tx"
+ * @dna.extension name="mx" compatibility="supports"
+ * @dna.extension name="remote" compatibility="incompatible"
+ */
+public class MyComponent
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.logger">
+                <p>
+                    The <code>dna.logger</code> tag declares the names of the
+                    loggers that the component will use. The
+                    <code>dna.logger</code> tag is specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/LogEnabled.html#enableLogging(org.jcontainer.dna.Logger)">
+                        LogEnabled.enableLogging(Logger)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>""</td>
+                        <td>
+                            The name of the logger. The Logger object passed to
+                            the component has the name "".
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.logger
+ * @dna.logger name="auth"
+ */
+public void enableLogging( Logger logger )
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.configuration">
+                <p>
+                    The <code>dna.configuration</code> tag declares the schema
+                    that can be used to validate the configuration for the
+                    component. The <code>dna.configuration</code> tag is
+                    specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/Configurable.html#configure(org.jcontainer.dna.Configuration)">
+                        Configurable.configure(Configuration)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>location</td>
+                        <td>&lt;classname&gt;-schema.xml</td>
+                        <td>
+                            The location of the configuration schema file
+                            relative to the .class file.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>""</td>
+                        <td>
+                            The type of the schema file. If not specified then
+                            the underlying validator will attempt to guess the
+                            schema type either via the file extension (for DTDs)
+                            or via the namespace used in the xml schema file.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.configuration location="MySchema.dtd"
+ */
+public void configure( Configuration config )
+    throws ConfigurationException
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+            <subsection name="dna.dependency">
+                <p>
+                    The <code>dna.dependency</code> tag declares the services
+                    that the component should be able to access from the
+                    ResourceLocator. The <code>dna.dependency</code> tag is
+                    specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/Composable.html#compose(org.jcontainer.dna.ResourceLocator)">
+                        Composable.compose(ResourceLocator)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>n/a</td>
+                        <td>
+                            The type name of the dependency. This follows the
+                            type resolution rules specified above.
+                        </td>
+                        <td>false</td>
+                    </tr>
+                    <tr>
+                        <td>optional</td>
+                        <td>false</td>
+                        <td>
+                            Specifies whether the dependency is optional or
+                            required.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>qualifier</td>
+                        <td>""</td>
+                        <td>
+                            Specifies the qualifier used to default key value.
+                            See description of key parameter for further
+                            details. This parameter can not be specified if the
+                            key parameter is specified.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>key</td>
+                        <td>See Description</td>
+                        <td>
+                            The key specifies the name used to access service
+                            from the ResourceLocator. The default value for
+                            this parameter is either the type name or
+                            &lt;type-name$gt;/&lt;qualifier&gt; if the
+                            qualifier parameter is specified.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.dependency type="Store"
+ * @dna.dependency key="persist" type="PersistenceEngine"
+ * @dna.dependency qualifier="TempSpool" type="Store" optional="true"
+ */
+public void compose( ResourceLocator locator )
+    throws MissingResourceException
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
+        </section>
+    </body>
+</document>
