@@ -25,7 +25,7 @@ import org.jcontainer.dna.ResourceLocator;
  * associated with itself and if unable to locate resource
  * locally it will delegate to parent ResourceLocator.</p>
  *
- * @version $Revision: 1.4 $ $Date: 2003-09-07 23:41:59 $
+ * @version $Revision: 1.5 $ $Date: 2003-09-07 23:43:02 $
  */
 public class DefaultResourceLocator
    extends AbstractFreezable
@@ -115,6 +115,10 @@ public class DefaultResourceLocator
    public void put( final String key,
                     final Object resource )
    {
+      if ( null == resource )
+      {
+         throw new NullPointerException( "resource" );
+      }
       checkWriteable();
       getResourceMap().put( key, resource );
    }
