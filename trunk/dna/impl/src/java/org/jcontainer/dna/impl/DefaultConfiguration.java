@@ -17,11 +17,12 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.5 $ $Date: 2003-07-28 08:59:20 $
+ * @version $Revision: 1.6 $ $Date: 2003-08-28 06:52:29 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
 {
+    private static final String AUTOGEN_POSTFIX = "<autogen>";
     private static final String TRUE_STRING = "true";
 
     private final String m_name;
@@ -95,7 +96,7 @@ public class DefaultConfiguration
         }
         if( createChild )
         {
-            return new DefaultConfiguration( name, "config:autogen" );
+            return new DefaultConfiguration( name, generateLocation() );
         }
         else
         {
@@ -471,6 +472,19 @@ public class DefaultConfiguration
             final String message =
                 "Configuration is read only and can not be modified.";
             throw new IllegalStateException( message );
+        }
+    }
+
+    protected final String generateLocation()
+    {
+        final String location = getLocation();
+        if( !location.endsWith( AUTOGEN_POSTFIX ) )
+        {
+            return location + AUTOGEN_POSTFIX;
+        }
+        else
+        {
+            return location;
         }
     }
 }
