@@ -118,4 +118,138 @@ public class DefaultParametersTestCase
       }
       fail( "Expected setParameter('blah',null) to fail due to passing null " );
    }
+
+   public void testNullPassedIntoCtor()
+      throws Exception
+   {
+      try
+      {
+         new DefaultParameters( null );
+      }
+      catch ( NullPointerException npe )
+      {
+         assertEquals( "prefix", npe.getMessage() );
+      }
+      fail( "Expected to fail due to passing null " );
+   }
+
+   public void testGetParameterAsBoolean()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "true";
+      parameters.setParameter( name, value );
+      assertEquals( "parameters.getParameterAsBoolean( name, false )",
+                    true,
+                    parameters.getParameterAsBoolean( name, false ) );
+      assertEquals( "parameters.getParameterAsBoolean( name )",
+                    true,
+                    parameters.getParameterAsBoolean( name ) );
+   }
+
+   public void testGetParameterAsInteger()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "1";
+      parameters.setParameter( name, value );
+      assertEquals( "parameters.getParameterAsInteger( name, 3 )",
+                    1,
+                    parameters.getParameterAsInteger( name, 3 ) );
+      assertEquals( "parameters.getParameterAsInteger( name )",
+                    1,
+                    parameters.getParameterAsInteger( name ) );
+   }
+
+   public void testGetParameterAsIntegerWithMalformedValue()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "a";
+      parameters.setParameter( name, value );
+      assertEquals( "parameters.getParameterAsInteger( name, 3 )",
+                    3,
+                    parameters.getParameterAsInteger( name, 3 ) );
+      try
+      {
+         parameters.getParameterAsInteger( name );
+      }
+      catch ( ParameterException e )
+      {
+         return;
+      }
+      fail( "Expected to fail as parameter is malformed" );
+   }
+
+   public void testGetParameterAsLong()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "1";
+      parameters.setParameter( name, value );
+      assertEquals( "parameters.getParameterAsLong( name, 3 )",
+                    1,
+                    parameters.getParameterAsLong( name, 3 ) );
+      assertEquals( "parameters.getParameterAsLong( name )",
+                    1,
+                    parameters.getParameterAsLong( name ) );
+   }
+
+   public void testGetParameterAsLongWithMalformedValue()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "a";
+      parameters.setParameter( name, value );
+      assertEquals( "parameters.getParameterAsInteger( name, 3 )",
+                    3,
+                    parameters.getParameterAsLong( name, 3 ) );
+      try
+      {
+         parameters.getParameterAsLong( name );
+      }
+      catch ( ParameterException e )
+      {
+         return;
+      }
+      fail( "Expected to fail as parameter is malformed" );
+   }
+
+   public void testGetParameterAsFloat()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "1.0";
+      parameters.setParameter( name, value );
+      assertTrue( "parameters.getParameterAsFloat( name, 3 )",
+                  1.0 == parameters.getParameterAsFloat( name, 3 ) );
+      assertTrue( "parameters.getParameterAsFloat( name )",
+                    1.0 == parameters.getParameterAsFloat( name ) );
+   }
+
+   public void testGetParameterAsFloatWithMalformedValue()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "a";
+      parameters.setParameter( name, value );
+      assertTrue( "parameters.getParameterAsFloat( name, 3 )",
+                    3.0 == parameters.getParameterAsFloat( name, 3 ) );
+      try
+      {
+         parameters.getParameterAsFloat( name );
+      }
+      catch ( ParameterException e )
+      {
+         return;
+      }
+      fail( "Expected to fail as parameter is malformed" );
+   }
 }
