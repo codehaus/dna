@@ -15,13 +15,13 @@
     <package>org.codehaus.dna</package>
 
     <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10241</issueTrackingUrl>
-    <url>http://dna.jcontainer.org/</url>
+    <url>http://dna.codehaus.org/</url>
     <logo>/images/dna-logo.png</logo>
 
-    <distributionDirectory>/www/dist.codehaus.org</distributionDirectory>
-    <distributionSite>codehaus.org</distributionSite>
-    <siteAddress>dna.jcontainer.org</siteAddress>
-    <siteDirectory>/www/jcontainer.codehaus.org/dna</siteDirectory>
+    <distributionDirectory>/home/projects/dna/dist</distributionDirectory>
+    <distributionSite>dist.codehaus.org</distributionSite>
+    <siteAddress>dna.codehaus.org</siteAddress>
+    <siteDirectory>/home/projects/dna/public_html</siteDirectory>
 
     <repository>
         <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:dna</connection>
