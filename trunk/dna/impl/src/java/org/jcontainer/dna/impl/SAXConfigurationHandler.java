@@ -19,7 +19,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.7 $ $Date: 2003-08-29 02:40:39 $
+ * @version $Revision: 1.8 $ $Date: 2003-08-29 04:19:57 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -78,7 +78,20 @@ public class SAXConfigurationHandler
         if( index < m_values.size() )
         {
             final String value = m_values.remove( index ).toString();
-            configuration.setValue( value );
+            if( 0 != value.trim().length() )
+            {
+                if( 0 == configuration.getChildren().length )
+                {
+                    configuration.setValue( value );
+                }
+                else
+                {
+                    final String message =
+                       "Mixed content (" + value.trim() +  ") " +
+                       "not supported @ " + getLocationDescription();
+                    throw new SAXException( message );
+                }
+            }
         }
         m_configuration = configuration;
     }
