@@ -28,7 +28,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.13 $ $Date: 2003-10-29 22:36:21 $
+ * @version $Revision: 1.14 $ $Date: 2003-11-03 06:54:00 $
  */
 public class ComponentVerifier
 {
@@ -136,36 +136,61 @@ public class ComponentVerifier
      */
     void verifyConfigurationMetaData( final Class type, final List issues )
     {
-        if( !Configurable.class.isAssignableFrom( type ) )
+        Attribute attribute = getConfigurationMetaData( type );
+        if( null != attribute )
         {
-            return;
+            final String location = attribute.getParameter( "location" );
+            if( null == location )
+            {
+                final Object[] args = new Object[]{"type"};
+                final String message = getMessage( "CV019", args );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
+            }
+            else
+            {
+                verifyLocation( type, location, issues );
+            }
         }
+    }
+
+    /**
+     * Return the configuration metadata for component if any.
+     * Protected to allow overiding in subclasses.
+     *
+     * @param type the component type
+     * @return the metadata if any
+     */
+    protected Attribute getConfigurationMetaData( final Class type )
+    {
         try
         {
-            final Method method =
-                type.getMethod( CONFIGURE_METHOD_NAME, CONFIGURE_PARAMETER_TYPES );
-            final Attribute attribute =
-                Attributes.getAttribute( method, "dna.configuration" );
-            if( null != attribute )
-            {
-                final String location = attribute.getParameter( "location" );
-                if( null == location )
-                {
-                    final Object[] args = new Object[]{"type"};
-                    final String message = getMessage( "CV019", args );
-                    final VerifyIssue issue =
-                        new VerifyIssue( VerifyIssue.ERROR, message );
-                    issues.add( issue );
-                }
-                else
-                {
-                    verifyLocation( type, location, issues );
-                }
-            }
+            final Method method = getConfigurationMethod( type );
+            return Attributes.getAttribute( method, "dna.configuration" );
         }
         catch( final NoSuchMethodException nsme )
         {
+            return null;
         }
+    }
+
+    /**
+     * Return the method used to pass configuration to component.
+     *
+     * @param type the components type
+     * @return the method
+     * @throws NoSuchMethodException if unable to locate method
+     */
+    protected Method getConfigurationMethod( final Class type )
+        throws NoSuchMethodException
+    {
+        if( !Configurable.class.isAssignableFrom( type ) )
+        {
+            throw new NoSuchMethodException();
+        }
+        return type.getMethod( CONFIGURE_METHOD_NAME,
+                               CONFIGURE_PARAMETER_TYPES );
     }
 
     /**
@@ -198,25 +223,52 @@ public class ComponentVerifier
      */
     void verifyDependencyMetaData( final Class type, final List issues )
     {
-        if( !Composable.class.isAssignableFrom( type ) )
+        final Attribute[] attributes = getDependencyAttributes( type );
+        for( int i = 0; i < attributes.length; i++ )
         {
-            return;
+            final Attribute attribute = attributes[ i ];
+            verifyDependencyMetaData( type, attribute, issues );
         }
+    }
+
+    /**
+     * Return the dependency attributes for component.
+     * Made protected so that it is possible to overload
+     * in subclasses.
+     *
+     * @param type the component type
+     * @return the dependency attributes
+     */
+    protected Attribute[] getDependencyAttributes( final Class type )
+    {
         try
         {
-            final Method method =
-                type.getMethod( COMPOSE_METHOD_NAME, COMPOSE_PARAMETER_TYPES );
-            final Attribute[] attributes =
-                Attributes.getAttributes( method, "dna.dependency" );
-            for( int i = 0; i < attributes.length; i++ )
-            {
-                final Attribute attribute = attributes[ i ];
-                verifyDependencyMetaData( type, attribute, issues );
-            }
+            final Method method = getComposeMethod( type );
+            return Attributes.getAttributes( method, "dna.dependency" );
         }
-        catch( final NoSuchMethodException nsme )
+        catch( NoSuchMethodException e )
         {
+            return Attribute.EMPTY_SET;
         }
+    }
+
+    /**
+     * Return the method via which component is passed services.
+     * This method is protected so can overload in subclasses
+     * and get alternative methods.
+     *
+     * @param type the components type
+     * @return the method
+     * @throws NoSuchMethodException if can not locate method
+     */
+    protected Method getComposeMethod( final Class type )
+        throws NoSuchMethodException
+    {
+        if( !Composable.class.isAssignableFrom( type ) )
+        {
+            throw new NoSuchMethodException();
+        }
+        return type.getMethod( COMPOSE_METHOD_NAME, COMPOSE_PARAMETER_TYPES );
     }
 
     /**
