@@ -56,7 +56,7 @@
         <archive:copy-deps todir="${distDir}/lib" category="shared"/>
         <archive:copy-deps todir="${distDir}" category="core"/>
         <ant:copy todir="${distDir}">
-            <ant:fileset dir="../site/target">
+            <ant:fileset dir="${basedir}/../site/target">
                 <ant:include name="docs/**"/>
             </ant:fileset>
         </ant:copy>
@@ -64,6 +64,12 @@
         <j:file name="${distDir}/README.txt" omitXmlDeclaration="true" escapeText="false">
             DNA Component Framework: See docs/index.html for documentation.
         </j:file>
+
+        <!-- Create source zip -->
+        <ant:zip destfile="${distDir}/src.zip">
+            <ant:zipfileset dir="${basedir}/../api/src/java"/>
+            <ant:zipfileset dir="${basedir}/../impl/src/java"/>
+        </ant:zip>
 
         <!-- Create a tar.gz file -->
         <ant:tar longfile="gnu" tarfile="${maven.build.dir}/${maven.final.name}.tar">
