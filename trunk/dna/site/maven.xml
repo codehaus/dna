@@ -18,15 +18,15 @@
     </goal>
 
     <preGoal name="site:generate">
-	    <attainGoal name="aggregate-components"/>
+        <attainGoal name="aggregate-components"/>
     </preGoal>
 
     <!-- Build all components sites and aggregate them under site docs -->
-	<!-- Note that this goal only works if executed in the site/ dir
-		 If one tries to executed via a high-level reactor the
-		 relative path in the basedir will not yield the correct path
-		 to the components' projects.
-	-->
+    <!-- Note that this goal only works if executed in the site/ dir
+         If one tries to executed via a high-level reactor the
+         relative path in the basedir will not yield the correct path
+         to the components' projects.
+    -->
     <goal name="aggregate-components">
         <echo message="Aggregate components"/>
         <attainGoal name="aggregate-components-${dna.components.aggregateby}"/>
@@ -37,32 +37,32 @@
         <!-- Generate navigation -->
         <ant:mkdir dir="${maven.build.dir}/templates"/>
         <j:file name="${maven.build.dir}/templates/navigation.links"
-        		omitXmlDeclaration="true"
-        		prettyPrint="true">
-	        <links>
-	            <item href="http://dna.jcontainer.org/api" name="API"/>
-	            <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
-	            <item href="http://dna.jcontainer.org" name="DNA"/>
-	            <item href="http://jcontainer.org" name="JContainer"/>
-	            <item href="http://codehaus.org" name="Codehaus"/>
-	        </links>
+            omitXmlDeclaration="true"
+            prettyPrint="true">
+            <links>
+                <item href="http://dna.jcontainer.org/api" name="API"/>
+                <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
+                <item href="http://dna.jcontainer.org" name="DNA"/>
+                <item href="http://jcontainer.org" name="JContainer"/>
+                <item href="http://codehaus.org" name="Codehaus"/>
+            </links>
         </j:file>
         <j:file name="${maven.build.dir}/templates/navigation.components"
-        		omitXmlDeclaration="true"
-        		prettyPrint="true">
-	        <menu name="Components">
-	            <item href="http://dna.jcontainer.org/api" name="API"/>
-	            <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
-	        </menu>
+            omitXmlDeclaration="true"
+            prettyPrint="true">
+            <menu name="Components">
+                <item href="http://dna.jcontainer.org/api" name="API"/>
+                <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
+            </menu>
         </j:file>
-	    <attainGoal name="generate-navigation"/>
+        <attainGoal name="generate-navigation"/>
         <!-- Generate component sites -->
         <maven:reactor
             basedir="../"
             includes="api/project.xml,impl/project.xml"
             goals="site:generate"
             banner="Generate site"
-            ignoreFailures="false" />
+            ignoreFailures="false"/>
         <ant:copy todir="target/docs/api">
             <ant:fileset dir="../api/target/docs"/>
         </ant:copy>
@@ -76,19 +76,19 @@
         <!-- Generate navigation -->
         <ant:mkdir dir="${maven.build.dir}/templates"/>
         <j:file name="${maven.build.dir}/templates/navigation.links"
-        		omitXmlDeclaration="true"
-        		prettyPrint="true">
-	        <links>
-	            <item href="http://dna.jcontainer.org" name="DNA"/>
-	            <item href="http://jcontainer.org" name="JContainer"/>
-	            <item href="http://codehaus.org" name="Codehaus"/>
-	        </links>
+            omitXmlDeclaration="true"
+            prettyPrint="true">
+            <links>
+                <item href="http://dna.jcontainer.org" name="DNA"/>
+                <item href="http://jcontainer.org" name="JContainer"/>
+                <item href="http://codehaus.org" name="Codehaus"/>
+            </links>
         </j:file>
         <j:file name="${maven.build.dir}/templates/navigation.components"
-        		omitXmlDeclaration="true"
-        		prettyPrint="true">
+            omitXmlDeclaration="true"
+            prettyPrint="true">
         </j:file>
-	    <attainGoal name="generate-navigation"/>
+        <attainGoal name="generate-navigation"/>
         <!-- Aggregates sources -->
         <ant:mkdir dir="${maven.build.dir}/aggregate-src/java"/>
         <ant:copy todir="${maven.build.dir}/aggregate-src/java">
@@ -102,17 +102,21 @@
         </ant:copy>
     </goal>
 
-	<!-- Generate navigation using template -->
+    <preGoal name="checkstyle:license">
+        <ant:copy file="${basedir}/src/checkstyle/LICENSE-header.txt" todir="target"/>
+    </preGoal>
+
+    <!-- Generate navigation using template -->
     <goal name="generate-navigation">
         <echo message="Generation navigation.xml"/>
         <ant:mkdir dir="${maven.build.dir}/generated-xdocs"/>
         <ant:copy todir="${maven.build.dir}/templates">
-       		<ant:fileset dir="templates"/>
+            <ant:fileset dir="src/templates"/>
         </ant:copy>
         <velocity:merge
-          name="${maven.build.dir}/generated-xdocs/navigation.xml"
-          basedir="${maven.build.dir}/templates"
-          template="navigation.xml"/>
+            name="${maven.build.dir}/generated-xdocs/navigation.xml"
+            basedir="${maven.build.dir}/templates"
+            template="navigation.xml"/>
     </goal>
 
 </project>
