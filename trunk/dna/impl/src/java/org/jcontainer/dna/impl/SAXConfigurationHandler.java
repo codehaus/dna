@@ -21,7 +21,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.20 $ $Date: 2003-10-05 01:55:32 $
+ * @version $Revision: 1.21 $ $Date: 2003-10-05 09:04:55 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -128,7 +128,9 @@ public class SAXConfigurationHandler
         {
             final String key = attributes.getQName( i );
             final String value = attributes.getValue( i );
-            configuration.setAttribute( key, value );
+            final String newValue =
+                processAttributeText( configuration, key, value );
+            configuration.setAttribute( key, newValue );
         }
 
         m_elements.add( configuration );
@@ -161,7 +163,9 @@ public class SAXConfigurationHandler
             {
                 if( 0 == configuration.getChildren().length )
                 {
-                    configuration.setValue( value );
+                    final String newValue =
+                        processValueText( configuration, value );
+                    configuration.setValue( newValue );
                 }
                 else
                 {
@@ -278,5 +282,35 @@ public class SAXConfigurationHandler
                 m_locator.getLineNumber() + ':' +
                 m_locator.getColumnNumber();
         }
+    }
+
+    /**
+     * Users may subclass this method to process attribute
+     * prior to it being set.
+     *
+     * @param configuration the associated configuration
+     * @param name the attribute name
+     * @param value the attribute value
+     * @return the attribute value
+     */
+    protected String processAttributeText( final Configuration configuration,
+                                           final String name,
+                                           final String value )
+    {
+        return value;
+    }
+
+    /**
+     * Users may subclass this method to process content
+     * prior to it being set.
+     *
+     * @param configuration the associated configuration
+     * @param value the value
+     * @return the value
+     */
+    protected String processValueText( final Configuration configuration,
+                                       final String value )
+    {
+        return value;
     }
 }
