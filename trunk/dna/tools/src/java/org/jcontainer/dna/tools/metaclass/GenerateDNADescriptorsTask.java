@@ -16,7 +16,7 @@ import org.realityforge.metaclass.tools.tasks.PluginElement;
  * information into MetaClass descriptors.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-16 08:03:01 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-19 00:44:29 $
  */
 public class GenerateDNADescriptorsTask
     extends GenerateClassDescriptorsTask
@@ -27,9 +27,6 @@ public class GenerateDNADescriptorsTask
      */
     public void execute()
     {
-        final PluginElement filter = new PluginElement();
-        filter.setName( DNAJavaClassFilter.class.getName() );
-        addFilter( filter );
         final PluginElement interceptor = new PluginElement();
         interceptor.setName( DNAAttributeInterceptor.class.getName() );
         addInterceptor( interceptor );
