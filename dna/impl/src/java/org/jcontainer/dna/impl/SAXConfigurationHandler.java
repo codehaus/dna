@@ -20,7 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-07-28 08:15:16 $
+ * @version $Revision: 1.2 $ $Date: 2003-08-12 02:09:04 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -30,6 +30,7 @@ public class SAXConfigurationHandler
     private final List m_elements = new ArrayList();
     private final List m_values = new ArrayList();
 
+    private Configuration m_configuration;
     private Locator m_locator;
 
     public void setDocumentLocator( final Locator locator )
@@ -46,14 +47,7 @@ public class SAXConfigurationHandler
 
     public Configuration getConfiguration()
     {
-        if( m_elements.size() > 0 )
-        {
-            return (Configuration)m_elements.get( 0 );
-        }
-        else
-        {
-            return null;
-        }
+        return m_configuration;
     }
 
     public void startElement( final String uri,
@@ -80,6 +74,7 @@ public class SAXConfigurationHandler
             final String value = m_values.remove( index ).toString();
             configuration.setValue( value );
         }
+        m_configuration = configuration;
     }
 
     public void characters( final char[] ch,
