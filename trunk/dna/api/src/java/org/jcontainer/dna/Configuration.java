@@ -15,7 +15,7 @@ package org.jcontainer.dna;
  * Configuration elements can not have both a value and child
  * elements.
  *
- * @version $Revision: 1.3 $ $Date: 2003-09-05 06:23:11 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-08 01:17:58 $
  */
 public interface Configuration
 {
@@ -226,7 +226,6 @@ public interface Configuration
     * @return the attribute value
     */
    int getAttributeAsInteger( String name, int defaultValue );
-
 
    /**
     * Return attribute value with specified name as a long.
