@@ -8,40 +8,127 @@
 package org.jcontainer.dna;
 
 /**
+ * This interface was a facade for different Logger subsystems.
  *
- * @version $Revision: 1.3 $ $Date: 2003-07-26 04:02:13 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-05 05:44:49 $
  */
 public interface Logger
 {
-    void trace( String message );
+   /**
+    * Log a trace message.
+    *
+    * @param message the message
+    */
+   void trace( String message );
 
-    void trace( String message, Throwable throwable );
+   /**
+    * Log a trace message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   void trace( String message, Throwable throwable );
 
-    boolean isTraceEnabled();
+   /**
+    * Return true if a trace message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   boolean isTraceEnabled();
 
-    void debug( String message );
+   /**
+    * Log a debug message.
+    *
+    * @param message the message
+    */
+   void debug( String message );
 
-    void debug( String message, Throwable throwable );
+   /**
+    * Log a debug message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   void debug( String message, Throwable throwable );
 
-    boolean isDebugEnabled();
+   /**
+    * Return true if a debug message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   boolean isDebugEnabled();
 
-    void info( String message );
+   /**
+    * Log a info message.
+    *
+    * @param message the message
+    */
+   void info( String message );
 
-    void info( String message, Throwable throwable );
+   /**
+    * Log a info message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   void info( String message, Throwable throwable );
 
-    boolean isInfoEnabled();
+   /**
+    * Return true if an info message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   boolean isInfoEnabled();
 
-    void warn( String message );
+   /**
+    * Log a warn message.
+    *
+    * @param message the message
+    */
+   void warn( String message );
 
-    void warn( String message, Throwable throwable );
+   /**
+    * Log a warn message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   void warn( String message, Throwable throwable );
 
-    boolean isWarnEnabled();
+   /**
+    * Return true if a warn message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   boolean isWarnEnabled();
 
-    void error( String message );
+   /**
+    * Log a error message.
+    *
+    * @param message the message
+    */
+   void error( String message );
 
-    void error( String message, Throwable throwable );
+   /**
+    * Log a error message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   void error( String message, Throwable throwable );
 
-    boolean isErrorEnabled();
+   /**
+    * Return true if a error message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   boolean isErrorEnabled();
 
-    Logger getChildLogger( String name );
+   /**
+    * Get the child logger with specified name.
+    *
+    * @param name the name of child logger
+    * @return the child logger
+    */
+   Logger getChildLogger( String name );
 }

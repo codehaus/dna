@@ -8,13 +8,29 @@
 package org.jcontainer.dna;
 
 /**
+ * This is the interface via which component
+ * resources can be accessed via keys.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 05:47:16 $
  */
 public interface ResourceLocator
 {
-    Object lookup( String key )
-        throws MissingResourceException;
+   /**
+    * Return resource registered with specified key.
+    *
+    * @param key the key
+    * @return the resource
+    * @throws MissingResourceException if unable to locate
+    *         resource with specified key
+    */
+   Object lookup( String key )
+      throws MissingResourceException;
 
-    boolean contains( String key );
+   /**
+    * Return true if a resource exists with specified key.
+    *
+    * @param key the key
+    * @return true if a resource exists with specified key.
+    */
+   boolean contains( String key );
 }
