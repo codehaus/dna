@@ -25,6 +25,7 @@
             goals="clean,build"
             banner="Building"
             ignoreFailures="false" />
+    </goal>
 
     <goal name="deploy">
         <echo message="Deploying all components"/>
