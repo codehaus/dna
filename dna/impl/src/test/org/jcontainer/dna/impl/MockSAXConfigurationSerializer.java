@@ -5,18 +5,18 @@
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
- package org.jcontainer.dna.impl;
+package org.jcontainer.dna.impl;
 
-import org.xml.sax.helpers.AttributesImpl;
 import org.jcontainer.dna.Configuration;
+import org.xml.sax.helpers.AttributesImpl;
 
 public class MockSAXConfigurationSerializer
-   extends SAXConfigurationSerializer
+    extends SAXConfigurationSerializer
 {
-   static final AttributesImpl ATTRIBUTES = new AttributesImpl();
+    static final AttributesImpl ATTRIBUTES = new AttributesImpl();
 
-   AttributesImpl serializeAttributes( Configuration configuration )
-   {
-      return ATTRIBUTES;
-   }
+    AttributesImpl serializeAttributes( Configuration configuration )
+    {
+        return ATTRIBUTES;
+    }
 }

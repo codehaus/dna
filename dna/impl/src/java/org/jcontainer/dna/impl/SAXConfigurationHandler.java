@@ -9,7 +9,6 @@ package org.jcontainer.dna.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jcontainer.dna.Configuration;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
@@ -22,7 +21,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.17 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.18 $ $Date: 2003-09-23 10:15:26 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler

@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
-
 import org.jcontainer.dna.ParameterException;
 import org.jcontainer.dna.Parameters;
 
@@ -22,7 +21,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.16 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.17 $ $Date: 2003-09-23 10:15:26 $
  */
 public class DefaultParameters
     extends AbstractFreezable
