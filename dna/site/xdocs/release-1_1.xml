@@ -54,6 +54,13 @@
                     <a href="http://dna.jcontainer.org/metaclass">http://dna.jcontainer.org/metaclass</a>
                     for detailed description of new DNA metadata model.
                 </li>
+                <li>
+                    Create new dna-tools jar that contains tools useful when
+                    creating DNA components. The jar initially includes tools
+                    to generate MetaClass descriptors from annotated Java
+                    source files and a class to verify a component conforms
+                    to DNA expectations. 
+                </li>
             </ul>
         </section>
     </body>
