@@ -10,14 +10,16 @@ package org.jcontainer.dna.tools.verifier;
 import junit.framework.TestCase;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
 import org.realityforge.metaclass.introspector.MetaClassIntrospector;
+import org.realityforge.metaclass.model.Attribute;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.4 $ $Date: 2003-10-25 15:06:12 $
+ * @version $Revision: 1.5 $ $Date: 2003-10-26 06:07:44 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -300,6 +302,184 @@ public class ComponentVerifierTestCase
         MetaClassIntrospector.clearCompleteCache();
         final VerifyIssue[] issues = verifier.verifyType( Object.class );
         assertEquals( "issues.length", 0, issues.length );
+    }
+
+    public void testVerifyDependencyOptionalValidThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyOptionalValid( "true", issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyOptionalValidThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyOptionalValid( "blah", issues );
+        assertSingleIssue( issues,
+                           "The dna.dependency metadata tag specifies " +
+                           "optional parameter as \"blah\" that is not one " +
+                           "of true or false.",
+                           true, false );
+    }
+
+    public void testVerifyDependencyKeyConformsThatPassesWithQualifier()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyKeyConforms( "X", "X/X", issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyKeyConformsThatPassesWithoutQualifier()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyKeyConforms( "X", "X", issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyKeyConformsThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyKeyConforms( "X", "blah", issues );
+        assertSingleIssue( issues,
+                           "The dna.dependency metadata tag specifies the key " +
+                           "blah which does not conform to recomendation of " +
+                           "(type)[/(qualifier)].",
+                           false, false );
+    }
+
+    public void testVerifyDependencyTypeThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyType( LifecycleExtendingService.class,
+                                       ActionListener.class.getName(),
+                                       issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyTypeThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyType( LifecycleExtendingService.class,
+                                       "INoExist!",
+                                       issues );
+        assertSingleIssue( issues,
+                           "Unable to load dependency with type INoExist! " +
+                           "for class. Reason: " +
+                           "java.lang.ClassNotFoundException: INoExist!.",
+                           true, false );
+    }
+
+    public void testVerifyOptionalParameterThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyOptionalParameter( "true", issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyOptionalParameterThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyOptionalParameter( null, issues );
+        assertSingleIssue( issues,
+                           "The dna.dependency metadata tag does not " +
+                           "specify the parameter optional.",
+                           true, false );
+    }
+
+    public void testVerifyDependencyMetaDataThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        final Properties parameters = new Properties();
+        parameters.setProperty( "optional", "false" );
+        parameters.setProperty( "type", ActionListener.class.getName() );
+        parameters.setProperty( "key", ActionListener.class.getName() );
+        verifier.verifyDependencyMetaData( LifecycleExtendingService.class,
+                                           new Attribute( "dna.dependency", parameters ),
+                                           issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyMetaDataThatNoPassesDueToMissingType()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        final Properties parameters = new Properties();
+        parameters.setProperty( "optional", "false" );
+        verifier.verifyDependencyMetaData( LifecycleExtendingService.class,
+                                           new Attribute( "dna.dependency", parameters ),
+                                           issues );
+        assertSingleIssue( issues,
+                           "The dna.dependency metadata tag does not specify the parameter type.",
+                           true, false );
+    }
+
+    public void testVerifyDependencyMetaDataThatNoPassesDueToMissingKey()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        final Properties parameters = new Properties();
+        parameters.setProperty( "optional", "false" );
+        parameters.setProperty( "type", ActionListener.class.getName() );
+        final Attribute attribute = new Attribute( "dna.dependency", parameters );
+        verifier.verifyDependencyMetaData( LifecycleExtendingService.class,
+                                           attribute,
+                                           issues );
+        assertSingleIssue( issues,
+                           "The dna.dependency metadata tag does not specify the parameter key.",
+                           true, false );
+    }
+
+    public void testVerifyDependencyMetaDataThatPassesDueToNotImplementingComposable()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        verifier.verifyDependencyMetaData( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyMetaDataThatPassesDueToNoMetaData()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new SimpleAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyDependencyMetaData( MyComposable.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyDependencyMetaDataThatPassesWithMetaData()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new AccessorWithDependencyMetaData() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyDependencyMetaData( MyComposable.class, issues );
+        assertNoIssues( issues );
     }
 
     private void assertNoIssues( final List issues )
