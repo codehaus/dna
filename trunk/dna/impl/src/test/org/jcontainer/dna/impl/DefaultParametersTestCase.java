@@ -2,6 +2,7 @@ package org.jcontainer.dna.impl;
 
 import junit.framework.TestCase;
 import org.jcontainer.dna.ParameterException;
+import org.jcontainer.dna.Parameters;
 
 public class DefaultParametersTestCase
    extends TestCase
@@ -235,7 +236,7 @@ public class DefaultParametersTestCase
       assertTrue( "parameters.getParameterAsFloat( name, 3 )",
                   1.0 == parameters.getParameterAsFloat( name, 3 ) );
       assertTrue( "parameters.getParameterAsFloat( name )",
-                    1.0 == parameters.getParameterAsFloat( name ) );
+                  1.0 == parameters.getParameterAsFloat( name ) );
    }
 
    public void testGetParameterAsFloatWithMalformedValue()
@@ -246,7 +247,7 @@ public class DefaultParametersTestCase
       final String value = "a";
       parameters.setParameter( name, value );
       assertTrue( "parameters.getParameterAsFloat( name, 3 )",
-                    3.0 == parameters.getParameterAsFloat( name, 3 ) );
+                  3.0 == parameters.getParameterAsFloat( name, 3 ) );
       try
       {
          parameters.getParameterAsFloat( name );
@@ -256,5 +257,87 @@ public class DefaultParametersTestCase
          return;
       }
       fail( "Expected to fail as parameter is malformed" );
+   }
+
+   public void testGetChildParametersWithZeroEntries()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      final String name = "key";
+      final String value = "a";
+      parameters.setParameter( name, value );
+      final Parameters childParameters =
+         parameters.getChildParameters( "noexist" );
+
+      assertEquals( "childParameters.length",
+                    0, childParameters.getParameterNames().length );
+   }
+
+   public void testGetChildParametersWithSplitEntries()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      parameters.setParameter( "var", "a" );
+      parameters.setParameter( "var.s", "b" );
+      final DefaultParameters childParameters =
+         (DefaultParameters) parameters.getChildParameters( "var" );
+
+      final String[] names = childParameters.getParameterNames();
+      assertEquals( "childParameters.length", 1, names.length );
+      assertEquals( "names[0]", "s", names[ 0 ] );
+      assertEquals( "childParameters.getPrefix()",
+                    "var", childParameters.getPrefix() );
+
+   }
+
+   public void testGetChildParametersWithSplitEntriesAcrossMultipleChildren()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      parameters.setParameter( "var", "a" );
+      parameters.setParameter( "var.t.s", "b" );
+      final DefaultParameters childParameters =
+         (DefaultParameters) parameters.getChildParameters( "var" );
+      final DefaultParameters childChildParameters =
+         (DefaultParameters) childParameters.getChildParameters( "t" );
+
+      final String[] names = childChildParameters.getParameterNames();
+      assertEquals( "childParameters.length", 1, names.length );
+      assertEquals( "names[0]", "s", names[ 0 ] );
+      assertEquals( "childParameters.getPrefix()",
+                    "var", childParameters.getPrefix() );
+
+   }
+
+   public void testMakeReadOnlyMakesChildrenReadOnly()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      parameters.setParameter( "var", "a" );
+      parameters.setParameter( "var.t.s", "b" );
+      final DefaultParameters childParameters =
+         (DefaultParameters) parameters.getChildParameters( "var" );
+      final DefaultParameters childChildParameters =
+         (DefaultParameters) childParameters.getChildParameters( "t" );
+      parameters.makeReadOnly();
+
+      assertEquals( "child1.isReadOnly", true, childParameters.isReadOnly() );
+      assertEquals( "child2.isReadOnly", true, childChildParameters.isReadOnly() );
+   }
+
+   public void testGetChildParametersWithNullPrefix()
+      throws Exception
+   {
+      final DefaultParameters parameters = new DefaultParameters();
+      try
+      {
+         parameters.getChildParameters( null );
+      }
+      catch ( NullPointerException npe )
+      {
+         assertEquals( "prefix", npe.getMessage() );
+         return;
+      }
+      fail( "Expected getChildParameters to fail when passing null prefix" );
    }
 }
