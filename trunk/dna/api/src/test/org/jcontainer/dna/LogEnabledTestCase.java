@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-09-23 02:40:40 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-23 02:42:26 $
  */
 public class LogEnabledTestCase
     extends TestCase
@@ -70,7 +70,7 @@ public class LogEnabledTestCase
         logEnabled.enableLogging( logger );
         try
         {
-            logEnabled.setupLogger( childLogEnabled, "child" );
+            logEnabled.setupLogger( childLogEnabled, null );
         }
         catch( final NullPointerException npe )
         {
