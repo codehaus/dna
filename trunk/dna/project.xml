@@ -23,11 +23,16 @@
     <siteDirectory>/www/jcontainer.codehaus.org/dna</siteDirectory>
 
     <repository>
-        <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer/dna</connection>
+        <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:dna</connection>
         <url>http://cvs.codehaus.org/viewcvs.cgi/jcontainer/dna/?root=jcontainer</url>
     </repository>
     
     <versions>
+        <version>
+            <id>1.1-dev</id>
+            <name>1.1-dev</name>
+            <tag>HEAD</tag>
+        </version>
         <version>
             <id>1.0</id>
             <name>1.0</name>
