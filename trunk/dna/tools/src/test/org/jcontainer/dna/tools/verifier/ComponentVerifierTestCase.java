@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
+import org.realityforge.metaclass.introspector.MetaClassIntrospector;
 
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-25 14:39:57 $
+ * @version $Revision: 1.3 $ $Date: 2003-10-25 15:03:06 $
  */
 public class ComponentVerifierTestCase
     extends TestCase
@@ -247,6 +248,59 @@ public class ComponentVerifierTestCase
                                    ActionListener.class.getName() +
                                    " but the class does not implement the " +
                                    "service interface.", true, false );
+    }
+
+    public void testVerifyMetaDataThatPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        MetaClassIntrospector.setAccessor( new SimpleAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        final List issues = new ArrayList();
+        verifier.verifyMetaData( Object.class, issues );
+        assertNoIssues( issues );
+    }
+
+    public void testVerifyMetaDataThatNoPasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        final List issues = new ArrayList();
+        MetaClassIntrospector.setAccessor( new NullAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        verifier.verifyMetaData( Object.class, issues );
+        assertSingleIssue( issues,
+                           "The class does not specify correct " +
+                           "metadata. Missing expected dna.component " +
+                           "attribute in the class attributes.",
+                           true, false );
+    }
+
+    public void testGetServiceClasses()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        MetaClassIntrospector.setAccessor( new BadServiceAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        final List issues = new ArrayList();
+        verifier.getServiceClasses( ComponentVerifier.class, issues );
+        assertSingleIssue( issues,
+                           "Unable to load service interface " +
+                           BadServiceAccessor.BAD_SERVICE +
+                           " for class. Reason: " +
+                           "java.lang.ClassNotFoundException: I-No-Exist!.",
+                           true, false );
+    }
+
+    public void testVerifyType()
+        throws Exception
+    {
+        final ComponentVerifier verifier = new ComponentVerifier();
+        MetaClassIntrospector.setAccessor( new SimpleAccessor() );
+        MetaClassIntrospector.clearCompleteCache();
+        final List issues = new ArrayList();
+        verifier.getServiceClasses( Object.class, issues );
+        assertNoIssues( issues );
     }
 
     private void assertNoIssues( final List issues )
