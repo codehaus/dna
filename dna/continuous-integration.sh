@@ -28,7 +28,7 @@ rm -Rf ~/.maven/repository/$mavenRepo/jars
 
 # Compile and test
 rm -f $logfile
-maven | tee $logfile
+maven 2>&1 | tee $logfile
 
 if grep "BUILD SUCCESSFUL" $logfile ; then
       echo "$name build successful"
