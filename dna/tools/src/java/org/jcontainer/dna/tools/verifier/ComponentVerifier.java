@@ -26,12 +26,21 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 05:59:56 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-25 06:02:01 $
  */
 public class ComponentVerifier
 {
+    /**
+     * Key used to look up ResourceBundle.
+     */
+    private static final String BASE_NAME =
+        ComponentVerifier.class.getName() + "Resources";
+
+    /**
+     * The resource bundle.
+     */
     private static final ResourceBundle BUNDLE =
-        ResourceBundle.getBundle( ComponentVerifier.class.getName() );
+        ResourceBundle.getBundle( BASE_NAME );
 
     /**
      * Constant for array of 0 classes. Saves recreating array everytime
