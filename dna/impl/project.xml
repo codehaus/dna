@@ -11,7 +11,7 @@
     <shortDescription>The Default DNA Implementation.</shortDescription>
 
     <description>
-        The Default DNA Implementation.
+        DNA Impl is the default implementation of the DNA API.
     </description>
 
     <dependencies>
