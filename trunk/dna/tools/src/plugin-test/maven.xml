@@ -1,0 +1,24 @@
+<project
+    xmlns:ant="jelly:ant"
+    xmlns:j="jelly:core"
+    default="main">
+
+    <goal name="test-clean">
+        <attainGoal name="clean"/>
+    </goal>
+
+    <goal name="test-dna-generate">
+
+        <attainGoal name="dna:metagenerate"/>
+
+        <ant:available
+            file="${maven.build.dest}/com/biz/MyClass-meta.binary"
+            type="file"
+            property="descAvailable"/>
+        <j:if test="${descAvailable != 'true'}">
+            <ant:fail message="Failed to generate descriptor"/>
+        </j:if>
+    </goal>
+
+    <goal name="main" prereqs="test-dna-generate"/>
+</project>
