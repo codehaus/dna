@@ -6,6 +6,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.spi.Filter;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ErrorHandler;
+import org.apache.log4j.spi.ThrowableInformation;
 
 class MockAppender
    implements Appender
@@ -20,7 +21,11 @@ class MockAppender
       m_output = true;
       m_priority = event.getLevel();
       m_message = (String) event.getMessage();
-      m_throwable = event.getThrowableInformation().getThrowable();
+      final ThrowableInformation information = event.getThrowableInformation();
+      if ( null != information )
+      {
+         m_throwable = information.getThrowable();
+      }
    }
 
    public void addFilter( Filter filter )
