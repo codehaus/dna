@@ -10,7 +10,7 @@ package org.jcontainer.dna.impl;
 import org.jcontainer.dna.Configuration;
 import org.xml.sax.helpers.AttributesImpl;
 
-public class MockSAXConfigurationSerializer
+class MockSAXConfigurationSerializer
     extends SAXConfigurationSerializer
 {
     static final AttributesImpl ATTRIBUTES = new AttributesImpl();
