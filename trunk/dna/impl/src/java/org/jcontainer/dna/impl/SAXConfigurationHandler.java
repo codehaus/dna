@@ -22,7 +22,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.14 $ $Date: 2003-09-11 06:55:17 $
+ * @version $Revision: 1.15 $ $Date: 2003-09-11 07:24:28 $
  */
 public class SAXConfigurationHandler
    extends DefaultHandler
@@ -119,6 +119,14 @@ public class SAXConfigurationHandler
       {
          parent.addChild( configuration );
       }
+      final int length = attributes.getLength();
+      for ( int i = 0; i < length; i++ )
+      {
+         final String key = attributes.getQName( i );
+         final String value = attributes.getValue( i );
+         configuration.setAttribute( key, value );
+      }
+
       m_elements.add( configuration );
    }
 
