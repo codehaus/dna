@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project>
+    <pomVersion>3</pomVersion>
+    <name>Default DNA API Implementation</name>
+    <id>dna-impl</id>
+    <groupId>dna</groupId>
+    <currentVersion>1.0dev</currentVersion>
+    <inceptionYear>1999-2003</inceptionYear>
+    <package>org.jcontainer.dna.impl</package>
+
+    <shortDescription>The Default DNA API Implementation.</shortDescription>
+
+    <description>
+        The Default DNA API Implementation.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-api</artifactId>
+            <version>1.0dev</version>
+        </dependency>
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>avalon</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>20030527</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
+
+</project>
