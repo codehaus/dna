@@ -25,10 +25,12 @@
             banner="Building"
             ignoreFailures="false" />
 
+<!--
         <maven:maven
             descriptor="${basedir}/distribution/project.xml"
             goals="buildDist"
             ignoreFailures="false"/>
+-->
     </goal>
 
     <goal name="deploy">
