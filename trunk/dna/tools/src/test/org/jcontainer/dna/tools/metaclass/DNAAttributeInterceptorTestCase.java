@@ -15,7 +15,7 @@ import org.realityforge.metaclass.model.Attribute;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-16 07:57:15 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-16 08:53:00 $
  */
 public class DNAAttributeInterceptorTestCase
     extends TestCase
@@ -318,5 +318,29 @@ public class DNAAttributeInterceptorTestCase
         final DNAAttributeInterceptor interceptor = new DNAAttributeInterceptor();
         final String location = interceptor.getSchemaLocationFor( "com.biz.Foo" );
         assertEquals( "location", "Foo-schema.xml", location );
+    }
+
+    public void testResolveType()
+        throws Exception
+    {
+        final DNAAttributeInterceptor interceptor = new DNAAttributeInterceptor();
+        final String type = interceptor.resolveType( new MockJavaClass(), "X" );
+        assertEquals( "type", MockJavaSource.PREFIX + "X", type );
+    }
+
+    public void testResolveTypeOnArray()
+        throws Exception
+    {
+        final DNAAttributeInterceptor interceptor = new DNAAttributeInterceptor();
+        final String type = interceptor.resolveType( new MockJavaClass(), "X[]" );
+        assertEquals( "type", MockJavaSource.PREFIX + "X[]", type );
+    }
+
+    public void testResolveTypeOnMap()
+        throws Exception
+    {
+        final DNAAttributeInterceptor interceptor = new DNAAttributeInterceptor();
+        final String type = interceptor.resolveType( new MockJavaClass(), "X{}" );
+        assertEquals( "type", MockJavaSource.PREFIX + "X{}", type );
     }
 }
