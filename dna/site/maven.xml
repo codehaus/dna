@@ -102,10 +102,6 @@
         </ant:copy>
     </goal>
 
-    <preGoal name="checkstyle:license">
-        <ant:copy file="${basedir}/src/checkstyle/LICENSE-header.txt" todir="target"/>
-    </preGoal>
-
     <!-- Generate navigation using template -->
     <goal name="generate-navigation">
         <echo message="Generation navigation.xml"/>
