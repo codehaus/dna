@@ -1,7 +1,7 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
+ * This software is published under the terms of the JContainer
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
@@ -25,7 +25,7 @@ import org.jcontainer.dna.ResourceLocator;
  * associated with itself and if unable to locate resource
  * locally it will delegate to parent ResourceLocator.</p>
  *
- * @version $Revision: 1.8 $ $Date: 2003-09-09 04:37:17 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-23 08:10:14 $
  */
 public class DefaultResourceLocator
    extends AbstractFreezable

@@ -1,9 +1,9 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (c) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
- * Software License version 1.1, a copy of which has been included
- * with this distribution in the LICENSE.txt file.
+ * This software is published under the terms of the 
+ * JContainer Software License version 1.1, a copy of which has 
+ * been included with this distribution in the LICENSE.txt file.
  */
 package org.jcontainer.dna;
 
@@ -11,7 +11,7 @@ package org.jcontainer.dna;
  * Abstract utility class that components can extend to
  * make it easy to implement logging.
  *
- * @version $Revision: 1.4 $ $Date: 2003-09-23 02:15:56 $
+ * @version $Revision: 1.5 $ $Date: 2003-09-23 08:10:14 $
  */
 public abstract class AbstractLogEnabled
     implements LogEnabled

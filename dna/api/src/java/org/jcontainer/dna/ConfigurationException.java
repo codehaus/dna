@@ -1,7 +1,7 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
+ * This software is published under the terms of the JContainer
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
@@ -14,7 +14,7 @@ package org.jcontainer.dna;
  * a string), have missing data (ie no attribute with specified
  * name) or may fail to be valid via some other mechanism.
  *
- * @version $Revision: 1.10 $ $Date: 2003-09-23 02:15:56 $
+ * @version $Revision: 1.11 $ $Date: 2003-09-23 08:10:14 $
  */
 public class ConfigurationException
     extends Exception
