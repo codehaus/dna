@@ -265,4 +265,24 @@ public class SAXConfigurationHandlerTestCase
       assertEquals( "configuration.path", "", configuration.getPath() );
       assertEquals( "configuration.value", null, configuration.getValue( null ) );
    }
+
+   public void testCreateConfigurationWithAttributes()
+      throws Exception
+   {
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      final String qName = "myElement";
+      final AttributesImpl attributes = new AttributesImpl();
+      attributes.addAttribute( "", "", "key", "CDATA", "value" );
+      handler.startElement( "", "", qName, attributes );
+      handler.endElement( "", "", qName );
+      final Configuration configuration = handler.getConfiguration();
+      assertEquals( "configuration.name", qName, configuration.getName() );
+      assertEquals( "configuration.location", "", configuration.getLocation() );
+      assertEquals( "configuration.path", "", configuration.getPath() );
+      final String[] names = configuration.getAttributeNames();
+      assertEquals( "names.length", 1, names.length );
+      assertEquals( "names[0]", "key", names[ 0 ] );
+      assertEquals( "configuration.getAttribute( names[ 0 ] )",
+                    "value", configuration.getAttribute( names[ 0 ] ) );
+   }
 }
