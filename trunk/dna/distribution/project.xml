@@ -16,7 +16,7 @@
             <artifactId>dna-api</artifactId>
             <version>1.0</version>
             <properties>
-                <category>shared</category>
+                <category>core</category>
             </properties>
         </dependency>
         <dependency>
@@ -24,7 +24,7 @@
             <artifactId>dna-impl</artifactId>
             <version>1.0</version>
             <properties>
-                <category>shared</category>
+                <category>core</category>
             </properties>
         </dependency>
         <dependency>
