@@ -26,6 +26,14 @@
         <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer/dna</connection>
         <url>http://jcontainer.cvs.codehaus.org/</url>
     </repository>
+    
+    <versions>
+        <version>
+            <id>1.0</id>
+            <name>1.0</name>
+            <tag>DNA_1_0-tag</tag>
+        </version>
+    </versions>
 
     <mailingLists>
         <mailingList>
