@@ -21,7 +21,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.18 $ $Date: 2003-09-23 10:15:26 $
+ * @version $Revision: 1.19 $ $Date: 2003-10-05 01:45:14 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -43,7 +43,7 @@ public class SAXConfigurationHandler
      * Stakc of content text for elements currently being
      * constructed.
      */
-    private final List m_values = new ArrayList();
+    private final ArrayList m_values = new ArrayList();
 
     /**
      * The configuration element created.
@@ -192,6 +192,7 @@ public class SAXConfigurationHandler
         if( null == sb )
         {
             sb = new StringBuffer();
+            m_values.ensureCapacity( index );
             m_values.add( index, sb );
         }
         sb.append( ch, start, length );
