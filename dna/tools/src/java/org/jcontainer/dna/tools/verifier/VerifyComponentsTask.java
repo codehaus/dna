@@ -29,7 +29,7 @@ import org.realityforge.metaclass.model.ClassDescriptor;
  * Task to validate a set of components.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-11-01 01:13:58 $
+ * @version $Revision: 1.3 $ $Date: 2003-11-13 02:49:51 $
  */
 public class VerifyComponentsTask
     extends Task
@@ -216,7 +216,7 @@ public class VerifyComponentsTask
             name.substring( 0, name.length() - CLASS_EXT.length() );
         final String metaName = basename + DefaultMetaClassAccessor.BINARY_EXT;
         final File file = new File( dir, metaName );
-        ClassDescriptor descriptor = loadDescriptor( file );
+        final ClassDescriptor descriptor = loadDescriptor( file );
         if( null != descriptor && isDNAComponent( descriptor ) )
         {
             list.add( descriptor.getName() );
