@@ -8,12 +8,23 @@
 package org.jcontainer.dna;
 
 /**
+ * The component implements this interface if it wishes
+ * to be supplied with flat configuration data.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 05:22:02 $
  */
 public interface Parameterizable
 {
-    void parameterize( Parameters parameters )
-        throws ParameterException;
+   /**
+    * Supply the component with configuration data in form
+    * of a Parameters object.
+    *
+    * @param parameters the parameters object
+    * @throws ParameterException if the configuration data
+    *         specifies invalid configuration data or fails to
+    *         match the expected schema.
+    */
+   void parameterize( Parameters parameters )
+      throws ParameterException;
 }
