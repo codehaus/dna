@@ -5,11 +5,12 @@
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
-package org.jcontainer.dna;
+package org.jcontainer.dna.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.jcontainer.dna.impl.DefaultConfiguration;
+import org.jcontainer.dna.Configuration;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -19,7 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-07-28 08:10:05 $
+ * @version $Revision: 1.1 $ $Date: 2003-07-28 08:15:16 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
