@@ -26,7 +26,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-25 06:02:01 $
+ * @version $Revision: 1.3 $ $Date: 2003-10-25 06:20:28 $
  */
 public class ComponentVerifier
 {
@@ -74,8 +74,7 @@ public class ComponentVerifier
             Attributes.getAttribute( type, "dna.component" );
         if( null == attribute )
         {
-            final String message =
-                "Component does not specify correct metadata";
+            final String message = getMessage( "CV001E" );
             final VerifyIssue issue =
                 new VerifyIssue( VerifyIssue.ERROR, message );
             issues.add( issue );
@@ -86,7 +85,7 @@ public class ComponentVerifier
         verifyClass( type, issues );
         verifyLifecycles( type, issues );
         verifyServices( interfaces, issues );
-        verifyImplementsServices( type, interfaces );
+        verifyImplementsServices( type, interfaces, issues );
 
         return (VerifyIssue[])issues.
             toArray( new VerifyIssue[ issues.size() ] );
@@ -100,15 +99,18 @@ public class ComponentVerifier
      * @param services the services that the implementation must provide
      */
     void verifyImplementsServices( final Class implementation,
-                                   final Class[] services )
+                                   final Class[] services,
+                                   final List issues )
     {
         for( int i = 0; i < services.length; i++ )
         {
             if( !services[ i ].isAssignableFrom( implementation ) )
             {
-                final String message =
-                    getMessage( "verifier.noimpl-service.error",
-                                new Object[]{services[ i ].getName()} );
+                final Object[] args = new Object[]{services[ i ].getName()};
+                final String message = getMessage( "CV002E", args );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
             }
         }
     }
@@ -153,7 +155,7 @@ public class ComponentVerifier
     {
         verifyServiceIsaInterface( clazz, issues );
         verifyServiceIsPublic( clazz, issues );
-        verifyServiceNotALifecycle( clazz , issues);
+        verifyServiceNotALifecycle( clazz, issues );
     }
 
     /**
@@ -170,8 +172,10 @@ public class ComponentVerifier
             Parameterizable.class.isAssignableFrom( implementation );
         if( parameterizable && configurable )
         {
-            final String message =
-                getMessage( "verifier.incompat-config.error" );
+            final String message = getMessage( "CV003E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -185,8 +189,11 @@ public class ComponentVerifier
     {
         if( !clazz.isInterface() )
         {
-            final String message =
-                getMessage( "verifier.non-interface-service.error" );
+            final Object[] args = new Object[]{clazz.getName()};
+            final String message = getMessage( "CV004E", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -203,8 +210,11 @@ public class ComponentVerifier
             Modifier.isPublic( clazz.getModifiers() );
         if( !isPublic )
         {
-            final String message =
-                getMessage( "verifier.non-public-service.error" );
+            final Object[] args = new Object[]{clazz.getName()};
+            final String message = getMessage( "CV005E", args );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -221,9 +231,12 @@ public class ComponentVerifier
             final Class lifecycle = FRAMEWORK_CLASSES[ i ];
             if( lifecycle.isAssignableFrom( clazz ) )
             {
-                final String message =
-                    getMessage( "verifier.service-isa-lifecycle.error",
-                                new Object[]{lifecycle.getName()} );
+                final Object[] args =
+                    new Object[]{clazz.getName(), lifecycle.getName()};
+                final String message = getMessage( "CV006E", args );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
             }
         }
     }
@@ -241,14 +254,18 @@ public class ComponentVerifier
             final Constructor ctor = clazz.getConstructor( EMPTY_TYPES );
             if( !Modifier.isPublic( ctor.getModifiers() ) )
             {
-                final String message =
-                    getMessage( "verifier.non-public-ctor.error" );
+                final String message = getMessage( "CV007E" );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
             }
         }
         catch( final NoSuchMethodException nsme )
         {
-            final String message =
-                getMessage( "verifier.missing-noargs-ctor.error" );
+            final String message = getMessage( "CV008E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -264,8 +281,10 @@ public class ComponentVerifier
             Modifier.isAbstract( clazz.getModifiers() );
         if( isAbstract )
         {
-            final String message =
-                getMessage( "verifier.abstract-class.error" );
+            final String message = getMessage( "CV009E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -281,8 +300,10 @@ public class ComponentVerifier
             Modifier.isPublic( clazz.getModifiers() );
         if( !isPublic )
         {
-            final String message =
-                getMessage( "verifier.nonpublic-class.error" );
+            final String message = getMessage( "CV010E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -296,8 +317,10 @@ public class ComponentVerifier
     {
         if( clazz.isPrimitive() )
         {
-            final String message =
-                getMessage( "verifier.primitive-class.error" );
+            final String message = getMessage( "CV011E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -311,8 +334,10 @@ public class ComponentVerifier
     {
         if( clazz.isInterface() )
         {
-            final String message =
-                getMessage( "verifier.interface-class.error" );
+            final String message = getMessage( "CV012E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -326,8 +351,10 @@ public class ComponentVerifier
     {
         if( clazz.isArray() )
         {
-            final String message =
-                getMessage( "verifier.array-class.error" );
+            final String message = getMessage( "CV013E" );
+            final VerifyIssue issue =
+                new VerifyIssue( VerifyIssue.ERROR, message );
+            issues.add( issue );
         }
     }
 
@@ -340,7 +367,6 @@ public class ComponentVerifier
      * @return an array of Classes for all the services
      */
     protected Class[] getServiceClasses( final Class type, final List issues )
-
     {
         final ClassLoader classLoader = type.getClassLoader();
         final Attribute[] attributes =
@@ -355,9 +381,11 @@ public class ComponentVerifier
             }
             catch( final Throwable t )
             {
-                final String message =
-                    "Unable to load service class \"" +
-                    classname + "\" for Component. (Reason: " + t + ").";
+                final Object[] args = new Object[]{classname, t};
+                final String message = getMessage( "CV014E", args );
+                final VerifyIssue issue =
+                    new VerifyIssue( VerifyIssue.ERROR, message );
+                issues.add( issue );
             }
         }
 
