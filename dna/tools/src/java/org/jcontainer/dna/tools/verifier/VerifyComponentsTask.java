@@ -9,7 +9,6 @@ package org.jcontainer.dna.tools.verifier;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +29,7 @@ import org.realityforge.metaclass.model.ClassDescriptor;
  * Task to validate a set of components.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-26 03:22:17 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-01 01:13:58 $
  */
 public class VerifyComponentsTask
     extends Task
@@ -238,7 +237,7 @@ public class VerifyComponentsTask
             final FileInputStream input = new FileInputStream( file );
             return IO.deserializeClass( input );
         }
-        catch( final IOException ioe )
+        catch( final Exception e )
         {
             return null;
         }
