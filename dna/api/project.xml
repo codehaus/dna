@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project>
+    <pomVersion>3</pomVersion>
+    <name>DNA API</name>
+    <id>dna-api</id>
+    <currentVersion>1.0dev</currentVersion>
+    <inceptionYear>1999-2003</inceptionYear>
+    <package>org.jcontainer.dna</package>
+
+    <shortDescription>The API for the DNA framework.</shortDescription>
+
+    <description>
+        The API for the DNA framework.
+    </description>
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
+
+</project>
