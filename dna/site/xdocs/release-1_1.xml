@@ -62,9 +62,8 @@
                 </li>
                 <li>
                     Parameters, DefaultParameters and Parameterizable have
-                    been removed from the DNA framework to simplify usage of
-                    the framework. The usage pattern can be replaced by usages
-                    of Configuration and Configurable.
+                    been removed from the DNA framework in the quest for
+                    a simpler framework. 
                 </li>
             </ul>
         </section>
