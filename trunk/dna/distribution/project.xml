@@ -14,7 +14,7 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
-            <version>1.0</version>
+            <version>${pom.currentVersion}</version>
             <properties>
                 <category>core</category>
             </properties>
@@ -22,7 +22,15 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-impl</artifactId>
-            <version>1.0</version>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <category>core</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-tools</artifactId>
+            <version>${pom.currentVersion}</version>
             <properties>
                 <category>core</category>
             </properties>
@@ -38,6 +46,21 @@
             <groupId>avalon</groupId>
             <artifactId>avalon-logkit</artifactId>
             <version>1.2</version>
+            <properties>
+                <category>shared</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>spice</groupId>
+            <artifactId>spice-metaclass</artifactId>
+            <version>20031016.074122</version>
+            <properties>
+                <category>shared</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>qdox</id>
+            <version>1.1</version>
             <properties>
                 <category>shared</category>
             </properties>
