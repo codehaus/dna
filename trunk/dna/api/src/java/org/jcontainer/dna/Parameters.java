@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.3 $ $Date: 2003-07-27 10:27:26 $
+ * @version $Revision: 1.4 $ $Date: 2003-07-27 10:32:24 $
  */
 public interface Parameters
 {
