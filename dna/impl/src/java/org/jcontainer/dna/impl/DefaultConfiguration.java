@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.9 $ $Date: 2003-09-02 03:41:13 $
+ * @version $Revision: 1.10 $ $Date: 2003-09-02 03:41:51 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -122,7 +122,8 @@ public class DefaultConfiguration
         }
         else
         {
-            throw new ConfigurationException( "No value specified", getPath(), getLocation() );
+           final String message = "No value specified";
+           throw new ConfigurationException( message, getPath(), getLocation() );
         }
     }
 
