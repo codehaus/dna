@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+  <properties>
+    <title>Overview</title>
+  </properties>
+  
+  
+  <body>
+    <section name="Introduction">
+      <p>
+        DNA is a lightweight Inversion of Control (IOC) framework.
+	  </p>
+    </section>
+    
+    <section name="Acknowledgements">
+        <p>The DNA Group would like to thank <a href="http://codehaus.org">Codehaus</a> 
+        for supplying resources to host the project</p>
+    </section>
+  </body>
+</document>

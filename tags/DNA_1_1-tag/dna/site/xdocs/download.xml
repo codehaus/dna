@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <title>Download</title>
+    </properties>
+    <body>
+        <section name="Downloading DNA">
+            <p>
+                DNA artifacts are downloadable from the 
+                <a href="http://dist.codehaus.org/dna">
+                Codehaus Distribution Server</a>.
+            </p>
+        </section>
+    </body>
+</document>
