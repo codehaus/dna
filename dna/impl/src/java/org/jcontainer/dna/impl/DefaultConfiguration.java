@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.8 $ $Date: 2003-08-30 02:08:35 $
+ * @version $Revision: 1.9 $ $Date: 2003-09-02 03:41:13 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -122,7 +122,7 @@ public class DefaultConfiguration
         }
         else
         {
-            throw new ConfigurationException( "No value specified", getLocation() );
+            throw new ConfigurationException( "No value specified", getPath(), getLocation() );
         }
     }
 
@@ -167,7 +167,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + getValue() + " as an integer";
-            throw new ConfigurationException( message, nfe, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation(), nfe );
         }
     }
 
@@ -201,7 +201,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + getValue() + " as a Long";
-            throw new ConfigurationException( message, nfe, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation(), nfe );
         }
     }
 
@@ -235,7 +235,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + getValue() + " as a Long";
-            throw new ConfigurationException( message, nfe, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation(), nfe );
         }
     }
 
@@ -276,7 +276,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Attribute named " + name + " not specified.";
-            throw new ConfigurationException( message, getLocation() );
+           throw new ConfigurationException( message, getPath(), getLocation(), null );
         }
     }
 
@@ -326,7 +326,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + value + " as an Integer.";
-            throw new ConfigurationException( message, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation() );
         }
     }
 
@@ -363,7 +363,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + value + " as a Long.";
-            throw new ConfigurationException( message, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation() );
         }
     }
 
@@ -400,7 +400,7 @@ public class DefaultConfiguration
         {
             final String message =
                 "Unable to parse " + value + " as a Float.";
-            throw new ConfigurationException( message, getLocation() );
+            throw new ConfigurationException( message, getPath(), getLocation() );
         }
     }
 
