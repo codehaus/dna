@@ -99,7 +99,7 @@
 /**
  * This is a DNA component.
  *
- * @dna.dna
+ * @dna.component
  */
 public class MyComponent
 {
