@@ -10,138 +10,297 @@ package org.jcontainer.dna.impl;
 import org.jcontainer.dna.Logger;
 
 /**
+ * A simple logger facade that simply writes to the Console.
  *
- * @version $Revision: 1.2 $ $Date: 2003-08-07 09:11:08 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-05 07:05:41 $
  */
 public class ConsoleLogger
-    implements Logger
+   implements Logger
 {
-    public static final int LEVEL_ALL = 0;
-    public static final int LEVEL_TRACE = 1;
-    public static final int LEVEL_DEBUG = 2;
-    public static final int LEVEL_INFO = 3;
-    public static final int LEVEL_WARN = 4;
-    public static final int LEVEL_ERROR = 5;
-    public static final int LEVEL_NONE = 6;
+   /**
+    * Constant to indicate that the logger
+    * must log all levels.
+    */
+   public static final int LEVEL_ALL = 0;
 
-    private static final String LEVEL_TRACE_STR = "TRACE";
-    private static final String LEVEL_DEBUG_STR = "DEBUG";
-    private static final String LEVEL_INFO_STR = "INFO";
-    private static final String LEVEL_WARN_STR = "WARN";
-    private static final String LEVEL_ERROR_STR = "ERROR";
+   /**
+    * Constant to indicate that the logger
+    * must log all levels TRACE and above.
+    */
+   public static final int LEVEL_TRACE = 1;
 
-    private final int m_level;
+   /**
+    * Constant to indicate that the logger
+    * must log all levels DEBUG and above.
+    */
+   public static final int LEVEL_DEBUG = 2;
 
-    public ConsoleLogger()
-    {
-        this( LEVEL_ALL );
-    }
+   /**
+    * Constant to indicate that the logger
+    * must log all levels INFO and above.
+    */
+   public static final int LEVEL_INFO = 3;
 
-    public ConsoleLogger( final int level )
-    {
-        m_level = level;
-    }
+   /**
+    * Constant to indicate that the logger
+    * must log all levels WARN and above.
+    */
+   public static final int LEVEL_WARN = 4;
 
-    public void trace( final String message )
-    {
-        trace( message, null );
-    }
+   /**
+    * Constant to indicate that the logger
+    * must log all levels ERROR and above.
+    */
+   public static final int LEVEL_ERROR = 5;
 
-    public void trace( final String message,
-                       final Throwable throwable )
-    {
-        output( LEVEL_TRACE, LEVEL_TRACE_STR, message, throwable );
-    }
+   /**
+    * Constant to indicate that the logger
+    * must not log any messages.
+    */
+   public static final int LEVEL_NONE = 6;
 
-    public boolean isTraceEnabled()
-    {
-        return m_level <= LEVEL_TRACE;
-    }
+   /**
+    * String constant used to output TRACE messages.
+    */
+   private static final String LEVEL_TRACE_STR = "TRACE";
 
-    public void debug( final String message )
-    {
-        debug( message, null );
-    }
+   /**
+    * String constant used to output DEBUG messages.
+    */
+   private static final String LEVEL_DEBUG_STR = "DEBUG";
 
-    public void debug( final String message,
-                       final Throwable throwable )
-    {
-        output( LEVEL_DEBUG, LEVEL_DEBUG_STR, message, throwable );
-    }
+   /**
+    * String constant used to output INFO messages.
+    */
+   private static final String LEVEL_INFO_STR = "INFO";
 
-    public boolean isDebugEnabled()
-    {
-        return m_level <= LEVEL_DEBUG;
-    }
+   /**
+    * String constant used to output WARN messages.
+    */
+   private static final String LEVEL_WARN_STR = "WARN";
 
-    public void info( final String message )
-    {
-        info( message, null );
-    }
+   /**
+    * String constant used to output ERROR messages.
+    */
+   private static final String LEVEL_ERROR_STR = "ERROR";
 
-    public void info( final String message,
+   /**
+    * The log level.
+    */
+   private final int m_level;
+
+   /**
+    * Create a Console Logger that logs all messages.
+    */
+   public ConsoleLogger()
+   {
+      this( LEVEL_ALL );
+   }
+
+   /**
+    * Create a Console Logger that logs at specified level.
+    *
+    * @param level one of the LEVEL_* constants
+    */
+   public ConsoleLogger( final int level )
+   {
+      m_level = level;
+   }
+
+   /**
+    * Log a trace message.
+    *
+    * @param message the message
+    */
+   public void trace( final String message )
+   {
+      trace( message, null );
+   }
+
+   /**
+    * Log a trace message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void trace( final String message,
                       final Throwable throwable )
-    {
-        output( LEVEL_INFO, LEVEL_INFO_STR, message, throwable );
-    }
+   {
+      output( LEVEL_TRACE, LEVEL_TRACE_STR, message, throwable );
+   }
 
-    public boolean isInfoEnabled()
-    {
-        return m_level <= LEVEL_INFO;
-    }
+   /**
+    * Return true if a trace message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isTraceEnabled()
+   {
+      return m_level <= LEVEL_TRACE;
+   }
 
-    public void warn( final String message )
-    {
-        warn( message, null );
-    }
+   /**
+    * Log a debug message.
+    *
+    * @param message the message
+    */
+   public void debug( final String message )
+   {
+      debug( message, null );
+   }
 
-    public void warn( final String message,
+   /**
+    * Log a debug message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void debug( final String message,
                       final Throwable throwable )
-    {
-        output( LEVEL_WARN, LEVEL_WARN_STR, message, throwable );
-    }
+   {
+      output( LEVEL_DEBUG, LEVEL_DEBUG_STR, message, throwable );
+   }
 
-    public boolean isWarnEnabled()
-    {
-        return m_level <= LEVEL_WARN;
-    }
+   /**
+    * Return true if a debug message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isDebugEnabled()
+   {
+      return m_level <= LEVEL_DEBUG;
+   }
 
-    public void error( final String message )
-    {
-        error( message, null );
-    }
+   /**
+    * Log a info message.
+    *
+    * @param message the message
+    */
+   public void info( final String message )
+   {
+      info( message, null );
+   }
 
-    public void error( final String message,
-                       final Throwable throwable )
-    {
-        output( LEVEL_ERROR, LEVEL_ERROR_STR, message, throwable );
-    }
+   /**
+    * Log a info message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void info( final String message,
+                     final Throwable throwable )
+   {
+      output( LEVEL_INFO, LEVEL_INFO_STR, message, throwable );
+   }
 
-    public boolean isErrorEnabled()
-    {
-        return m_level <= LEVEL_ERROR;
-    }
+   /**
+    * Return true if an info message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isInfoEnabled()
+   {
+      return m_level <= LEVEL_INFO;
+   }
 
-    public Logger getChildLogger( final String name )
-    {
-        return this;
-    }
+   /**
+    * Log a warn message.
+    *
+    * @param message the message
+    */
+   public void warn( final String message )
+   {
+      warn( message, null );
+   }
 
-    private void output( final int level,
-                         final String type,
-                         final String message,
-                         final Throwable throwable )
-    {
-        if( m_level <= level )
-        {
-            synchronized( System.out )
+   /**
+    * Log a warn message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void warn( final String message,
+                     final Throwable throwable )
+   {
+      output( LEVEL_WARN, LEVEL_WARN_STR, message, throwable );
+   }
+
+   /**
+    * Return true if a warn message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isWarnEnabled()
+   {
+      return m_level <= LEVEL_WARN;
+   }
+
+   /**
+    * Log a error message.
+    *
+    * @param message the message
+    */
+   public void error( final String message )
+   {
+      error( message, null );
+   }
+
+   /**
+    * Log a error message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void error( final String message,
+                      final Throwable throwable )
+   {
+      output( LEVEL_ERROR, LEVEL_ERROR_STR, message, throwable );
+   }
+
+   /**
+    * Return true if a error message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isErrorEnabled()
+   {
+      return m_level <= LEVEL_ERROR;
+   }
+
+   /**
+    * Get the child logger with specified name.
+    *
+    * @param name the name of child logger
+    * @return the child logger
+    */
+   public Logger getChildLogger( final String name )
+   {
+      return this;
+   }
+
+   /**
+    * Utility method to output message to console.
+    *
+    * @param level the log level
+    * @param type the type string
+    * @param message the message
+    * @param throwable the throwable, may be null
+    */
+   private void output( final int level,
+                        final String type,
+                        final String message,
+                        final Throwable throwable )
+   {
+      if ( m_level <= level )
+      {
+         synchronized ( System.out )
+         {
+            System.out.println( "[" + type + "] " + message );
+            if ( null != throwable )
             {
-                System.out.println( "[" + type + "] " + message );
-                if( null != throwable )
-                {
-                    throwable.printStackTrace( System.out );
-                }
+               throwable.printStackTrace( System.out );
             }
-        }
-    }
+         }
+      }
+   }
 }
