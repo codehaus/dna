@@ -19,13 +19,17 @@
 	    <attainGoal name="aggregate-component-sites"/>
     </postGoal>
 
-   <!-- Build all components sites and aggregate them under site docs -->
+    <!-- Build all components sites and aggregate them under site docs -->
+	<!-- Note that this goal only works if executed in the site/ dir 
+		 If one tries to executed via a high-level reactor the 
+		 relative path in the basedir will not yield the correct path
+		 to the components' projects.
+	-->
     <goal name="aggregate-component-sites">
         <echo message="Aggregate all components sites"/>
         <maven:reactor
             basedir="../"
             includes="api/project.xml,impl/project.xml"
-            excludes="distribution/*"
             goals="site:generate"
             banner="Generate site"
             ignoreFailures="false" />
