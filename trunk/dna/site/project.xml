@@ -5,10 +5,10 @@
     <id>dna-site</id>
 
     <shortDescription>JContainer DNA web site</shortDescription>
-    
+
     <description>
-    	JContainer DNA web site provides accesses to the DNA project 
-    	information and reports. 
+    	JContainer DNA web site provides accesses to the DNA project
+    	information and reports.
     </description>
 
     <dependencies>
@@ -59,14 +59,4 @@
         <nagEmailAddress>jcontainer-interest@lists.codehaus.org</nagEmailAddress>
     </build>
 
-    <reports>
-        <report>maven-jdepend-plugin</report>
-        <report>maven-checkstyle-plugin</report>
-        <report>maven-javadoc-plugin</report>
-        <report>maven-jxr-plugin</report>
-        <report>maven-junit-report-plugin</report>
-        <!--<report>maven-linkcheck-plugin</report>-->
-        <report>maven-clover-plugin</report>
-        <report>maven-license-plugin</report>
-    </reports>
 </project>
