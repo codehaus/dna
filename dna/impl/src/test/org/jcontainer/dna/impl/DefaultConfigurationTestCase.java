@@ -208,4 +208,253 @@ public class DefaultConfigurationTestCase
       }
       fail( "Expected getValue() to throw an exception" );
    }
+
+   public void testGetAttributeAsText()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "value";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key')",
+                    value,
+                    configuration.getAttribute( key ) );
+      assertEquals( "getAttribute('key','defaultValue')",
+                    value,
+                    configuration.getAttribute( key, "defaultValue" ) );
+   }
+
+   public void testGetMissingAttributeAsText()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      assertEquals( "getAttribute('key','defaultValue')",
+                    "defaultValue",
+                    configuration.getAttribute( key, "defaultValue" ) );
+
+      try
+      {
+         configuration.getAttribute( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for non existent key" );
+   }
+
+   public void testGetAttributeAsBoolean()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "true";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key')",
+                    true,
+                    configuration.getAttributeAsBoolean( key ) );
+      assertEquals( "getAttribute('key','false')",
+                    true,
+                    configuration.getAttributeAsBoolean( key, false ) );
+   }
+
+   public void testGetMissingAttributeAsBoolean()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      assertEquals( "getAttribute('key','false')",
+                    false,
+                    configuration.getAttributeAsBoolean( key, false ) );
+      try
+      {
+         configuration.getAttribute( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for non existent key" );
+   }
+
+   public void testGetAttributeAsInteger()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "3";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key')",
+                    3,
+                    configuration.getAttributeAsInteger( key ) );
+      assertEquals( "getAttribute('key','1')",
+                    3,
+                    configuration.getAttributeAsInteger( key, 1 ) );
+   }
+
+   public void testGetMissingAttributeAsInteger()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      assertEquals( "getAttribute('key','defaultValue')",
+                    1,
+                    configuration.getAttributeAsInteger( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsInteger( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for non existent key" );
+   }
+
+   public void testGetMalformedAttributeAsInteger()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "malformed";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key','defaultValue')",
+                    1,
+                    configuration.getAttributeAsInteger( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsInteger( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for malformed attribute" );
+   }
+
+   public void testGetAttributeAsLong()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "3";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key')",
+                    3,
+                    configuration.getAttributeAsLong( key ) );
+      assertEquals( "getAttribute('key','1')",
+                    3,
+                    configuration.getAttributeAsLong( key, 1 ) );
+   }
+
+   public void testGetMissingAttributeAsLong()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      assertEquals( "getAttribute('key','1')",
+                    1,
+                    configuration.getAttributeAsLong( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsLong( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for non existent key" );
+   }
+
+   public void testGetMalformedAttributeAsLong()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "malformed";
+      configuration.setAttribute( key, value );
+      assertEquals( "getAttribute('key','1')",
+                    1,
+                    configuration.getAttributeAsLong( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsLong( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for malformed attribute" );
+   }
+
+   public void testGetAttributeAsFloat()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "3";
+      configuration.setAttribute( key, value );
+      assertTrue( "getAttribute('key')",
+                  3.0 == configuration.getAttributeAsFloat( key ) );
+      assertTrue( "getAttribute('key','1')",
+                  3.0 == configuration.getAttributeAsFloat( key, 1 ) );
+   }
+
+   public void testGetMissingAttributeAsFloat()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      assertTrue( "getAttribute('key','defaultValue')",
+                  1.0 == configuration.getAttributeAsFloat( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsFloat( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for non existent key" );
+   }
+
+   public void testGetMalformedAttributeAsFloat()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      final String key = "key";
+      final String value = "malformed";
+      configuration.setAttribute( key, value );
+      assertTrue( "getAttribute('key','defaultValue')",
+                  1.0 == configuration.getAttributeAsFloat( key, 1 ) );
+
+      try
+      {
+         configuration.getAttributeAsFloat( key );
+      }
+      catch ( ConfigurationException e )
+      {
+         return;
+      }
+      fail( "Expected to fail with getAttribute for malformed attribute" );
+   }
 }
