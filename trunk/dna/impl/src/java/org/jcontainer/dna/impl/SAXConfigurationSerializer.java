@@ -13,15 +13,32 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 /**
+ * Utility class that serializes a Configuration object
+ * to a SAX2 compliant ContentHandler.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-08-29 04:31:47 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-05 06:30:24 $
  */
 public class SAXConfigurationSerializer
 {
+   /**
+    * Constant for CDATA type in attributes.
+    */
    private static final String CDATA_TYPE = "CDATA";
+
+   /**
+    * Constant for empty namespace in attributes.
+    */
    private static final String EMPTY_NAMESPACE = "";
+
+   /**
+    * Constant for start of CDATA content sections.
+    */
    private static final String CDATA_PREFIX = "<![CDATA[";
+
+   /**
+    * Constant for end of CDATA content sections.
+    */
    private static final String CDATA_POSTFIX = "]]>";
 
    /**

@@ -12,109 +12,208 @@ import org.apache.log4j.Priority;
 import org.apache.log4j.Level;
 
 /**
+ * Logging facade implmentation for Apache Log4J project.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-27 03:13:18 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 06:38:25 $
  */
 public class Log4JLogger
-    implements Logger
+   implements Logger
 {
-    private static final String FQCN = Log4JLogger.class.getName();
+   /**
+    * The fully qualified name of the current class so
+    * Log4J will not include it in traces.
+    */
+   private static final String FQCN = Log4JLogger.class.getName();
 
-    private final org.apache.log4j.Logger m_logger;
+   /**
+    * The log4j logger instance.
+    */
+   private final org.apache.log4j.Logger m_logger;
 
-    public Log4JLogger( final org.apache.log4j.Logger logger )
-    {
-        if( null == logger )
-        {
-            throw new NullPointerException( "logger" );
-        }
-        m_logger = logger;
-    }
+   /**
+    * Create an instance of Log4J facade.
+    *
+    * @param logger the log4j logger
+    */
+   public Log4JLogger( final org.apache.log4j.Logger logger )
+   {
+      if ( null == logger )
+      {
+         throw new NullPointerException( "logger" );
+      }
+      m_logger = logger;
+   }
 
-    public void trace( final String message )
-    {
-        m_logger.log( FQCN, Level.DEBUG, message, null );
-    }
+   /**
+    * Log a trace message.
+    *
+    * @param message the message
+    */
+   public void trace( final String message )
+   {
+      m_logger.log( FQCN, Level.DEBUG, message, null );
+   }
 
-    public void trace( final String message,
-                       final Throwable throwable )
-    {
-        m_logger.log( FQCN, Level.DEBUG, message, throwable );
-    }
-
-    public boolean isTraceEnabled()
-    {
-        return m_logger.isDebugEnabled();
-    }
-
-    public void debug( final String message )
-    {
-        m_logger.log( FQCN, Level.DEBUG, message, null );
-    }
-
-    public void debug( final String message,
-                       final Throwable throwable )
-    {
-        m_logger.log( FQCN, Level.DEBUG, message, throwable );
-    }
-
-    public boolean isDebugEnabled()
-    {
-        return m_logger.isDebugEnabled();
-    }
-
-    public void info( final String message )
-    {
-        m_logger.log( FQCN, Level.INFO, message, null );
-    }
-
-    public void info( final String message,
+   /**
+    * Log a trace message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void trace( final String message,
                       final Throwable throwable )
-    {
-        m_logger.log( FQCN, Level.INFO, message, throwable );
-    }
+   {
+      m_logger.log( FQCN, Level.DEBUG, message, throwable );
+   }
 
-    public boolean isInfoEnabled()
-    {
-        return m_logger.isInfoEnabled();
-    }
+   /**
+    * Return true if a trace message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isTraceEnabled()
+   {
+      return m_logger.isDebugEnabled();
+   }
 
-    public void warn( final String message )
-    {
-        m_logger.log( FQCN, Level.WARN, message, null );
-    }
+   /**
+    * Log a debug message.
+    *
+    * @param message the message
+    */
+   public void debug( final String message )
+   {
+      m_logger.log( FQCN, Level.DEBUG, message, null );
+   }
 
-    public void warn( final String message,
+   /**
+    * Log a debug message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void debug( final String message,
                       final Throwable throwable )
-    {
-        m_logger.log( FQCN, Level.WARN, message, throwable );
-    }
+   {
+      m_logger.log( FQCN, Level.DEBUG, message, throwable );
+   }
 
-    public boolean isWarnEnabled()
-    {
-        return m_logger.isEnabledFor( Priority.WARN );
-    }
+   /**
+    * Return true if a debug message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isDebugEnabled()
+   {
+      return m_logger.isDebugEnabled();
+   }
 
-    public void error( final String message )
-    {
-        m_logger.log( FQCN, Level.ERROR, message, null );
-    }
+   /**
+    * Log a info message.
+    *
+    * @param message the message
+    */
+   public void info( final String message )
+   {
+      m_logger.log( FQCN, Level.INFO, message, null );
+   }
 
-    public void error( final String message,
-                       final Throwable throwable )
-    {
-        m_logger.log( FQCN, Level.ERROR, message, throwable );
-    }
+   /**
+    * Log a info message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void info( final String message,
+                     final Throwable throwable )
+   {
+      m_logger.log( FQCN, Level.INFO, message, throwable );
+   }
 
-    public boolean isErrorEnabled()
-    {
-        return m_logger.isEnabledFor( Priority.ERROR );
-    }
+   /**
+    * Return true if an info message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isInfoEnabled()
+   {
+      return m_logger.isInfoEnabled();
+   }
 
-    public Logger getChildLogger( final String name )
-    {
+   /**
+    * Log a warn message.
+    *
+    * @param message the message
+    */
+   public void warn( final String message )
+   {
+      m_logger.log( FQCN, Level.WARN, message, null );
+   }
 
-        return new Log4JLogger( org.apache.log4j.Logger.
-                                getLogger( m_logger.getName() + "." + name ) );
-    }
+   /**
+    * Log a warn message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void warn( final String message,
+                     final Throwable throwable )
+   {
+      m_logger.log( FQCN, Level.WARN, message, throwable );
+   }
+
+   /**
+    * Return true if a warn message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isWarnEnabled()
+   {
+      return m_logger.isEnabledFor( Priority.WARN );
+   }
+
+   /**
+    * Log a error message.
+    *
+    * @param message the message
+    */
+   public void error( final String message )
+   {
+      m_logger.log( FQCN, Level.ERROR, message, null );
+   }
+
+   /**
+    * Log a error message with an associated throwable.
+    *
+    * @param message the message
+    * @param throwable the throwable
+    */
+   public void error( final String message,
+                      final Throwable throwable )
+   {
+      m_logger.log( FQCN, Level.ERROR, message, throwable );
+   }
+
+   /**
+    * Return true if a error message will be logged.
+    *
+    * @return true if message will be logged
+    */
+   public boolean isErrorEnabled()
+   {
+      return m_logger.isEnabledFor( Priority.ERROR );
+   }
+
+   /**
+    * Get the child logger with specified name.
+    *
+    * @param name the name of child logger
+    * @return the child logger
+    */
+   public Logger getChildLogger( final String name )
+   {
+
+      return new Log4JLogger( org.apache.log4j.Logger.
+                              getLogger( m_logger.getName() + "." + name ) );
+   }
 }
