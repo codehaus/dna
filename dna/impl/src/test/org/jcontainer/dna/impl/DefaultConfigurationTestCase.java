@@ -1,5 +1,7 @@
 package org.jcontainer.dna.impl;
 
+import java.util.Map;
+
 import junit.framework.TestCase;
 import org.jcontainer.dna.ConfigurationException;
 import org.jcontainer.dna.Configuration;
@@ -846,4 +848,28 @@ public class DefaultConfigurationTestCase
       assertTrue( "configuration.isReadOnly()", configuration.isReadOnly() );
    }
 
+   public void testToString()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+
+      final String expected = "[Configuration name='myElement']";
+      final String string = configuration.toString();
+      assertEquals( expected, string );
+   }
+
+   public void testToStringWithAttributes()
+      throws Exception
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( "myElement", "file.xml:20", "" );
+      configuration.setAttribute( "key", "value" );
+      final Map attributeMap = configuration.getAttributeMap();
+
+      final String expected =
+         "[Configuration name='myElement' attributes=" + attributeMap + "]";
+      final String string = configuration.toString();
+      assertEquals( expected, string );
+   }
 }
