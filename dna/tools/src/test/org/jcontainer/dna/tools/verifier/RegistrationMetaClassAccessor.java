@@ -16,7 +16,7 @@ import java.util.HashMap;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-26 06:27:40 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 03:51:59 $
  */
 public class RegistrationMetaClassAccessor
     implements MetaClassAccessor
@@ -24,7 +24,8 @@ public class RegistrationMetaClassAccessor
     private final Map m_descriptors = new HashMap();
 
     public ClassDescriptor getClassDescriptor( final String classname,
-                                               final ClassLoader classLoader )
+                                               final ClassLoader classLoader,
+                                               final MetaClassAccessor accessor )
         throws MetaClassException
     {
         final ClassDescriptor descriptor = (ClassDescriptor)m_descriptors.get( classname );

@@ -21,13 +21,14 @@ import java.awt.event.ActionListener;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-26 06:07:44 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 03:51:59 $
  */
 class AccessorWithDependencyMetaData
     implements MetaClassAccessor
 {
     public ClassDescriptor getClassDescriptor( final String classname,
-                                               final ClassLoader classLoader )
+                                               final ClassLoader classLoader,
+                                               final MetaClassAccessor accessor )
         throws MetaClassException
     {
         final Properties parameters = new Properties();
@@ -40,9 +41,9 @@ class AccessorWithDependencyMetaData
             new ParameterDescriptor("locator", ResourceLocator.class.getName());
         final ParameterDescriptor[] params = new ParameterDescriptor[]{param};
         final MethodDescriptor descriptor =
-            new MethodDescriptor("compose","", 0, params, attributes );
+            new MethodDescriptor("compose","", params, attributes, attributes );
         return new ClassDescriptor( classname,
-                                    0,
+                                    Attribute.EMPTY_SET,
                                     Attribute.EMPTY_SET,
                                     FieldDescriptor.EMPTY_SET,
                                     new MethodDescriptor[]{descriptor} );

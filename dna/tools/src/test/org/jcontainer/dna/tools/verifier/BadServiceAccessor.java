@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-25 15:03:06 $
+ * @version $Revision: 1.2 $ $Date: 2003-11-27 03:51:59 $
  */
 class BadServiceAccessor
     implements MetaClassAccessor
@@ -27,7 +27,8 @@ class BadServiceAccessor
     static final String BAD_SERVICE = "I-No-Exist!";
 
     public ClassDescriptor getClassDescriptor( final String classname,
-                                               final ClassLoader classLoader )
+                                               final ClassLoader classLoader,
+                                               final MetaClassAccessor accessor )
         throws MetaClassException
     {
         final Properties bad = new Properties();
@@ -42,7 +43,7 @@ class BadServiceAccessor
             new Attribute( "dna.service", good )
         };
         return new ClassDescriptor( classname,
-                                    0,
+                                    attributes,
                                     attributes,
                                     FieldDescriptor.EMPTY_SET,
                                     MethodDescriptor.EMPTY_SET );

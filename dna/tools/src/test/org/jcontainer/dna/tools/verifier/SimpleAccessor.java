@@ -17,13 +17,14 @@ import org.realityforge.metaclass.model.MethodDescriptor;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.2 $ $Date: 2003-10-26 05:59:34 $
+ * @version $Revision: 1.3 $ $Date: 2003-11-27 03:51:59 $
  */
 class SimpleAccessor
     implements MetaClassAccessor
 {
     public ClassDescriptor getClassDescriptor( final String classname,
-                                               final ClassLoader classLoader )
+                                               final ClassLoader classLoader,
+                                               final MetaClassAccessor accessor )
         throws MetaClassException
     {
         final Attribute[] attributes = new Attribute[]
@@ -31,7 +32,7 @@ class SimpleAccessor
             new Attribute( "dna.component" ),
         };
         return new ClassDescriptor( classname,
-                                    0,
+                                    attributes,
                                     attributes,
                                     FieldDescriptor.EMPTY_SET,
                                     MethodDescriptor.EMPTY_SET );

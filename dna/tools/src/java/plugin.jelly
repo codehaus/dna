@@ -1,32 +1,29 @@
 <?xml version="1.0"?>
 
-<project xmlns:dna="dna"
-    xmlns:ant="jelly:ant">
+<project xmlns:ant="jelly:ant">
 
-    <goal name="dna:init" description="Initialize Plugin">
-        <ant:echo message="Generating DNA Component Descriptors"/>
-        <ant:taskdef name="dna:generate-descriptors"
-            classname="org.jcontainer.dna.tools.metaclass.GenerateDNADescriptorsTask">
-            <ant:classpath>
-                <ant:pathelement path="${plugin.dir}"/>
-                <ant:pathelement path="${plugin.getDependencyPath('qdox')}"/>
-                <ant:pathelement path="${plugin.getDependencyPath('spice:spice-metaclass')}"/>
-            </ant:classpath>
-        </ant:taskdef>
+    <goal name="dna:init"
+        prereqs="metaclass:init"
+        description="Initialize Plugin">
+
+        <ant:mc_interceptorSet id="maven.dna.interceptors">
+            <ant:interceptor
+                name="org.jcontainer.dna.tools.metaclass.DNAAttributeInterceptor">
+                <ant:classpath>
+                    <ant:pathelement path="${plugin.dir}"/>
+                </ant:classpath>
+            </ant:interceptor>
+        </ant:mc_interceptorSet>
+
+        <ant:mc_addToInterceptorSet
+            id="maven.metaclass.interceptors"
+            refid="maven.dna.interceptors"/>
     </goal>
 
     <goal name="dna:metagenerate"
         prereqs="dna:init"
         description="Generate DNA Descriptor files">
-        <!-- Ensure maven.build.dest exists -->
-        <ant:mkdir dir="${maven.build.dest}"/>
-
-        <dna:generate-descriptors destDir="${maven.build.dest}">
-            <ant:fileset dir="${maven.dna.descriptor.src}">
-                <ant:include name="${maven.dna.descriptor.include}"/>
-                <ant:exclude name="${maven.dna.descriptor.exclude}"/>
-            </ant:fileset>
-        </dna:generate-descriptors>
+        <attainGoal name="metaclass:generate"/>
     </goal>
 
 </project>
