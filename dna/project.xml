@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project>
+    <pomVersion>3</pomVersion>
+
+    <currentVersion>1.0</currentVersion>
+    <inceptionYear>2000</inceptionYear>
+    <!--<logo>/images/logo.gif</logo>-->
+
+    <organization>
+        <name>The JContainer Group</name>
+        <url>http://dna.jcontainer.org/</url>
+        <!--<logo>/images/logo.gif</logo>-->
+    </organization>
+
+    <groupId>dna</groupId>
+    <package>org.jcontainer.dna</package>
+    <url>http://dna.jcontainer.org/</url>
+    <distributionDirectory>/home/groups/s/sp/spice/htdocs/maven/${groupId}</distributionDirectory>
+    <distributionSite>spice.sourceforge.net</distributionSite>
+    
+    <repository>
+        <connection>scm:cvs:peserver:anoncvs@codehaus.org:/cvsroot/jcontainer:jcontainer</connection>    
+        <url>http://jcontainer.cvs.codehaus.org/</url>
+    </repository>
+</project>
