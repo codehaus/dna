@@ -1,7 +1,7 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
+ * This software is published under the terms of the JContainer
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
@@ -23,7 +23,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.18 $ $Date: 2003-09-11 01:29:14 $
+ * @version $Revision: 1.19 $ $Date: 2003-09-23 08:10:14 $
  */
 public class DefaultConfiguration
    extends AbstractFreezable

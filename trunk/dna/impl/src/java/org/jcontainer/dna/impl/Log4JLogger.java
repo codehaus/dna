@@ -1,7 +1,7 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
+ * This software is published under the terms of the JContainer
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
@@ -24,7 +24,7 @@ import org.apache.log4j.Level;
  *   <li>error ==&gt; error</li>
  * </ul>
  *
- * @version $Revision: 1.3 $ $Date: 2003-09-05 06:40:51 $
+ * @version $Revision: 1.4 $ $Date: 2003-09-23 08:10:14 $
  */
 public class Log4JLogger
    implements Logger

@@ -1,7 +1,7 @@
 /*
- * Copyright (C) The Spice Group. All rights reserved.
+ * Copyright (C) The JContainer Group. All rights reserved.
  *
- * This software is published under the terms of the Spice
+ * This software is published under the terms of the JContainer
  * Software License version 1.1, a copy of which has been included
  * with this distribution in the LICENSE.txt file.
  */
@@ -22,7 +22,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.15 $ $Date: 2003-09-11 07:24:28 $
+ * @version $Revision: 1.16 $ $Date: 2003-09-23 08:10:14 $
  */
 public class SAXConfigurationHandler
    extends DefaultHandler
