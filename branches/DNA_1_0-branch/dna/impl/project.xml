@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project>
+	<extend>${basedir}/../project.xml</extend>
+    <name>DNA Default Implementation</name>
+    <id>dna-impl</id>
+    <package>org.jcontainer.dna.impl</package>
+    <shortDescription>The Default DNA Implementation.</shortDescription>
+
+    <description>
+        DNA Impl is the default implementation of the DNA API.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>avalon</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>1.2</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+        <unitTest>
+            <resource>
+                <directory>${basedir}/src/test</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <includes>
+                <include>**/*TestCase*</include>
+            </includes>
+            <excludes>
+                <exclude>**/Abstract*</exclude>
+            </excludes>
+        </unitTest>
+    </build>
+
+</project>
