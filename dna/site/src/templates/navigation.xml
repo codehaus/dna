@@ -14,6 +14,11 @@
             </item>
         </menu>
 
+        <menu name="Developer Documentation">
+            <item name="API Documentation" href="/apidocs/index.html"/>
+            <item name="Unit Test Code Coverage" href="/clover/index.html"/>
+        </menu>
+
         #parse( "navigation.components" )
 
     </body>
