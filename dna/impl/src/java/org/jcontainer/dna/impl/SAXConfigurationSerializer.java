@@ -15,7 +15,7 @@ import org.xml.sax.helpers.AttributesImpl;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-08-29 02:37:51 $
+ * @version $Revision: 1.2 $ $Date: 2003-08-29 04:31:47 $
  */
 public class SAXConfigurationSerializer
 {
@@ -54,14 +54,7 @@ public class SAXConfigurationSerializer
                           final ContentHandler handler )
       throws SAXException
    {
-      final AttributesImpl attributes = new AttributesImpl();
-      final String[] names = configuration.getAttributeNames();
-      for ( int i = 0; i < names.length; i++ )
-      {
-         final String name = names[ i ];
-         final String value = configuration.getAttribute( name, "" );
-         attributes.addAttribute( EMPTY_NAMESPACE, name, name, CDATA_TYPE, value );
-      }
+      final AttributesImpl attributes = serializeAttributes( configuration );
 
       final String name = configuration.getName();
       handler.startElement( EMPTY_NAMESPACE, name, name, attributes );
@@ -85,6 +78,25 @@ public class SAXConfigurationSerializer
       }
 
       handler.endElement( EMPTY_NAMESPACE, name, name );
+   }
+
+   /**
+    * Serialize Configuration attributes to an AttributesImpl instance.
+    *
+    * @param configuration the configuration
+    * @return the AttributesImpl instance
+    */
+   private AttributesImpl serializeAttributes( final Configuration configuration )
+   {
+      final AttributesImpl attributes = new AttributesImpl();
+      final String[] names = configuration.getAttributeNames();
+      for ( int i = 0; i < names.length; i++ )
+      {
+         final String name = names[ i ];
+         final String value = configuration.getAttribute( name, "" );
+         attributes.addAttribute( EMPTY_NAMESPACE, name, name, CDATA_TYPE, value );
+      }
+      return attributes;
    }
 
    /**
