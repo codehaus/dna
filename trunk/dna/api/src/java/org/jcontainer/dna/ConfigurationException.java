@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.4 $ $Date: 2003-08-30 02:03:50 $
+ * @version $Revision: 1.5 $ $Date: 2003-08-30 02:05:52 $
  */
 public class ConfigurationException
     extends Exception
@@ -70,9 +70,23 @@ public class ConfigurationException
 
     public String toString()
     {
+        final StringBuffer sb = new StringBuffer();
+
+        if( null != m_path && !"".equals( m_path ) )
+        {
+            sb.append( " - " );
+            sb.append( m_path );
+        }
+
         if( null != m_location && !"".equals( m_location ) )
         {
-            return super.toString() + " @ " + m_location;
+            sb.append( " @ " );
+            sb.append( m_location );
+        }
+
+        if( 0 != sb.length() )
+        {
+            return super.toString() + sb;
         }
         else
         {
