@@ -8,10 +8,27 @@
 package org.jcontainer.dna.impl;
 
 import junit.framework.TestCase;
+import java.io.PrintStream;
+import java.io.ByteArrayOutputStream;
 
 public class ConsoleLoggerTestCase
     extends TestCase
 {
+    public void testConsoleWithEmptyOutput()
+        throws Exception
+    {
+        try
+        {
+            new ConsoleLogger( MockConsoleLogger.LEVEL_ALL, null );
+        }
+        catch( final NullPointerException npe )
+        {
+            assertEquals( "npe.message", "output", npe.getMessage() );
+            return;
+        }
+        fail( "Expected to fail due to NPE in ctor" );
+    }
+
     public void testMockConsoleEmptyCtor()
         throws Exception
     {
@@ -33,15 +50,29 @@ public class ConsoleLoggerTestCase
     public void testMockConsoleOutputToConsole()
         throws Exception
     {
-        final ConsoleLogger logger = new ConsoleLogger();
+        final ByteArrayOutputStream arrayOutput = new ByteArrayOutputStream();
+        final PrintStream output = new PrintStream( arrayOutput );
+        final ConsoleLogger logger = new ConsoleLogger( MockConsoleLogger.LEVEL_ALL, output );
         logger.debug( "ignore me!", null );
+        final String message = arrayOutput.toString();
+        final String expectedMessage =
+            "[DEBUG] ignore me!" + System.getProperty( "line.separator" );
+        assertEquals( "message", expectedMessage, message );
     }
 
     public void testMockConsoleOutputToConsoleWithException()
         throws Exception
     {
-        final ConsoleLogger logger = new ConsoleLogger();
+        final ByteArrayOutputStream arrayOutput = new ByteArrayOutputStream();
+        final PrintStream output = new PrintStream( arrayOutput );
+        final ConsoleLogger logger = new ConsoleLogger( MockConsoleLogger.LEVEL_ALL, output );
         logger.debug( "ignore me!", new Throwable( "Ignore me aswell!" ) );
+        final String message = arrayOutput.toString();
+        final String expectedMessage =
+            "[DEBUG] ignore me!" + System.getProperty( "line.separator" );
+        assertTrue( "message", message.startsWith( expectedMessage ) );
+        assertTrue( "throwable message", -1 != message.indexOf( "Ignore me aswell!" ) );
+        assertTrue( "throwable", -1 != message.indexOf( Throwable.class.getName() ) );
     }
 
     public void testMockConsoleTraceEnabled()
