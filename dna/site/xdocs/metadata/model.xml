@@ -184,6 +184,58 @@ public void enableLogging( Logger logger )
 }
                     ]]></source>
             </subsection>
+            <subsection name="dna.configuration">
+                <p>
+                    The <code>dna.configuration</code> tag declares the schema
+                    that can be used to validate the configuration for the
+                    component. The <code>dna.configuration</code> tag is
+                    specified as part of the
+                    <a href="../apidocs/org/jcontainer/dna/Configurable.html#configure(org.jcontainer.dna.Configuration)">
+                        Configurable.configure(Configuration)</a> method JavaDocs
+                    and has the following parameters.
+                </p>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Default Value</th>
+                        <th>Description</th>
+                        <th>Optional</th>
+                    </tr>
+                    <tr>
+                        <td>location</td>
+                        <td>&lt;classname&gt;-schema.xml</td>
+                        <td>
+                            The location of the configuration schema file
+                            relative to the .class file.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>""</td>
+                        <td>
+                            The type of the schema file. If not specified then
+                            the underlying validator will attempt to guess the
+                            schema type either via the file extension (for DTDs)
+                            or via the namespace used in the xml schema file.
+                        </td>
+                        <td>true</td>
+                    </tr>
+                </table>
+                <p>
+                    Example:
+                </p>
+                <source><![CDATA[
+/**
+ * @dna.configuration location="MySchema.dtd"
+ */
+public void configure( Configuration config )
+    throws ConfigurationException
+{
+   ...
+}
+                    ]]></source>
+            </subsection>
 
         </section>
     </body>
