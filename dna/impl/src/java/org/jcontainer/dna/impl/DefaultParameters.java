@@ -11,253 +11,412 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
+
 import org.jcontainer.dna.ParameterException;
 import org.jcontainer.dna.Parameters;
 
 /**
+ * Parameters implementation backed by a Properties object.
+ * The developer should create the DefaultParameters,
+ * associate resources with locator and then invoke
+ * {@link #makeReadOnly()} before passing the Locator to
+ * the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.5 $ $Date: 2003-09-07 23:49:33 $
+ * @version $Revision: 1.6 $ $Date: 2003-09-07 23:59:46 $
  */
 public class DefaultParameters
-    extends AbstractFreezable
-    implements Parameters
+   extends AbstractFreezable
+   implements Parameters
 {
-    private static final String SEPARATOR = ".";
-    private static final String EMPTY_PREFIX = "";
+   /**
+    * Constant for separator between parameters
+    * and child parameters.
+    */
+   private static final String SEPARATOR = ".";
 
-    private final Properties m_parameters = new Properties();
-    private final Set m_children = new HashSet();
-    private final String m_prefix;
+   /**
+    * Constant for empty prefix.
+    */
+   private static final String EMPTY_PREFIX = "";
 
-    public DefaultParameters()
-    {
-        this( EMPTY_PREFIX );
-    }
+   /**
+    * The key-value pairs contained by parameters object.
+    */
+   private final Properties m_parameters = new Properties();
 
-    public DefaultParameters( final String prefix )
-    {
-        if( null == prefix )
-        {
-            throw new NullPointerException( "prefix" );
-        }
-        m_prefix = prefix;
-    }
+   /**
+    * The child parameters objects created from with
+    * parameters object.
+    */
+   private final Set m_children = new HashSet();
 
-    public String[] getParameterNames()
-    {
-        final Set set = m_parameters.keySet();
-        return (String[])set.toArray( new String[ set.size() ] );
-    }
+   /**
+    * The prefix associated with parameters object.
+    */
+   private final String m_prefix;
 
-    public boolean isParameter( final String name )
-    {
-        return m_parameters.containsKey( name );
-    }
+   /**
+    * Create a parameters object with empty prefix.
+    */
+   public DefaultParameters()
+   {
+      this( EMPTY_PREFIX );
+   }
 
-    public String getParameter( final String name )
-        throws ParameterException
-    {
-        final String property = m_parameters.getProperty( name );
-        if( null == property )
-        {
-            final String message =
-                "Unable to locate parameter named " + name;
-            throw new ParameterException( message, name );
-        }
-        return property;
-    }
+   /**
+    * Create a parameters object with specified prefix.
+    *
+    * @param prefix the prefix
+    */
+   public DefaultParameters( final String prefix )
+   {
+      if ( null == prefix )
+      {
+         throw new NullPointerException( "prefix" );
+      }
+      m_prefix = prefix;
+   }
 
-    public String getParameter( final String name,
-                                final String defaultValue )
-    {
-        final String fullname = m_prefix + name;
-        return m_parameters.getProperty( fullname, defaultValue );
-    }
+   /**
+    * Return the names of all the parameters.
+    *
+    * @return the names of all the parameters.
+    */
+   public String[] getParameterNames()
+   {
+      final Set set = getParameters().keySet();
+      return (String[]) set.toArray( new String[ set.size() ] );
+   }
 
-    public boolean getParameterAsBoolean( final String name )
-        throws ParameterException
-    {
-        return getParameter( name ).equals( "true" );
-    }
+   /**
+    * Return true of parameter with specified name exists.
+    *
+    * @param name the name
+    * @return true of parameter with specified name exists.
+    */
+   public boolean isParameter( final String name )
+   {
+      return getParameters().containsKey( name );
+   }
 
-    public boolean getParameterAsBoolean( final String name,
-                                          final boolean defaultValue )
-    {
-        final String value = getParameter( name, null );
-        if( null == value )
-        {
-            return defaultValue;
-        }
-        else
-        {
-            return value.equals( "true" );
-        }
-    }
+   /**
+    * Return value of parameter with specified name.
+    *
+    * @param name the name
+    * @return the value
+    * @throws ParameterException if unable to locate parameter
+    */
+   public String getParameter( final String name )
+      throws ParameterException
+   {
+      final String property = getParameters().getProperty( name );
+      if ( null == property )
+      {
+         final String message =
+            "Unable to locate parameter named " + name;
+         throw new ParameterException( message, name );
+      }
+      return property;
+   }
 
-    public int getParameterAsInteger( final String name )
-        throws ParameterException
-    {
-        final String value = getParameter( name );
-        try
-        {
+   /**
+    * Return value of parameter with specified name.
+    *
+    * @param name the name
+    * @param defaultValue the defaultValue if specified parameter
+    *        does not exist
+    * @return the value
+    */
+   public String getParameter( final String name,
+                               final String defaultValue )
+   {
+      final String fullname = getPrefix() + name;
+      return getParameters().getProperty( fullname, defaultValue );
+   }
+
+   /**
+    * Return value of parameter with specified name as a boolean.
+    *
+    * @param name the name
+    * @return the value
+    * @throws ParameterException if unable to locate parameter
+    *         or parameter can not be converted to correct type
+    */
+   public boolean getParameterAsBoolean( final String name )
+      throws ParameterException
+   {
+      return getParameter( name ).equals( "true" );
+   }
+
+   /**
+    * Return value of parameter with specified name as a boolean.
+    *
+    * @param name the name
+    * @param defaultValue the defaultValue if specified parameter
+    *        does not exist or parameter can not be converted to
+    *        the correct type
+    * @return the value
+    */
+   public boolean getParameterAsBoolean( final String name,
+                                         final boolean defaultValue )
+   {
+      final String value = getParameter( name, null );
+      if ( null == value )
+      {
+         return defaultValue;
+      }
+      else
+      {
+         return value.equals( "true" );
+      }
+   }
+
+   /**
+    * Return value of parameter with specified name as an integer.
+    *
+    * @param name the name
+    * @return the value
+    * @throws ParameterException if unable to locate parameter
+    *         or parameter can not be converted to correct type
+    */
+   public int getParameterAsInteger( final String name )
+      throws ParameterException
+   {
+      final String value = getParameter( name );
+      try
+      {
+         return Integer.parseInt( value );
+      }
+      catch ( final NumberFormatException nfe )
+      {
+         final String message =
+            "Unable to parse parameter named " + name +
+            " with value '" + value + "'";
+         throw new ParameterException( message, name, nfe );
+      }
+   }
+
+
+   /**
+    * Return value of parameter with specified name as an integer.
+    *
+    * @param name the name
+    * @param defaultValue the defaultValue if specified parameter
+    *        does not exist or parameter can not be converted to
+    *        the correct type
+    * @return the value
+    */
+   public int getParameterAsInteger( final String name,
+                                     final int defaultValue )
+   {
+      final String value = getParameter( name, null );
+      if ( null == value )
+      {
+         return defaultValue;
+      }
+      else
+      {
+         try
+         {
             return Integer.parseInt( value );
-        }
-        catch( final NumberFormatException nfe )
-        {
-            final String message =
-                "Unable to parse parameter named " + name +
-                " with value '" + value + "'";
-            throw new ParameterException( message, name, nfe );
-        }
-    }
-
-    public int getParameterAsInteger( final String name,
-                                      final int defaultValue )
-    {
-        final String value = getParameter( name, null );
-        if( null == value )
-        {
+         }
+         catch ( final NumberFormatException nfe )
+         {
             return defaultValue;
-        }
-        else
-        {
-            try
-            {
-                return Integer.parseInt( value );
-            }
-            catch( final NumberFormatException nfe )
-            {
-                return defaultValue;
-            }
-        }
-    }
+         }
+      }
+   }
 
-    public long getParameterAsLong( final String name )
-        throws ParameterException
-    {
-        final String value = getParameter( name );
-        try
-        {
+   /**
+    * Return value of parameter with specified name as a long.
+    *
+    * @param name the name
+    * @return the value
+    * @throws ParameterException if unable to locate parameter
+    *         or parameter can not be converted to correct type
+    */
+   public long getParameterAsLong( final String name )
+      throws ParameterException
+   {
+      final String value = getParameter( name );
+      try
+      {
+         return Long.parseLong( value );
+      }
+      catch ( final NumberFormatException nfe )
+      {
+         final String message =
+            "Unable to parse parameter named " + name +
+            " with value '" + value + "'";
+         throw new ParameterException( message, name, nfe );
+      }
+   }
+
+   /**
+    * Return value of parameter with specified name as a long.
+    *
+    * @param name the name
+    * @param defaultValue the defaultValue if specified parameter
+    *        does not exist or parameter can not be converted to
+    *        the correct type
+    * @return the value
+    */
+   public long getParameterAsLong( final String name,
+                                   final long defaultValue )
+   {
+      final String value = getParameter( name, null );
+      if ( null == value )
+      {
+         return defaultValue;
+      }
+      else
+      {
+         try
+         {
             return Long.parseLong( value );
-        }
-        catch( final NumberFormatException nfe )
-        {
-            final String message =
-                "Unable to parse parameter named " + name +
-                " with value '" + value + "'";
-            throw new ParameterException( message, name, nfe );
-        }
-    }
-
-    public long getParameterAsLong( final String name,
-                                    final long defaultValue )
-    {
-        final String value = getParameter( name, null );
-        if( null == value )
-        {
+         }
+         catch ( final NumberFormatException nfe )
+         {
             return defaultValue;
-        }
-        else
-        {
-            try
-            {
-                return Long.parseLong( value );
-            }
-            catch( final NumberFormatException nfe )
-            {
-                return defaultValue;
-            }
-        }
-    }
+         }
+      }
+   }
 
-    public float getParameterAsFloat( final String name )
-        throws ParameterException
-    {
-        final String value = getParameter( name );
-        try
-        {
+   /**
+    * Return value of parameter with specified name as a float.
+    *
+    * @param name the name
+    * @return the value
+    * @throws ParameterException if unable to locate parameter
+    *         or parameter can not be converted to correct type
+    */
+   public float getParameterAsFloat( final String name )
+      throws ParameterException
+   {
+      final String value = getParameter( name );
+      try
+      {
+         return Float.parseFloat( value );
+      }
+      catch ( final NumberFormatException nfe )
+      {
+         final String message =
+            "Unable to parse parameter named " + name +
+            " with value '" + value + "'";
+         throw new ParameterException( message, name, nfe );
+      }
+   }
+
+   /**
+    * Return value of parameter with specified name as a float.
+    *
+    * @param name the name
+    * @param defaultValue the defaultValue if specified parameter
+    *        does not exist or parameter can not be converted to
+    *        the correct type
+    * @return the value
+    */
+   public float getParameterAsFloat( final String name,
+                                     final float defaultValue )
+   {
+      final String value = getParameter( name, null );
+      if ( null == value )
+      {
+         return defaultValue;
+      }
+      else
+      {
+         try
+         {
             return Float.parseFloat( value );
-        }
-        catch( final NumberFormatException nfe )
-        {
-            final String message =
-                "Unable to parse parameter named " + name +
-                " with value '" + value + "'";
-            throw new ParameterException( message, name, nfe );
-        }
-    }
-
-    public float getParameterAsFloat( final String name,
-                                      final float defaultValue )
-    {
-        final String value = getParameter( name, null );
-        if( null == value )
-        {
+         }
+         catch ( final NumberFormatException nfe )
+         {
             return defaultValue;
-        }
-        else
-        {
-            try
-            {
-                return Float.parseFloat( value );
-            }
-            catch( final NumberFormatException nfe )
-            {
-                return defaultValue;
-            }
-        }
-    }
+         }
+      }
+   }
 
-    public Parameters getChildParameters( final String prefix )
-    {
-        final String prefixAndDot = prefix + SEPARATOR;
-        final int length = prefix.length() + 1;
-        final DefaultParameters parameters = new DefaultParameters( m_prefix + SEPARATOR + prefix );
-        final Iterator iterator = m_parameters.keySet().iterator();
-        while( iterator.hasNext() )
-        {
-            final String key = (String)iterator.next();
-            if( key.startsWith( prefixAndDot ) )
-            {
-                final String value = getParameter( key, null );
-                final String newKey = key.substring( length );
-                parameters.setParameter( newKey, value );
-            }
-        }
+   /**
+    * Return a Parameters object that represents a
+    * subset of parameters with specified prefix + the '.'
+    * character. if the prefix was "foo" then the parameter
+    * "foo.baz" would be included in child Parameters object
+    * using the key "baz".
+    *
+    * @param prefix the prefix
+    * @return the parameters object
+    */
+   public Parameters getChildParameters( final String prefix )
+   {
+      final String prefixAndSeparator = prefix + SEPARATOR;
+      final int length = prefix.length() + 1;
+      final DefaultParameters parameters = new DefaultParameters( getPrefix() + SEPARATOR + prefix );
+      final Iterator iterator = getParameters().keySet().iterator();
+      while ( iterator.hasNext() )
+      {
+         final String key = (String) iterator.next();
+         if ( key.startsWith( prefixAndSeparator ) )
+         {
+            final String value = getParameter( key, null );
+            final String newKey = key.substring( length );
+            parameters.setParameter( newKey, value );
+         }
+      }
 
-        parameters.makeReadOnly();
-        m_children.add( parameters );
-        return parameters;
-    }
+      parameters.makeReadOnly();
+      m_children.add( parameters );
+      return parameters;
+   }
 
-    public void makeReadOnly()
-    {
-        super.makeReadOnly();
-        final Iterator iterator = m_children.iterator();
-        while( iterator.hasNext() )
-        {
-            final Object child = iterator.next();
-            if( child instanceof Freezable )
-            {
-                ((Freezable)child).makeReadOnly();
-            }
-        }
-    }
+   /**
+    * Mark the resource and all child parameter
+    * objects as read only.
+    */
+   public void makeReadOnly()
+   {
+      super.makeReadOnly();
+      final Iterator iterator = m_children.iterator();
+      while ( iterator.hasNext() )
+      {
+         final Object child = iterator.next();
+         if ( child instanceof Freezable )
+         {
+            ( (Freezable) child ).makeReadOnly();
+         }
+      }
+   }
 
-    public void setParameter( final String name, final String value )
-    {
-        checkWriteable();
-        m_parameters.setProperty( name, value );
-    }
+   /**
+    * Set parameter with specified name to specified value.
+    *
+    * @param name the parameter name
+    * @param value the parameter value
+    */
+   public void setParameter( final String name, final String value )
+   {
+      checkWriteable();
+      getParameters().setProperty( name, value );
+   }
 
-    protected final Properties getParameters()
-    {
-        return m_parameters;
-    }
+   /**
+    * Return the backing properties object associated with parameters.
+    *
+    * @return the backing properties object associated with parameters.
+    */
+   protected final Properties getParameters()
+   {
+      return m_parameters;
+   }
 
-    protected final String getPrefix()
-    {
-        return m_prefix;
-    }
+   /**
+    * Return the prefix associated with Parameters object.
+    *
+    * @return the prefix associated with Parameters object.
+    */
+   protected final String getPrefix()
+   {
+      return m_prefix;
+   }
 }
