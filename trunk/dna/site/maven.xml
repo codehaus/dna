@@ -16,7 +16,7 @@
         <attainGoal name="site:deploy"/>
     </goal>
 
-    <preGoal name="xdoc:init">
+    <preGoal name="java:compile">
         <attainGoal name="aggregate-components"/>
     </preGoal>
 
