@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project>
     <extend>${basedir}/../project.xml</extend>
-    <name>DNA</name>
+    <name>DNA Site</name>
     <id>dna-site</id>
 
     <shortDescription>JContainer DNA web site</shortDescription>
