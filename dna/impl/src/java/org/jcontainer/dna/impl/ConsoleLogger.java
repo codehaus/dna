@@ -8,11 +8,12 @@
 package org.jcontainer.dna.impl;
 
 import org.jcontainer.dna.Logger;
+import java.io.PrintStream;
 
 /**
  * A simple logger facade that simply writes to the Console.
  *
- * @version $Revision: 1.9 $ $Date: 2003-09-23 10:14:46 $
+ * @version $Revision: 1.10 $ $Date: 2003-10-09 01:51:49 $
  */
 public class ConsoleLogger
     implements Logger
@@ -90,6 +91,11 @@ public class ConsoleLogger
     private final int m_level;
 
     /**
+     * The output location.
+     */
+    private final PrintStream m_output;
+
+    /**
      * Create a Console Logger that logs all messages.
      */
     public ConsoleLogger()
@@ -104,7 +110,24 @@ public class ConsoleLogger
      */
     public ConsoleLogger( final int level )
     {
+        this( level, System.out );
+    }
+
+    /**
+     * Create a Console Logger that logs at specified level.
+     *
+     * @param level one of the LEVEL_* constants
+     * @param output the stream to output to
+     */
+    public ConsoleLogger( final int level,
+                          final PrintStream output )
+    {
+        if( null == output )
+        {
+            throw new NullPointerException( "output" );
+        }
         m_level = level;
+        m_output = output;
     }
 
     /**
@@ -311,10 +334,10 @@ public class ConsoleLogger
     {
         synchronized( System.out )
         {
-            System.out.println( "[" + type + "] " + message );
+            m_output.println( "[" + type + "] " + message );
             if( null != throwable )
             {
-                throwable.printStackTrace( System.out );
+                throwable.printStackTrace( m_output );
             }
         }
     }
