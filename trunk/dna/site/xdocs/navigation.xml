@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="DNA">
+
+    <title>DNA</title>
+
+    <body>
+        <links>
+            <item href="http://dna.jcontainer.org/api" name="API"/>
+            <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
+            <item href="http://dna.jcontainer.org" name="DNA"/>
+            <item href="http://jcontainer.org" name="JContainer"/>
+            <item href="http://codehaus.org" name="Codehaus"/>
+        </links>
+    
+        <search/>
+        <menu name="Overview">
+            <item href="/index.html" name="Introduction"/>
+        </menu>
+        <menu name="Components">
+            <item href="http://dna.jcontainer.org/api" name="API"/>
+            <item href="http://dna.jcontainer.org/impl" name="Default Implementation"/>
+        </menu>
+    </body>
+</project>

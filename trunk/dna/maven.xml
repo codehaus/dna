@@ -21,7 +21,7 @@
             basedir="${basedir}"
             includes="*/project.xml"
             excludes="distribution/*"
-            goals="clean,jar:install"
+            goals="clean,build"
             banner="Building"
             ignoreFailures="false" />
 
@@ -39,7 +39,7 @@
             basedir="${basedir}"
             includes="*/project.xml"
             excludes="distribution/*"
-            goals="clean,jar:deploy"
+            goals="clean,deploy"
             banner="Deploying"
             ignoreFailures="false" />
     </goal>
