@@ -8,7 +8,8 @@
     <shortDescription>The API for the DNA framework.</shortDescription>
 
     <description>
-        The API for the DNA framework.
+        The DNA API is a set of interfaces or abstract classes that
+        define the framework.
     </description>
 
     <build>
