@@ -1,8 +1,35 @@
 <?xml version="1.0"?>
-<project default="build">
+<project default="build" xmlns:ant="jelly:ant">
 
-    <goal name="build" prereqs="jar:install"/>    	
+    <goal name="build" prereqs="jar:install"/>
 
-    <goal name="deploy" prereqs="jar:deploy"/>    	
+    <goal name="deploy" prereqs="jar:deploy"/>
+
+    <goal name="verifyTest">
+        <path id="classpath">
+            <pathelement location="${basedir}/../api/target/classes"/>
+            <pathelement location="${basedir}/target/classes"/>
+            <pathelement location="${basedir}/target/test-classes"/>
+        </path>
+
+        <ant:taskdef name="dnaVerify"
+            classname="org.codehaus.dna.impl.verifier.VerifyComponentsTask">
+            <ant:classpath>
+                <ant:pathelement location="${basedir}/../api/target/classes"/>
+                <ant:pathelement location="${basedir}/target/classes"/>
+            </ant:classpath>
+        </ant:taskdef>
+
+        <ant:dnaVerify>
+            <ant:classpath>
+                <ant:pathelement location="${basedir}/../api/target/classes"/>
+                <ant:pathelement location="${basedir}/target/classes"/>
+                <ant:pathelement location="${basedir}/target/test-classes"/>
+            </ant:classpath>
+            <ant:component name="org.codehaus.dna.impl.verifier.MyComponent"/>
+            <ant:component name="org.codehaus.dna.impl.verifier.MyDodgyComponent"/>
+        </ant:dnaVerify>
+
+    </goal>
 
 </project>

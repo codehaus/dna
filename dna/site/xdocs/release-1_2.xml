@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <title>DNA Release 1.2</title>
+    </properties>
+
+    <body>
+        <section name="Introduction">
+            <p>
+                This is the third release of DNA. The primary purpose of
+                this release is the replacement of MetaClass with JDK1.5
+                Annotation framework.
+          	</p>
+        </section>
+        <section name="Changes">
+            <ul>
+                <li>
+                	Remove MetaClass dependency and replace with dependency
+                    on JDK1.5 Annotation framework. This resulted in removal
+                    of significant amount of code from the dna-tools project.
+                    The code removal included removing all code that processed
+                    and validated MetaClass Attributes.
+                </li>
+                <li>
+                    Migrate the ComponentVerifier class from the <code>org.codehaus.dna.tools</code>
+                    package to the <code>org.codehaus.dna.impl.verifier</code> package.
+                </li>
+                <li>
+                    Removal of the dna-tools project including the maven plugin
+                    as it no contained any code. The MetaClass code was removed and
+                    the verifier code was moved to the dna-impl project.
+                </li>
+            </ul>
+        </section>
+    </body>
+
+</document>

@@ -3,17 +3,36 @@
   <properties>
     <title>Overview</title>
   </properties>
-  
-  
+
+
   <body>
     <section name="Introduction">
-      <p>
-        DNA is a lightweight Inversion of Control (IOC) framework.
-	  </p>
+        <p>
+            DNA is a lightweight Inversion of Control (IOC) framework. It defines the
+            way that you write components so that they can be hosted in DNA-compliant
+            containers.
+	    </p>
+        <p>
+            DNA has gone through three major revisions. The first version of DNA
+            (1.0) defined the programming contract for DNA-compliant components.
+            Version 1.1 of DNA tightened the programming contract and defined the
+            information model for metadata associated with components. The metadata
+            was bound to the components using the <a href="http://metaclass.codehaus.org">
+            MetaClass</a> toolkit. Version 1.2 of DNA uses the JDK 1.5
+            <a href="http://java.sun.com/j2se/1.5.0/docs/guide/language/annotations.html">Annotation</a>
+            framework to bind the metadata to the components.
+        </p>
+        <p>
+            Each revision has seen the development of DNA-compliant components
+            simplified and we recomend you upgrade to the latest DNA version.
+            However we recognize that not all users are ready to use JDK 1.5 and
+            thus we still maintain the <a href="1.1/index.html">version 1.1 of
+            DNA</a>. 
+        </p>
     </section>
-    
+
     <section name="Acknowledgements">
-        <p>The DNA Group would like to thank <a href="http://codehaus.org">Codehaus</a> 
+        <p>The DNA Group would like to thank <a href="http://codehaus.org">Codehaus</a>
         for supplying resources to host the project</p>
     </section>
   </body>

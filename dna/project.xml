@@ -12,7 +12,7 @@
 
     <groupId>dna</groupId>
     <!-- note need to update version in dna-tools dependencies if this changes -->
-    <currentVersion>1.1</currentVersion>
+    <currentVersion>1.2-dev</currentVersion>
     <package>org.codehaus.dna</package>
 
     <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10241</issueTrackingUrl>
@@ -146,7 +146,7 @@
         <report>maven-jxr-plugin</report>
         <report>maven-junit-report-plugin</report>
         <report>maven-license-plugin</report>
-        <report>maven-clover-plugin</report>
+        <!--<report>maven-clover-plugin</report>-->
     </reports>
 
 </project>

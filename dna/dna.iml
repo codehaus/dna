@@ -9,21 +9,17 @@
       <sourceFolder url="file://$MODULE_DIR$/api/src/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/impl/src/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/impl/src/test" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tools/src/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/tools/src/plugin-test/src/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/tools/src/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/api/target" />
       <excludeFolder url="file://$MODULE_DIR$/distribution/target" />
       <excludeFolder url="file://$MODULE_DIR$/impl/target" />
       <excludeFolder url="file://$MODULE_DIR$/site/target" />
-      <excludeFolder url="file://$MODULE_DIR$/tools/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="metaclass" />
-    <orderEntry type="library" name="Ant" level="application" />
-    <orderEntry type="library" name="Log4j" level="application" />
-    <orderEntry type="library" name="LogKit" level="application" />
+    <orderEntry type="library" name="ant" level="application" />
+    <orderEntry type="library" name="log4j-1.2.8" level="application" />
+    <orderEntry type="library" name="logkit-1.2.2" level="application" />
+    <orderEntry type="library" name="junit-3.8.1" level="application" />
     <orderEntryProperties />
   </component>
 </module>
