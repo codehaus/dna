@@ -9,45 +9,39 @@
         <section name="MetaData Model">
             <p>
                 This document describes the minimal set of metadata requirements
-                for DNA components.The metadata includes what resources the
+                for DNA components. The metadata includes what resources the
                 component can provide to other components and what resources the
                 component requires from the container.
             </p>
             <p>
-                DNA components must declare the resources that they are capable
-                of providing to other components.
+                The annotations are located in the <code>org.codehaus.dna.annotation</code>
+                package
             </p>
             <ul>
                 <li>
-                    <a href="#dna.component">dna.component</a>: The object must
-                    declare that they are DNA components and not just some
-                    random java object.
+                    <a href="#ComponentDescriptor">ComponentDescriptor</a>: The
+                    object must declare that they are DNA components and not just
+                    some random java object.
                 </li>
                 <li>
-                    <a href="#dna.service">dna.service</a>: The object must
-                    declare what services (aka work interfaces) that the
-                    component implements and is capable of providing to other
-                    components.
-                </li>
-            </ul>
-            <p>
-                DNA components must also declare what resources they require
-                to operate.
-            </p>
-            <ul>
-                <li>
-                    <a href="#dna.logger">dna.logger</a>: The object must
-                    declare the Logger objects that they will use.
+                    <a href="#ServiceDescriptorSet">ServiceDescriptorSet</a>:
+                    The object must declare what services (aka work interfaces)
+                    that the component implements and is capable of providing to
+                    other components.
                 </li>
                 <li>
-                    <a href="#dna.configuration">dna.configuration</a>: The
-                    object must declare location of the configuration schema
+                    <a href="#LoggerDescriptorSet">LoggerDescriptorSet</a>: The
+                    component must declare the Logger objects that they require.
+                </li>
+                <li>
+                    <a href="#ConfigurationDescriptor">ConfigurationDescriptor</a>: The
+                    object may declare location of the configuration schema
                     (if any) that can be used to validate any configuraiton
                     data that they are provided.
                 </li>
                 <li>
-                    <a href="#dna.dependency">dna.dependency</a>: The
-                    object must declare the services that it expects to find
+                    <a href="#DependencyDescriptorSet">DependencyDescriptorSet</a>:
+                    The object must declare the services that it expects to find
                     in the ResourceLocator.
                 </li>
             </ul>
@@ -61,32 +55,12 @@
             </p>
         </section>
         <section name="Model Elements">
-            <p>
-                The following sections describe the metadata elements that
-                should be interpreted for DNA components. The metadata is
-                represented as JavaDoc tags as that format is capable of being
-                pre-processed by tools and should be familiar to the developer.
-            </p>
-            <p>
-                Several of the JavaDoc tags have parameters that represent a
-                type name. These type names may either be the full qualified
-                name of a class or it may be a name resolvable in the Java
-                source file. The resolution process follows the standard rules
-                for resolution. ie First the runtime will check if the class is
-                explicitly imported, then it will check to see if it is imported
-                using a '*' import, then it will check to see if it is a member
-                of the current package, then it will check to see if the class
-                is part of the java.lang package and if none of the above
-                conditions hold true it will assume that the full qualified name
-                has been specified.
-            </p>
-            <subsection name="dna.component">
+            <subsection name="ComponentDescriptor">
                 <p>
                     The
-                    <code>dna.component</code> tag is specified in the class
-                    JavaDocs and simply declares that the class is a DNA
-                    component. It must be present for tools and runtimes to
-                    automatically recognize the component.
+                    <code>ComponentDescriptor</code> annotation is specified in
+                    at the class level and simply declares that the class is a DNA
+                    component. It must be present for tools recognize the component.
                 </p>
                 <p>
                     Example:
@@ -94,23 +68,22 @@
                 <source><![CDATA[
 /**
  * This is a DNA component.
- *
- * @dna.component
  */
+@ComponentDescriptor()
 public class MyComponent
 {
    ...
 }
                     ]]></source>
             </subsection>
-            <subsection name="dna.service">
+            <subsection name="ServiceDescriptorSet">
                 <p>
-                    The
-                    <code>dna.service</code> tag declares the services the
-                    component is capable of providing to other components.
-                    The
-                    <code>dna.service</code> tag is specified as part of the
-                    class JavaDocs and has the following parameters.
+                    The <code>ServiceDescriptorSet</code> contains
+                    a set of <code>ServiceDescriptor</code> that declares the set
+                    of services that the component is capable of providing to other
+                    components. The <code>ServiceDescriptorSet</code> is specified at
+                    the class level. The <code>ServiceDescriptor</code> annotation
+                    has the following parameters.
                 </p>
                 <table>
                     <tr>
@@ -123,9 +96,8 @@ public class MyComponent
                         <td>type</td>
                         <td>n/a</td>
                         <td>
-                            The type parameter specifies the name of the
-                            interface for service. This parameter follows
-                            type resolution rules as specified above.
+                            The type parameter specifies the class of the
+                            interface for service.
                         </td>
                         <td>false</td>
                     </tr>
@@ -134,14 +106,9 @@ public class MyComponent
                     Example:
                 </p>
                 <source><![CDATA[
-package com.biz;
-
-import com.biz.services.MyService1;
-
-/**
- * @dna.service type="MyService1"
- * @dna.service type="MyService2"
- */
+@ServiceDescriptorSet({
+    @ServiceDescriptor(type = MyService1.class),
+    @ServiceDescriptor(type = MyService2.class) })
 public class MyComponent
   implements MyService1, MyService2, SomeOtherInterface
 {
@@ -149,13 +116,13 @@ public class MyComponent
 }
                     ]]></source>
             </subsection>
-            <subsection name="dna.extension">
+            <subsection name="ExtensionDescriptorSet">
                 <p>
-                    The
-                    <code>dna.extension</code> tag declares the components
-                    relationship to a container extension. The
-                    <code>dna.extension</code> tag is specified as part of the
-                    class JavaDocs and has the following parameters.
+                    The <code>ExtensionDescriptorSet</code> annotation declares
+                    the components relationship to a container extension. The
+                    <code>ExtensionDescriptorSet</code> annotation is specified
+                    at the class level. It contains <code>ExtensionDescriptor</code>
+                    objects with the following parameters.
                 </p>
                 <table>
                     <tr>
@@ -174,10 +141,11 @@ public class MyComponent
                     </tr>
                     <tr>
                         <td>compatibility</td>
-                        <td>required</td>
+                        <td>Compatibility.REQUIRED</td>
                         <td>
                             The compatibility of container with extension. Must
-                            be one of "required", "supports" or "incompatible".
+                            be one of Compatibility.REQUIRED, Compatibility.SUPPORTS or
+                            Compatibility.INCOMPATIBLE.
                         </td>
                         <td>true</td>
                     </tr>
@@ -186,26 +154,27 @@ public class MyComponent
                     Example:
                 </p>
                 <source><![CDATA[
-/**
- * @dna.extension name="tx"
- * @dna.extension name="mx" compatibility="supports"
- * @dna.extension name="remote" compatibility="incompatible"
- */
+@ExtensionDescriptorSet({
+    @ExtensionDescriptor(name = "tx")
+    @ExtensionDescriptor(name = "mx", compatibility = Compatibility.SUPPORTS)
+    @ExtensionDescriptor(name = "remote",
+                         compatibility = Compatibility.INCOMPATIBLE) })
 public class MyComponent
 {
    ...
 }
                     ]]></source>
             </subsection>
-            <subsection name="dna.logger">
+            <subsection name="LoggerDescriptorSet">
                 <p>
-                    The
-                    <code>dna.logger</code> tag declares the names of the
-                    loggers that the component will use. The
-                    <code>dna.logger</code> tag is specified as part of the
+                    The <code>LoggerDescriptorSet</code> annotation declares the
+                    names of the loggers that the component will use. The
+                    <code>LoggerDescriptorSet</code> annotation is specified as part
+                    of the
                     <a href="../apidocs/org/codehaus/dna/LogEnabled.html#enableLogging(org.codehaus.dna.Logger)">
-                        LogEnabled.enableLogging(Logger)</a> method JavaDocs
-                    and has the following parameters.
+                        LogEnabled.enableLogging(Logger)</a> method. It contains a
+                    set of <code>LoggerDescriptor</code> elements that have the
+                    following parameters.
                 </p>
                 <table>
                     <tr>
@@ -228,26 +197,22 @@ public class MyComponent
                     Example:
                 </p>
                 <source><![CDATA[
-/**
- * @dna.logger
- * @dna.logger name="auth"
- */
+@LoggerDescriptorSet( { @LoggerDescriptor(), @LoggerDescriptor(name = "auth") } )
 public void enableLogging( Logger logger )
 {
    ...
 }
                     ]]></source>
             </subsection>
-            <subsection name="dna.configuration">
+            <subsection name="ConfigurationDescriptor">
                 <p>
-                    The
-                    <code>dna.configuration</code> tag declares the schema
-                    that can be used to validate the configuration for the
+                    The <code>ConfigurationDescriptor</code> annotation declares the
+                    schema that can be used to validate the configuration for the
                     component. The
-                    <code>dna.configuration</code> tag is
+                    <code>ConfigurationDescriptor</code> annotation is
                     specified as part of the
                     <a href="../apidocs/org/codehaus/dna/Configurable.html#configure(org.codehaus.dna.Configuration)">
-                        Configurable.configure(Configuration)</a> method JavaDocs
+                        Configurable.configure(Configuration)</a> method
                     and has the following parameters.
                 </p>
                 <table>
@@ -259,12 +224,12 @@ public void enableLogging( Logger logger )
                     </tr>
                     <tr>
                         <td>location</td>
-                        <td>&lt;classname&gt;-schema.xml</td>
+                        <td>n/a</td>
                         <td>
                             The location of the configuration schema file
                             relative to the .class file.
                         </td>
-                        <td>true</td>
+                        <td>false</td>
                     </tr>
                     <tr>
                         <td>type</td>
@@ -282,9 +247,7 @@ public void enableLogging( Logger logger )
                     Example:
                 </p>
                 <source><![CDATA[
-/**
- * @dna.configuration location="MySchema.dtd"
- */
+@ConfigurationDescriptor(location = "MyComponent-schema.dtd")
 public void configure( Configuration config )
     throws ConfigurationException
 {
@@ -292,17 +255,16 @@ public void configure( Configuration config )
 }
                     ]]></source>
             </subsection>
-            <subsection name="dna.dependency">
+            <subsection name="DependencyDescriptorSet">
                 <p>
-                    The
-                    <code>dna.dependency</code> tag declares the services
-                    that the component should be able to access from the
-                    ResourceLocator. The
-                    <code>dna.dependency</code> tag is
-                    specified as part of the
+                    The <code>DependencyDescriptorSet</code> annotation declares the
+                    services that the component should be able to access from the
+                    ResourceLocator. The <code>DependencyDescriptorSet</code>
+                    annotation is specified as part of the
                     <a href="../apidocs/org/codehaus/dna/Composable.html#compose(org.codehaus.dna.ResourceLocator)">
-                        Composable.compose(ResourceLocator)</a> method JavaDocs
-                    and has the following parameters.
+                        Composable.compose(ResourceLocator)</a> method and contains
+                    <code>DependencyDescriptor</code> that and has the following
+                    parameters.
                 </p>
                 <table>
                     <tr>
@@ -315,8 +277,7 @@ public void configure( Configuration config )
                         <td>type</td>
                         <td>n/a</td>
                         <td>
-                            The type name of the dependency. This follows the
-                            type resolution rules specified above.
+                            The type name of the dependency.
                         </td>
                         <td>false</td>
                     </tr>
@@ -335,7 +296,7 @@ public void configure( Configuration config )
                         <td>
                             Specifies the qualifier used to default key value.
                             See description of key parameter for further
-                            details. This parameter can not be specified if the
+                            details. This parameter should not be specified if the
                             key parameter is specified.
                         </td>
                         <td>true</td>
@@ -347,7 +308,7 @@ public void configure( Configuration config )
                             The key specifies the name used to access service
                             from the ResourceLocator. The default value for
                             this parameter is either the type name or
-                            &lt;type-name$gt;/&lt;qualifier&gt; if the
+                            &lt;type-name&gt;/&lt;qualifier&gt; if the
                             qualifier parameter is specified.
                         </td>
                         <td>true</td>
@@ -357,11 +318,11 @@ public void configure( Configuration config )
                     Example:
                 </p>
                 <source><![CDATA[
-/**
- * @dna.dependency type="Store"
- * @dna.dependency key="persist" type="PersistenceEngine"
- * @dna.dependency qualifier="TempSpool" type="Store" optional="true"
- */
+@DependencyDescriptorSet({
+    @DependencyDescriptor(type = Store.class),
+    @DependencyDescriptor(type = PersistenceEngine.class, key="persist"),
+    @DependencyDescriptor(type = Store.class, qualifier = "TempSpool",
+                          optional = true) } )
 public void compose( ResourceLocator locator )
     throws MissingResourceException
 {

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project>
-	<extend>${basedir}/../project.xml</extend>
+    <extend>${basedir}/../project.xml</extend>
     <name>DNA Default Implementation</name>
     <id>dna-impl</id>
     <package>org.codehaus.dna.impl</package>
@@ -25,20 +25,34 @@
             <artifactId>avalon-logkit</artifactId>
             <version>1.2</version>
         </dependency>
+        <dependency>
+            <id>ant</id>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
-
 
     <build>
         <sourceDirectory>${basedir}/src/java</sourceDirectory>
         <unitTestSourceDirectory>${basedir}/src/test</unitTestSourceDirectory>
 
-        <unitTest>
+        <resources>
             <resource>
-                <directory>${basedir}/src/test</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
+                <directory>${basedir}/src/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
             </resource>
+        </resources>
+
+        <unitTest>
+            <resources>
+                <resource>
+                    <directory>${basedir}/src/test</directory>
+                    <excludes>
+                        <exclude>**/*.java</exclude>
+                    </excludes>
+                </resource>
+            </resources>
 
             <includes>
                 <include>**/*TestCase*</include>
