@@ -5,7 +5,7 @@
 
     <body>
         <links>
-            <item href="http://spice.sourceforge.org/metaclass" name="MetaClass"/>
+            <item href="http://spice.codehaus.org/metaclass" name="MetaClass"/>
             <item href="http://dna.jcontainer.org" name="DNA"/>
             <item href="http://jcontainer.org" name="JContainer"/>
             <item href="http://codehaus.org" name="Codehaus"/>
