@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.4 $ $Date: 2003-07-27 10:33:20 $
+ * @version $Revision: 1.5 $ $Date: 2003-07-28 08:59:20 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -446,6 +446,21 @@ public class DefaultConfiguration
     {
         checkWriteable();
         m_value = value;
+    }
+
+    protected final List getChildList()
+    {
+        return m_children;
+    }
+
+    protected final Map getAttributeMap()
+    {
+        return m_attributes;
+    }
+
+    protected final boolean isReadOnly()
+    {
+        return m_readOnly;
     }
 
     protected final void checkWriteable()
