@@ -60,7 +60,13 @@
                 <ant:include name="docs/**"/>
             </ant:fileset>
         </ant:copy>
+        <ant:copy todir="${distDir}">
+            <ant:fileset dir="${basedir}/../">
+                <ant:include name="LICENSE.txt"/>
+            </ant:fileset>
+        </ant:copy>
 
+		<!-- Create README.txt -->
         <j:file name="${distDir}/README.txt" omitXmlDeclaration="true" escapeText="false">
             DNA Component Framework: See docs/index.html for documentation.
         </j:file>
