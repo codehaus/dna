@@ -26,7 +26,7 @@ import org.realityforge.metaclass.model.Attribute;
  * rules of an DNA component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.4 $ $Date: 2003-10-25 10:34:30 $
+ * @version $Revision: 1.5 $ $Date: 2003-10-25 11:38:12 $
  */
 public class ComponentVerifier
 {
@@ -84,8 +84,11 @@ public class ComponentVerifier
 
         verifyClass( type, issues );
         verifyLifecycles( type, issues );
-        verifyServices( interfaces, issues );
         verifyImplementsServices( type, interfaces, issues );
+        for( int i = 0; i < interfaces.length; i++ )
+        {
+            verifyService( interfaces[ i ], issues );
+        }
 
         return (VerifyIssue[])issues.
             toArray( new VerifyIssue[ issues.size() ] );
@@ -129,20 +132,6 @@ public class ComponentVerifier
         verifyNonInterface( type, issues );
         verifyNonPrimitive( type, issues );
         verifyPublic( type, issues );
-    }
-
-    /**
-     * Verify that the supplied classes are valid classes for
-     * a service.
-     *
-     * @param classes the classes representign services
-     */
-    void verifyServices( final Class[] classes, final List issues )
-    {
-        for( int i = 0; i < classes.length; i++ )
-        {
-            verifyService( classes[ i ], issues );
-        }
     }
 
     /**
