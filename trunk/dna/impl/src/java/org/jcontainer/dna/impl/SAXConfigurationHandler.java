@@ -22,7 +22,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.12 $ $Date: 2003-09-11 06:48:23 $
+ * @version $Revision: 1.13 $ $Date: 2003-09-11 06:51:43 $
  */
 public class SAXConfigurationHandler
    extends DefaultHandler
@@ -109,7 +109,16 @@ public class SAXConfigurationHandler
          final int index = m_elements.size() - 1;
          parent =
             (DefaultConfiguration) m_elements.get( index );
-         path = parent.getPath() + ConfigurationUtil.PATH_SEPARATOR + parent.getName();
+
+         final String parentPath = parent.getPath();
+         if ( ConfigurationUtil.ROOT_PATH.equals( parentPath ) )
+         {
+            path = parent.getName();
+         }
+         else
+         {
+            path = parentPath + ConfigurationUtil.PATH_SEPARATOR + parent.getName();
+         }
       }
       final DefaultConfiguration configuration =
          new DefaultConfiguration( qName, getLocationDescription(), path );
