@@ -9,101 +9,133 @@ package org.jcontainer.dna.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.jcontainer.dna.MissingResourceException;
 import org.jcontainer.dna.ResourceLocator;
 
 /**
+ * ResourceLocator implementation backed by a Map and
+ * optionally delegating to parent ResourceLocators.
+ * The developer should create the DefaultResourceLocator,
+ * associate resources with locator and then invoke
+ * {@link #makeReadOnly()} before passing the Locator to
+ * the client component.
  *
- * @version $Revision: 1.3 $ $Date: 2003-08-07 04:24:49 $
+ * <p>The implementation will first check for resources
+ * associated with itself and if unable to locate resource
+ * locally it will delegate to parent ResourceLocator.</p>
+ *
+ * @version $Revision: 1.4 $ $Date: 2003-09-07 23:41:59 $
  */
 public class DefaultResourceLocator
-    implements ResourceLocator, Freezable
+   extends AbstractFreezable
+   implements ResourceLocator
 {
-    private final ResourceLocator m_parent;
-    private final Map m_resources = new HashMap();
-    private boolean m_readOnly;
+   private final ResourceLocator m_parent;
+   private final Map m_resources = new HashMap();
 
-    public DefaultResourceLocator()
-    {
-        this( null );
-    }
+   /**
+    * Create a ResourceLocator with no parent.
+    */
+   public DefaultResourceLocator()
+   {
+      this( null );
+   }
 
-    public DefaultResourceLocator( final ResourceLocator parent )
-    {
-        m_parent = parent;
-    }
+   /**
+    * Create a ResourceLocator with specified parent.
+    *
+    * @param parent the parent ResourceLocator
+    */
+   public DefaultResourceLocator( final ResourceLocator parent )
+   {
+      m_parent = parent;
+   }
 
-    public Object lookup( final String key )
-        throws MissingResourceException
-    {
-        final Object resource = m_resources.get( key );
-        if( null != resource )
-        {
-            return resource;
-        }
-        else if( null != m_parent )
-        {
-            return m_parent.lookup( key );
-        }
-        else
-        {
-            final String message = "Unable to locate resource " + key + ".";
-            throw new MissingResourceException( message, key );
-        }
-    }
+   /**
+    * Return resource registered with specified key.
+    *
+    * @param key the key
+    * @return the resource
+    * @throws MissingResourceException if unable to locate
+    *         resource with specified key
+    */
+   public Object lookup( final String key )
+      throws MissingResourceException
+   {
+      final Object resource = getResourceMap().get( key );
+      if ( null != resource )
+      {
+         return resource;
+      }
 
-    public boolean contains( final String key )
-    {
-        final Object resource = m_resources.get( key );
-        if( null != resource )
-        {
-            return true;
-        }
-        else if( null != m_parent )
-        {
-            return m_parent.contains( key );
-        }
-        else
-        {
-            return false;
-        }
-    }
+      final ResourceLocator parent = getParent();
+      if ( null != parent )
+      {
+         return parent.lookup( key );
+      }
+      else
+      {
+         final String message = "Unable to locate resource " + key + ".";
+         throw new MissingResourceException( message, key );
+      }
+   }
 
-    public void makeReadOnly()
-    {
-        m_readOnly = true;
-    }
+   /**
+    * Return true if a resource exists with specified key.
+    *
+    * @param key the key
+    * @return true if a resource exists with specified key.
+    */
+   public boolean contains( final String key )
+   {
+      final Object resource = getResourceMap().get( key );
+      if ( null != resource )
+      {
+         return true;
+      }
 
-    public void put( final String key,
-                     final Object resource )
-    {
-        checkWriteable();
-        m_resources.put( key, resource );
-    }
+      final ResourceLocator parent = getParent();
+      if ( null != parent )
+      {
+         return parent.contains( key );
+      }
+      else
+      {
+         return false;
+      }
+   }
 
-    protected final ResourceLocator getParent()
-    {
-        return m_parent;
-    }
+   /**
+    * Add a resource to resource locator.
+    *
+    * @param key the key used to store resource
+    * @param resource the resource (Must not be null).
+    */
+   public void put( final String key,
+                    final Object resource )
+   {
+      checkWriteable();
+      getResourceMap().put( key, resource );
+   }
 
-    protected final boolean isReadOnly()
-    {
-        return m_readOnly;
-    }
+   /**
+    * Return the parent ResourceLocator if any.
+    *
+    * @return the parent ResourceLocator if any.
+    */
+   protected final ResourceLocator getParent()
+   {
+      return m_parent;
+   }
 
-    protected final Map getResourceMap()
-    {
-        return m_resources;
-    }
-
-    protected final void checkWriteable()
-        throws IllegalStateException
-    {
-        if( m_readOnly )
-        {
-            final String message =
-                "ResourceLocator is read only and can not be modified";
-            throw new IllegalStateException( message );
-        }
-    }
+   /**
+    * Return the map used to store resources.
+    *
+    * @return the map used to store resources.
+    */
+   protected final Map getResourceMap()
+   {
+      return m_resources;
+   }
 }
