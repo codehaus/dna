@@ -20,7 +20,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.3 $ $Date: 2003-08-12 08:03:21 $
+ * @version $Revision: 1.4 $ $Date: 2003-08-13 09:01:38 $
  */
 public class SAXConfigurationHandler
     extends DefaultHandler
@@ -52,6 +52,12 @@ public class SAXConfigurationHandler
 
     public void startElement( final String uri,
                               final String localName,
+                              final String qName,
+                              final Attributes attributes )
+        throws SAXException
+    {
+        final DefaultConfiguration configuration =
+            new DefaultConfiguration( qName, getLocationDescription() );
         if( m_elements.size() > 0 )
         {
             final int index = m_elements.size() - 1;
@@ -59,13 +65,6 @@ public class SAXConfigurationHandler
                 (DefaultConfiguration)m_elements.get( index );
             parent.addChild( configuration );
         }
-
-                              final String qName,
-                              final Attributes attributes )
-        throws SAXException
-    {
-        final DefaultConfiguration configuration =
-            new DefaultConfiguration( qName, getLocationDescription() );
         m_elements.add( configuration );
     }
 
