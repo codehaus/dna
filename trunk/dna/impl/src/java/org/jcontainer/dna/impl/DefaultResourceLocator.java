@@ -25,13 +25,21 @@ import org.jcontainer.dna.ResourceLocator;
  * associated with itself and if unable to locate resource
  * locally it will delegate to parent ResourceLocator.</p>
  *
- * @version $Revision: 1.7 $ $Date: 2003-09-07 23:45:31 $
+ * @version $Revision: 1.8 $ $Date: 2003-09-09 04:37:17 $
  */
 public class DefaultResourceLocator
    extends AbstractFreezable
    implements ResourceLocator
 {
+   /**
+    * parent locator to look into if unable to
+    * find resource in current locator.
+    */
    private final ResourceLocator m_parent;
+
+   /**
+    * Resources registered with locator.
+    */
    private final Map m_resources = new HashMap();
 
    /**
