@@ -22,7 +22,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.13 $ $Date: 2003-09-09 05:54:39 $
+ * @version $Revision: 1.14 $ $Date: 2003-09-09 06:13:36 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -385,7 +385,7 @@ public class DefaultParameters
       }
 
       parameters.makeReadOnly();
-      m_children.add( parameters );
+      getChildren().add( parameters );
       return parameters;
    }
 
@@ -415,7 +415,7 @@ public class DefaultParameters
    public void makeReadOnly()
    {
       super.makeReadOnly();
-      final Iterator iterator = m_children.iterator();
+      final Iterator iterator = getChildren().iterator();
       while ( iterator.hasNext() )
       {
          final Object child = iterator.next();
@@ -465,5 +465,15 @@ public class DefaultParameters
    protected final String getPrefix()
    {
       return m_prefix;
+   }
+
+   /**
+    * Return the set of child parameter objects.
+    *
+    * @return the set of child parameter objects
+    */
+   protected final Set getChildren()
+   {
+      return m_children;
    }
 }
