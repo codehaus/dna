@@ -10,12 +10,12 @@ package org.jcontainer.dna.tools.metaclass;
 import com.thoughtworks.qdox.model.JavaMethod;
 import java.util.Properties;
 import junit.framework.TestCase;
-import org.realityforge.metaclass.model.Attribute;
+import org.codehaus.metaclass.model.Attribute;
 
 /**
  *
  * @author Peter Donald
- * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
+ * @version $Revision: 1.4 $ $Date: 2004-04-18 14:44:19 $
  */
 public class DNAAttributeInterceptorTestCase
     extends TestCase

@@ -10,9 +10,9 @@ package org.jcontainer.dna.tools.metaclass;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaMethod;
 import java.util.Properties;
-import org.realityforge.metaclass.model.Attribute;
-import org.realityforge.metaclass.tools.qdox.DefaultQDoxAttributeInterceptor;
-import org.realityforge.metaclass.tools.qdox.QDoxAttributeInterceptor;
+import org.codehaus.metaclass.model.Attribute;
+import org.codehaus.metaclass.tools.qdox.DefaultQDoxAttributeInterceptor;
+import org.codehaus.metaclass.tools.qdox.QDoxAttributeInterceptor;
 
 /**
  * This is an Attribute interceptor that invoked during construction
@@ -21,7 +21,7 @@ import org.realityforge.metaclass.tools.qdox.QDoxAttributeInterceptor;
  * types in type-based attributes.
  *
  * @author Peter Donald
- * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:39 $
+ * @version $Revision: 1.4 $ $Date: 2004-04-18 14:44:19 $
  */
 public class DNAAttributeInterceptor
     extends DefaultQDoxAttributeInterceptor

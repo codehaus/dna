@@ -7,13 +7,13 @@
  */
 package org.jcontainer.dna.tools.verifier;
 
-import org.realityforge.metaclass.introspector.MetaClassAccessor;
-import org.realityforge.metaclass.introspector.MetaClassException;
-import org.realityforge.metaclass.model.Attribute;
-import org.realityforge.metaclass.model.ClassDescriptor;
-import org.realityforge.metaclass.model.FieldDescriptor;
-import org.realityforge.metaclass.model.MethodDescriptor;
-import org.realityforge.metaclass.model.ParameterDescriptor;
+import org.codehaus.metaclass.introspector.MetaClassAccessor;
+import org.codehaus.metaclass.introspector.MetaClassException;
+import org.codehaus.metaclass.model.Attribute;
+import org.codehaus.metaclass.model.ClassDescriptor;
+import org.codehaus.metaclass.model.FieldDescriptor;
+import org.codehaus.metaclass.model.MethodDescriptor;
+import org.codehaus.metaclass.model.ParameterDescriptor;
 import org.jcontainer.dna.ResourceLocator;
 import java.util.Properties;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 /**
  *
  * @author Peter Donald
- * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
+ * @version $Revision: 1.4 $ $Date: 2004-04-18 14:44:19 $
  */
 class AccessorWithDependencyMetaData
     implements MetaClassAccessor
