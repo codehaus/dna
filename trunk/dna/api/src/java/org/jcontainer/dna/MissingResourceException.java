@@ -8,37 +8,71 @@
 package org.jcontainer.dna;
 
 /**
+ * The MissingResourceException is used to signal a problem
+ * retrieving a resource from the ResourceLocator object.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 05:34:40 $
  */
 public class MissingResourceException
-    extends Exception
+   extends Exception
 {
-    private final Throwable m_cause;
-    private final String m_key;
+   /**
+    * The exception that caused this exception if any.
+    */
+   private final Throwable m_cause;
 
-    public MissingResourceException( final String message,
-                                     final String key )
-    {
-        this( message, null, key );
-    }
+   /**
+    * The resource key that caused the problem.
+    */
+   private final String m_key;
 
-    public MissingResourceException( final String message,
-                                     final Throwable cause,
-                                     final String key )
-    {
-        super( message );
-        m_cause = cause;
-        m_key = key;
-    }
+   /**
+    * Create a MissingResourceException with specified message
+    * and key.
+    *
+    * @param message the message
+    * @param key the key
+    */
+   public MissingResourceException( final String message,
+                                    final String key )
+   {
+      this( message, key, null );
+   }
 
-    public String getKey()
-    {
-        return m_key;
-    }
+   /**
+    * Create a MissingResourceException with specified
+    * message, key and cause.
+    *
+    * @param message the message
+    * @param key the key
+    * @param cause the cause
+    */
+   public MissingResourceException( final String message,
+                                    final String key,
+                                    final Throwable cause )
+   {
+      super( message );
+      m_key = key;
+      m_cause = cause;
+   }
 
-    public Throwable getCause()
-    {
-        return m_cause;
-    }
+   /**
+    * Return the resource key that caused the problem.
+    *
+    * @return the resource key that caused the problem.
+    */
+   public String getKey()
+   {
+      return m_key;
+   }
+
+   /**
+    * Return the exception that caused this exception if any.
+    *
+    * @return the exception that caused this exception if any.
+    */
+   public Throwable getCause()
+   {
+      return m_cause;
+   }
 }
