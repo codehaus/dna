@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>MetaData Format</title>
+        <author email="peter at apache.org">Peter Donald</author>
+    </properties>
+    <body>
+        <section name="MetaData Format">
+            <p>
+                Historically there has been several different mechanisms for
+                associating metadata with a component. DNA attempts to learn
+                from past mistakes and make the metadata format extensible to
+                future needs and still simple to use. Thus runtime attribute
+                access is the preferred method for accessing metadata about a
+                component.
+            </p>
+            <p>
+                <a href="http://spice.sf.net/metaclass">MetaClass</a> is the
+                toolkit used to access the metadata about any java class. The
+                MetaClass metadata format maps to a simplified JavaDoc format
+                and thus there is a very simple mapping between the DNA
+                metadata <a href="model.html">model</a> and MetaClass
+                ClassDescriptor objects. See MetaClass documentation on how to
+                access attributes at runtime.
+            </p>
+            <p>
+                MetaClass also supports generation of metadata descriptors from
+                annotated Java source files. The annotations supported by DNA
+                components are those specified in the
+                <a href="model.html">model</a> document.
+            </p>
+        </section>
+    </body>
+</document>

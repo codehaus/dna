@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<document>
+    <properties>
+        <title>MetaData</title>
+        <author email="peter at apache.org">Peter Donald</author>
+    </properties>
+    <body>
+        <section name="Introduction">
+            <p>
+                DNA components have associated metadata that declares what
+                resources they need to be provided and what resources they are
+                capable of providing to other components. The DNA metadata
+                specification is an extensible mechanism to attach metadata to
+                components.
+            </p>
+            <p>
+                There are two aspects of the DNA metadata specification, the
+                model or semantics and the way that the metadata is attached
+                to the component. In most circumstances the developer annotates
+                their Java source file with Javadoc tags and uses a tool to
+                generate the metadata.
+            </p>
+            <ul>
+                <li><a href="model.html">MetaData Model</a></li>
+                <li><a href="format.html">MetaData Format</a></li>
+                <li><a href="extensions.html">MetaData Extensions</a></li>
+                <li><a href="generate.html">Generating Descriptors</a></li>
+            </ul>
+        </section>
+    </body>
+</document>

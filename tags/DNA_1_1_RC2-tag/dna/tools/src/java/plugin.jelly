@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<project xmlns:ant="jelly:ant">
+
+    <goal name="dna:init"
+        prereqs="metaclass:init"
+        description="Initialize Plugin">
+
+        <ant:mc_interceptorSet id="maven.dna.interceptors">
+            <ant:interceptor
+                name="org.jcontainer.dna.tools.metaclass.DNAAttributeInterceptor">
+                <ant:classpath>
+                    <ant:pathelement path="${plugin.dir}"/>
+                </ant:classpath>
+            </ant:interceptor>
+        </ant:mc_interceptorSet>
+
+        <ant:mc_addToInterceptorSet
+            dest="maven.metaclass.interceptors"
+            source="maven.dna.interceptors"/>
+    </goal>
+
+    <goal name="dna:metagenerate"
+        prereqs="dna:init"
+        description="Generate DNA Descriptor files">
+        <attainGoal name="metaclass:generate"/>
+    </goal>
+
+</project>
