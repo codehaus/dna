@@ -266,6 +266,83 @@ public class ConsoleLoggerTestCase
       checkLogger( logger, false, null, null, null );
    }
 
+   public void testConsoleLevelComparisonWithAll()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_ALL );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", true, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", true, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", true, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", true, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithNone()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_NONE );
+      assertEquals( "logger.isTraceEnabled()", false, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", false, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", false, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", false, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", false, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithTraceEnabled()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_TRACE );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", false, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", false, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", false, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", false, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithDebugEnabled()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_DEBUG );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", true, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", false, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", false, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", false, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithInfoEnabled()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_INFO );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", true, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", true, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", false, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", false, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithWarnEnabled()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_WARN );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", true, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", true, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", true, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", false, logger.isErrorEnabled() );
+   }
+
+   public void testConsoleLevelComparisonWithErrorEnabled()
+      throws Exception
+   {
+      final MockConsoleLogger logger = new MockConsoleLogger( MockConsoleLogger.LEVEL_ERROR );
+      assertEquals( "logger.isTraceEnabled()", true, logger.isTraceEnabled() );
+      assertEquals( "logger.isDebugEnabled()", true, logger.isDebugEnabled() );
+      assertEquals( "logger.isInfoEnabled()", true, logger.isInfoEnabled() );
+      assertEquals( "logger.isWarnEnabled()", true, logger.isWarnEnabled() );
+      assertEquals( "logger.isErrorEnabled()", true, logger.isErrorEnabled() );
+   }
+
    private void checkLogger( final MockConsoleLogger logger,
                              final boolean output,
                              final String message,
