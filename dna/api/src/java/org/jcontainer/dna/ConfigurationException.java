@@ -9,7 +9,7 @@ package org.jcontainer.dna;
 
 /**
  *
- * @version $Revision: 1.2 $ $Date: 2003-08-12 08:04:15 $
+ * @version $Revision: 1.3 $ $Date: 2003-08-28 06:46:37 $
  */
 public class ConfigurationException
     extends Exception
@@ -51,5 +51,17 @@ public class ConfigurationException
     public Throwable getCause()
     {
         return m_cause;
+    }
+
+    public String toString()
+    {
+        if( null != m_location && !"".equals( m_location ) )
+        {
+            return super.toString() + " @ " + m_location;
+        }
+        else
+        {
+            return super.toString();
+        }
     }
 }
