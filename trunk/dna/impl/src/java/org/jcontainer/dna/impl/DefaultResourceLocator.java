@@ -14,10 +14,10 @@ import org.jcontainer.dna.ResourceLocator;
 
 /**
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:36:49 $
+ * @version $Revision: 1.2 $ $Date: 2003-07-27 02:03:57 $
  */
 public class DefaultResourceLocator
-    implements ResourceLocator
+    implements ResourceLocator, Freezable
 {
     private final ResourceLocator m_parent;
     private final Map m_resources = new HashMap();
