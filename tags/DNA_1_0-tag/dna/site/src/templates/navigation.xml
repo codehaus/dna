@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="${pom.name}">
+
+  <title>${pom.name}</title>
+
+  <body>
+	#parse( "navigation.links" )
+	
+    <menu name="Overview">
+      <item name="Introduction"       href="/index.html" />
+      <item name="Downloads"  		  href="/downloads.html" />
+    </menu>
+    
+	#parse( "navigation.components" )
+
+  </body>
+</project>
+

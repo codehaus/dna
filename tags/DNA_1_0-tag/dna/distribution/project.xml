@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<project>
+    <extend>${basedir}/../project.xml</extend>
+    <name>DNA Distribution</name>
+    <id>dna</id>
+
+    <shortDescription>DNA Distribution component.</shortDescription>
+
+    <description>
+        The component to create a distribution of the DNA framework.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-api</artifactId>
+            <version>1.0</version>
+            <properties>
+                <category>core</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-impl</artifactId>
+            <version>1.0</version>
+            <properties>
+                <category>core</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.8</version>
+            <properties>
+                <category>shared</category>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>avalon</groupId>
+            <artifactId>avalon-logkit</artifactId>
+            <version>1.2</version>
+            <properties>
+                <category>shared</category>
+            </properties>
+        </dependency>
+    </dependencies>
+
+</project>
