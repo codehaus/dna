@@ -21,9 +21,8 @@
     </goal>
 
     <goal name="dna:metagenerate"
-        prereqs="dna:init"
+        prereqs="dna:init,metaclass:generate"
         description="Generate DNA Descriptor files">
-        <attainGoal name="metaclass:generate"/>
     </goal>
 
 </project>
