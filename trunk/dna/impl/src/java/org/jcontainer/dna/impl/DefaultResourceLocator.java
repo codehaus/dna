@@ -14,7 +14,7 @@ import org.jcontainer.dna.ResourceLocator;
 
 /**
  *
- * @version $Revision: 1.2 $ $Date: 2003-07-27 02:03:57 $
+ * @version $Revision: 1.3 $ $Date: 2003-08-07 04:24:49 $
  */
 public class DefaultResourceLocator
     implements ResourceLocator, Freezable
@@ -22,6 +22,11 @@ public class DefaultResourceLocator
     private final ResourceLocator m_parent;
     private final Map m_resources = new HashMap();
     private boolean m_readOnly;
+
+    public DefaultResourceLocator()
+    {
+        this( null );
+    }
 
     public DefaultResourceLocator( final ResourceLocator parent )
     {
