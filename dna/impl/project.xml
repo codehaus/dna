@@ -1,13 +1,9 @@
 <?xml version="1.0"?>
 <project>
-    <pomVersion>3</pomVersion>
+	<extend>${basedir}/../project.xml</extend>
     <name>DNA Default Implementation</name>
     <id>dna-impl</id>
-    <groupId>dna</groupId>
-    <currentVersion>1.0dev</currentVersion>
-    <inceptionYear>1999-2003</inceptionYear>
     <package>org.jcontainer.dna.impl</package>
-
     <shortDescription>The Default DNA Implementation.</shortDescription>
 
     <description>
@@ -18,7 +14,7 @@
         <dependency>
             <groupId>dna</groupId>
             <artifactId>dna-api</artifactId>
-            <version>1.0dev</version>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <id>log4j</id>

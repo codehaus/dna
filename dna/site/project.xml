@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <project>
     <extend>${basedir}/../project.xml</extend>
-    <pomVersion>3</pomVersion>
-
     <name>DNA</name>
     <id>dna-site</id>
 
     <shortDescription>JContainer DNA web site</shortDescription>
-    <description>JContainer DNA web site</description>
+    
+    <description>
+    	JContainer DNA web site provides accesses to the DNA project 
+    	information and reports. 
+    </description>
 
     <dependencies>
         <dependency>
