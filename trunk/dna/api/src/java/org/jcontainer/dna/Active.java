@@ -8,14 +8,38 @@
 package org.jcontainer.dna;
 
 /**
+ * Components should implement this interface if they need to
+ * be initialize resources at startup or deallocate resources
+ * during shutdown.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 04:05:53 $
+ * <p>If the {@link #initialize()} method is invoked upon a
+ * component then the container must invoke the
+ * {@link #dispose()} even if the {@link #initialize()} throws
+ * an Exception.</p>
+ *
+ * @version $Revision: 1.3 $ $Date: 2003-09-05 04:19:46 $
  */
 public interface Active
 {
-    void initialize()
-        throws Exception;
+   /**
+    * Initialialize the component.
+    * This method gives the component the ability to
+    * perform processing or allocate any resources
+    * before the component becomes operational.
+    *
+    * @throws Exception if unable to initialize component.
+    */
+   void initialize()
+      throws Exception;
 
-    void dispose()
-        throws Exception;
+   /**
+    * Dispose the component.
+    * This method gives the component the ability to
+    * perform processing or deallocate any resources
+    * before the component is destroyed.
+    *
+    * @throws Exception if unable to dispose component.
+    */
+   void dispose()
+      throws Exception;
 }
