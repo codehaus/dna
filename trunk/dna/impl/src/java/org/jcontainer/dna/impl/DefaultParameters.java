@@ -22,7 +22,7 @@ import org.jcontainer.dna.Parameters;
  * before passing the Parameters to the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.10 $ $Date: 2003-09-09 05:46:08 $
+ * @version $Revision: 1.11 $ $Date: 2003-09-09 05:46:27 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -369,14 +369,13 @@ public class DefaultParameters
       final String prefixAndSeparator = prefix + SEPARATOR;
       final int length = prefix.length() + 1;
       final String child;
-      final String rootPrefix = getPrefix();
-      if ( rootPrefix.equals( EMPTY_PREFIX ) )
+      if ( getPrefix().equals( EMPTY_PREFIX ) )
       {
          child = prefix;
       }
       else
       {
-         child = rootPrefix + SEPARATOR + prefix;
+         child = getPrefix() + SEPARATOR + prefix;
       }
       final DefaultParameters parameters = new DefaultParameters( child );
       final Iterator iterator = getParameters().keySet().iterator();
