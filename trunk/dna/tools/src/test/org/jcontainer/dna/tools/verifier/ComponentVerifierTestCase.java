@@ -15,18 +15,18 @@ import java.util.Arrays;
 import java.awt.event.ActionListener;
 import org.jcontainer.dna.Configurable;
 import org.jcontainer.dna.Configuration;
-import org.realityforge.metaclass.introspector.MetaClassIntrospector;
-import org.realityforge.metaclass.model.Attribute;
-import org.realityforge.metaclass.model.ClassDescriptor;
-import org.realityforge.metaclass.model.FieldDescriptor;
-import org.realityforge.metaclass.model.MethodDescriptor;
-import org.realityforge.metaclass.model.ParameterDescriptor;
-import org.realityforge.metaclass.Attributes;
+import org.codehaus.metaclass.introspector.MetaClassIntrospector;
+import org.codehaus.metaclass.model.Attribute;
+import org.codehaus.metaclass.model.ClassDescriptor;
+import org.codehaus.metaclass.model.FieldDescriptor;
+import org.codehaus.metaclass.model.MethodDescriptor;
+import org.codehaus.metaclass.model.ParameterDescriptor;
+import org.codehaus.metaclass.Attributes;
 
 /**
  *
  * @author Peter Donald
- * @version $Revision: 1.10 $ $Date: 2003-11-27 06:54:53 $
+ * @version $Revision: 1.11 $ $Date: 2004-04-18 14:44:19 $
  */
 public class ComponentVerifierTestCase
     extends TestCase

@@ -7,14 +7,14 @@
  */
 package org.jcontainer.dna.tools.verifier;
 
-import org.realityforge.metaclass.introspector.MetaClassAccessor;
-import org.realityforge.metaclass.introspector.MetaClassException;
-import org.realityforge.metaclass.model.ClassDescriptor;
+import org.codehaus.metaclass.introspector.MetaClassAccessor;
+import org.codehaus.metaclass.introspector.MetaClassException;
+import org.codehaus.metaclass.model.ClassDescriptor;
 
 /**
  *
  * @author Peter Donald
- * @version $Revision: 1.3 $ $Date: 2003-11-27 06:54:53 $
+ * @version $Revision: 1.4 $ $Date: 2004-04-18 14:44:19 $
  */
 class NullAccessor
     implements MetaClassAccessor

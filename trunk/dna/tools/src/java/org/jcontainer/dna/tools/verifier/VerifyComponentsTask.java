@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -19,17 +20,16 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
-import org.realityforge.metaclass.Attributes;
-import org.realityforge.metaclass.introspector.DefaultMetaClassAccessor;
-import org.realityforge.metaclass.io.MetaClassIOBinary;
-import org.realityforge.metaclass.model.Attribute;
-import org.realityforge.metaclass.model.ClassDescriptor;
+import org.codehaus.metaclass.Attributes;
+import org.codehaus.metaclass.io.MetaClassIOBinary;
+import org.codehaus.metaclass.model.Attribute;
+import org.codehaus.metaclass.model.ClassDescriptor;
 
 /**
  * Task to validate a set of components.
  *
  * @author Peter Donald
- * @version $Revision: 1.4 $ $Date: 2003-11-27 06:54:44 $
+ * @version $Revision: 1.5 $ $Date: 2004-04-18 14:44:19 $
  */
 public class VerifyComponentsTask
     extends Task
@@ -214,7 +214,7 @@ public class VerifyComponentsTask
     {
         final String basename =
             name.substring( 0, name.length() - CLASS_EXT.length() );
-        final String metaName = basename + DefaultMetaClassAccessor.BINARY_EXT;
+        final String metaName = basename + MetaClassIOBinary.EXTENSION;
         final File file = new File( dir, metaName );
         final ClassDescriptor descriptor = loadDescriptor( file );
         if( null != descriptor && isDNAComponent( descriptor ) )
