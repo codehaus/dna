@@ -10,14 +10,14 @@ package org.jcontainer.dna;
 /**
  * Components implement this interface to be supplied with a Logger.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 05:30:48 $
+ * @version $Revision: 1.3 $ $Date: 2003-09-23 02:15:56 $
  */
 public interface LogEnabled
 {
-   /**
-    * Supply the component with the logger.
-    *
-    * @param logger the logger.
-    */
-   void enableLogging( Logger logger );
+    /**
+     * Supply the component with the logger.
+     *
+     * @param logger the logger.
+     */
+    void enableLogging( Logger logger );
 }
