@@ -17,7 +17,7 @@ import java.util.Set;
 
 /**
  *
- * @version $Revision: 1.6 $ $Date: 2003-08-28 06:52:29 $
+ * @version $Revision: 1.7 $ $Date: 2003-08-29 04:24:06 $
  */
 public class DefaultConfiguration
     implements Configuration, Freezable
@@ -440,16 +440,24 @@ public class DefaultConfiguration
     public void addChild( final Configuration configuration )
     {
         checkWriteable();
+        if( null != m_value )
+        {
+           throwMixedContentException();
+        }
         m_children.add( configuration );
     }
 
     public void setValue( final String value )
     {
         checkWriteable();
+        if( 0 != m_children.size() )
+        {
+           throwMixedContentException();
+        }
         m_value = value;
     }
 
-    protected final List getChildList()
+   protected final List getChildList()
     {
         return m_children;
     }
@@ -486,5 +494,14 @@ public class DefaultConfiguration
         {
             return location;
         }
+    }
+
+    protected final void throwMixedContentException()
+    {
+        final String message =
+           "Configuration objects do not support Mixed content. " +
+           "Configuration elements should not have both a value and " +
+           "child elements.";
+        throw new IllegalStateException( message );
     }
 }
