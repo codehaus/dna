@@ -26,7 +26,7 @@
         <connection>scm:cvs:pserver:anoncvs@codehaus.org:/cvsroot/jcontainer:dna</connection>
         <url>http://cvs.codehaus.org/viewcvs.cgi/jcontainer/dna/?root=jcontainer</url>
     </repository>
-    
+
     <versions>
         <version>
             <id>1.1-dev</id>
@@ -99,6 +99,10 @@
         <contributor>
             <name>Johan Sjoberg</name>
             <email>johan.sjoberg@avaintec.com</email>
+        </contributor>
+        <contributor>
+            <name>Mircea Toma</name>
+            <email>mirceatoma@apache.org</email>
         </contributor>
     </contributors>
 
