@@ -23,7 +23,7 @@ import org.jcontainer.dna.Parameters;
  * the client component.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.6 $ $Date: 2003-09-07 23:59:46 $
+ * @version $Revision: 1.7 $ $Date: 2003-09-08 00:04:09 $
  */
 public class DefaultParameters
    extends AbstractFreezable
@@ -97,6 +97,10 @@ public class DefaultParameters
     */
    public boolean isParameter( final String name )
    {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       return getParameters().containsKey( name );
    }
 
@@ -110,6 +114,10 @@ public class DefaultParameters
    public String getParameter( final String name )
       throws ParameterException
    {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       final String property = getParameters().getProperty( name );
       if ( null == property )
       {
@@ -131,6 +139,10 @@ public class DefaultParameters
    public String getParameter( final String name,
                                final String defaultValue )
    {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
       final String fullname = getPrefix() + name;
       return getParameters().getProperty( fullname, defaultValue );
    }
@@ -350,6 +362,10 @@ public class DefaultParameters
     */
    public Parameters getChildParameters( final String prefix )
    {
+      if ( null == prefix )
+      {
+         throw new NullPointerException( "prefix" );
+      }
       final String prefixAndSeparator = prefix + SEPARATOR;
       final int length = prefix.length() + 1;
       final DefaultParameters parameters = new DefaultParameters( getPrefix() + SEPARATOR + prefix );
@@ -394,8 +410,17 @@ public class DefaultParameters
     * @param name the parameter name
     * @param value the parameter value
     */
-   public void setParameter( final String name, final String value )
+   public void setParameter( final String name,
+                             final String value )
    {
+      if ( null == name )
+      {
+         throw new NullPointerException( "name" );
+      }
+      if ( null == value )
+      {
+         throw new NullPointerException( "value" );
+      }
       checkWriteable();
       getParameters().setProperty( name, value );
    }
