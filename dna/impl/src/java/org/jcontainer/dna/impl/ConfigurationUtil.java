@@ -29,131 +29,196 @@ import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 
 /**
+ * Class containing utility methods to work with Configuration
+ * objects.
  *
- * @version $Revision: 1.5 $ $Date: 2003-08-30 02:08:35 $
+ * @version $Revision: 1.6 $ $Date: 2003-09-08 02:00:39 $
  */
 public class ConfigurationUtil
 {
-    public static final String ROOT_PATH = "/";
-    public static final String PATH_SEPARATOR = "/";
+   /**
+    * Constant defining separator for paths in document.
+    */
+   public static final String PATH_SEPARATOR = "/";
 
-    public static void serializeToResult( final Result result,
-                                          final Configuration configuration )
-        throws Exception
-    {
-        final SAXTransformerFactory factory = (SAXTransformerFactory)TransformerFactory.newInstance();
-        final TransformerHandler handler = factory.newTransformerHandler();
+   /**
+    * Constant defining root path of document.
+    */
+   public static final String ROOT_PATH = PATH_SEPARATOR;
 
-        final Properties format = new Properties();
-        format.put( OutputKeys.METHOD, "xml" );
-        format.put( OutputKeys.INDENT, "yes" );
-        handler.setResult( result );
-        handler.getTransformer().setOutputProperties( format );
+   /**
+    * Serialize Configuration object to sepcified Result object.
+    * The developer can serialize to a system out by using
+    * {@link javax.xml.transform.stream.StreamResult} in code
+    * such as;
+    *
+    * <pre>
+    *  ConfigurationUtil.
+    *     serializeToResult( new StreamResult( System.out ),
+    *                        configuration );
+    * </pre>
+    *
+    * <p>The developer can also output to SAX stream or DOM trees
+    * via {@link javax.xml.transform.sax.SAXResult} and
+    * {@link javax.xml.transform.dom.DOMResult}.</p>
+    *
+    * @param result the result object to serialize configuration to
+    * @param configuration the configuration
+    * @throws Exception if unable to serialize configuration
+    */
+   public static void serializeToResult( final Result result,
+                                         final Configuration configuration )
+      throws Exception
+   {
+      final SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+      final TransformerHandler handler = factory.newTransformerHandler();
 
-        final SAXConfigurationSerializer serializer = new SAXConfigurationSerializer();
-        serializer.serialize( configuration, handler );
-    }
+      final Properties format = new Properties();
+      format.put( OutputKeys.METHOD, "xml" );
+      format.put( OutputKeys.INDENT, "yes" );
+      handler.setResult( result );
+      handler.getTransformer().setOutputProperties( format );
 
-    public static Configuration buildFromXML( final InputSource input )
-        throws Exception
-    {
-        final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        saxParserFactory.setNamespaceAware( false );
-        final SAXParser saxParser = saxParserFactory.newSAXParser();
-        final SAXConfigurationHandler handler = new SAXConfigurationHandler();
-        saxParser.parse( input, handler );
-        return handler.getConfiguration();
-    }
+      final SAXConfigurationSerializer serializer = new SAXConfigurationSerializer();
+      serializer.serialize( configuration, handler );
+   }
 
-    public static Configuration toConfiguration( final Element element )
-    {
-        return toConfiguration( element, ROOT_PATH );
-    }
+   /**
+    * Create a configuration object from specified XML InputSource.
+    *
+    * @param input the InputSource
+    * @return the configuration object
+    * @throws Exception if unable to create configuration object
+    *         from input
+    */
+   public static Configuration buildFromXML( final InputSource input )
+      throws Exception
+   {
+      final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+      saxParserFactory.setNamespaceAware( false );
+      final SAXParser saxParser = saxParserFactory.newSAXParser();
+      final SAXConfigurationHandler handler = new SAXConfigurationHandler();
+      saxParser.parse( input, handler );
+      return handler.getConfiguration();
+   }
 
-    private static Configuration toConfiguration( final Element element,
-                                                  final String path )
-    {
-        final DefaultConfiguration configuration =
-            new DefaultConfiguration( element.getNodeName(), "dom-gen", path );
-        final NamedNodeMap attributes = element.getAttributes();
-        final int length = attributes.getLength();
-        for( int i = 0; i < length; i++ )
-        {
-            final Node node = attributes.item( i );
-            final String name = node.getNodeName();
-            final String value = node.getNodeValue();
-            configuration.setAttribute( name, value );
-        }
+   /**
+    * Convert specified Element into a configuration object.
+    *
+    * @param element the Element
+    * @return the Configuration object
+    */
+   public static Configuration toConfiguration( final Element element )
+   {
+      return toConfiguration( element, ROOT_PATH );
+   }
 
-        final String childPath = path + PATH_SEPARATOR + configuration.getName();
+   /**
+    * Internal utility method to convert specified Element into
+    * a configuration object.
+    *
+    * @param element the Element
+    * @param path the path to root of document
+    * @return the Configuration object
+    */
+   private static Configuration toConfiguration( final Element element,
+                                                 final String path )
+   {
+      final DefaultConfiguration configuration =
+         new DefaultConfiguration( element.getNodeName(), "dom-gen", path );
+      final NamedNodeMap attributes = element.getAttributes();
+      final int length = attributes.getLength();
+      for ( int i = 0; i < length; i++ )
+      {
+         final Node node = attributes.item( i );
+         final String name = node.getNodeName();
+         final String value = node.getNodeValue();
+         configuration.setAttribute( name, value );
+      }
 
-        String content = null;
-        final NodeList nodes = element.getChildNodes();
-        final int count = nodes.getLength();
-        for( int i = 0; i < count; i++ )
-        {
-            final Node node = nodes.item( i );
-            if( node instanceof Element )
-            {
-                final Configuration child = toConfiguration( (Element)node, childPath );
-                configuration.addChild( child );
-            }
-            else if( node instanceof CharacterData )
-            {
-                final CharacterData data = (CharacterData)node;
-                content += data.getData();
-            }
-        }
+      final String childPath = path + PATH_SEPARATOR + configuration.getName();
 
-        if( null != content )
-        {
-            configuration.setValue( content );
-        }
+      String content = null;
+      final NodeList nodes = element.getChildNodes();
+      final int count = nodes.getLength();
+      for ( int i = 0; i < count; i++ )
+      {
+         final Node node = nodes.item( i );
+         if ( node instanceof Element )
+         {
+            final Configuration child = toConfiguration( (Element) node, childPath );
+            configuration.addChild( child );
+         }
+         else if ( node instanceof CharacterData )
+         {
+            final CharacterData data = (CharacterData) node;
+            content += data.getData();
+         }
+      }
 
-        return configuration;
-    }
+      if ( null != content )
+      {
+         configuration.setValue( content );
+      }
 
-    public static Element toElement( final Configuration configuration )
-    {
-        try
-        {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder builder = factory.newDocumentBuilder();
-            final Document document = builder.newDocument();
+      return configuration;
+   }
 
-            return createElement( document, configuration );
-        }
-        catch( final Exception ce )
-        {
-            throw new IllegalStateException( ce.toString() );
-        }
-    }
+   /**
+    * Convert specified Configuration object into a Element.
+    *
+    * @param configuration the Configuration
+    * @return the Element object
+    */
+   public static Element toElement( final Configuration configuration )
+   {
+      try
+      {
+         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+         final DocumentBuilder builder = factory.newDocumentBuilder();
+         final Document document = builder.newDocument();
 
-    private static Element createElement( final Document document,
-                                          final Configuration configuration )
-    {
-        final Element element = document.createElement( configuration.getName() );
+         return createElement( document, configuration );
+      }
+      catch ( final Exception ce )
+      {
+         throw new IllegalStateException( ce.toString() );
+      }
+   }
 
-        final String content = configuration.getValue( null );
-        if( null != content )
-        {
-            final Text child = document.createTextNode( content );
-            element.appendChild( child );
-        }
+   /**
+    * Internal helper method to convert specified Configuration object
+    * into a Element.
+    *
+    * @param document the owner document
+    * @param configuration the Configuration
+    * @return the Element object
+    */
+   private static Element createElement( final Document document,
+                                         final Configuration configuration )
+   {
+      final Element element = document.createElement( configuration.getName() );
 
-        final String[] names = configuration.getAttributeNames();
-        for( int i = 0; i < names.length; i++ )
-        {
-            final String name = names[ i ];
-            final String value = configuration.getAttribute( name, null );
-            element.setAttribute( name, value );
-        }
-        final Configuration[] children = configuration.getChildren();
-        for( int i = 0; i < children.length; i++ )
-        {
-            final Element child = createElement( document, children[ i ] );
-            element.appendChild( child );
-        }
-        return element;
-    }
+      final String content = configuration.getValue( null );
+      if ( null != content )
+      {
+         final Text child = document.createTextNode( content );
+         element.appendChild( child );
+      }
+
+      final String[] names = configuration.getAttributeNames();
+      for ( int i = 0; i < names.length; i++ )
+      {
+         final String name = names[ i ];
+         final String value = configuration.getAttribute( name, null );
+         element.setAttribute( name, value );
+      }
+      final Configuration[] children = configuration.getChildren();
+      for ( int i = 0; i < children.length; i++ )
+      {
+         final Element child = createElement( document, children[ i ] );
+         element.appendChild( child );
+      }
+      return element;
+   }
 }
