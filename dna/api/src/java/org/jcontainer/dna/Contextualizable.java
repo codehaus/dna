@@ -8,11 +8,24 @@
 package org.jcontainer.dna;
 
 /**
+ * The component implements this interface if it wishes
+ * to be supplied with context entrys via ResourceLocator.
+ * The ResourceLocator contains the context entrys that
+ * this component depends upon under keys specified in the
+ * components metadata.
  *
- * @version $Revision: 1.1 $ $Date: 2003-07-25 11:34:35 $
+ * @version $Revision: 1.2 $ $Date: 2003-09-05 05:28:04 $
  */
 public interface Contextualizable
 {
-    void contextualize( ResourceLocator locator )
-        throws MissingResourceException;
+   /**
+    * Supply the component with ResourceLocator object
+    * via which they can access any context entrys.
+    *
+    * @param locator the ResourceLocator
+    * @throws MissingResourceException if the ResourceLocator does not
+    *         contain all the required entrys
+    */
+   void contextualize( ResourceLocator locator )
+      throws MissingResourceException;
 }
