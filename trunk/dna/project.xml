@@ -92,7 +92,7 @@
     <licenses>
         <license>
             <name>The JContainer Software License, Version 1.1</name>
-            <url>http://jcontainer.cvs.codehaus.org/viewcvs.cgi/*checkout*/jcontainer/dna/LICENSE.txt?content-type=text%2Fplain&amp;rev=1.1&amp;root=jcontainer</url>
+            <url>http://jcontainer.cvs.codehaus.org/viewcvs.cgi/*checkout*/jcontainer/dna/LICENSE.txt?root=jcontainer</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
