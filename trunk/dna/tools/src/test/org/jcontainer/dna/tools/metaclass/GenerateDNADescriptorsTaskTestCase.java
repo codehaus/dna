@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Modifier;
 import junit.framework.TestCase;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
@@ -22,7 +21,7 @@ import org.realityforge.metaclass.model.ClassDescriptor;
 /**
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.1 $ $Date: 2003-10-16 08:03:02 $
+ * @version $Revision: 1.2 $ $Date: 2003-10-25 03:40:51 $
  */
 public class GenerateDNADescriptorsTaskTestCase
     extends TestCase
@@ -70,7 +69,6 @@ public class GenerateDNADescriptorsTaskTestCase
         final FileInputStream input = new FileInputStream( destFile );
         final ClassDescriptor descriptor = io.deserializeClass( input );
         assertEquals( "descriptor.name", "com.biz.MyClass", descriptor.getName() );
-        assertEquals( "descriptor.modifiers", Modifier.PUBLIC, descriptor.getModifiers() );
         assertEquals( "descriptor.attributes.length", 1, descriptor.getAttributes().length );
         assertEquals( "descriptor.attributes[0].name", "dna.component", descriptor.getAttributes()[ 0 ].getName() );
         assertEquals( "descriptor.methods.length", 0, descriptor.getMethods().length );
