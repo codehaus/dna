@@ -14,6 +14,13 @@ public class ConsoleLoggerTestCase
                     logger.getLevel() );
    }
 
+   public void testMockConsoleOutputToConsole()
+      throws Exception
+   {
+      final ConsoleLogger logger = new ConsoleLogger();
+      logger.debug( "ignore me!", new Throwable( "Ignore me aswell!" ) );
+   }
+
    public void testMockConsoleTraceEnabled()
       throws Exception
    {
