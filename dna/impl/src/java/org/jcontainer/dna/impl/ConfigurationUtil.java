@@ -31,7 +31,7 @@ import org.xml.sax.InputSource;
  * Class containing utility methods to work with Configuration
  * objects.
  *
- * @version $Revision: 1.11 $ $Date: 2003-09-23 08:10:14 $
+ * @version $Revision: 1.12 $ $Date: 2003-09-23 09:52:04 $
  */
 public class ConfigurationUtil
 {
@@ -75,7 +75,8 @@ public class ConfigurationUtil
                                          final Configuration configuration )
       throws Exception
    {
-      final SAXTransformerFactory factory = (SAXTransformerFactory) TransformerFactory.newInstance();
+      final SAXTransformerFactory factory =
+          (SAXTransformerFactory) TransformerFactory.newInstance();
       final TransformerHandler handler = factory.newTransformerHandler();
 
       final Properties format = new Properties();
