@@ -22,7 +22,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * from SAX events.
  *
  * @author <a href="mailto:peter at realityforge.org">Peter Donald</a>
- * @version $Revision: 1.10 $ $Date: 2003-09-05 06:56:12 $
+ * @version $Revision: 1.11 $ $Date: 2003-09-11 05:42:21 $
  */
 public class SAXConfigurationHandler
    extends DefaultHandler
@@ -237,7 +237,8 @@ public class SAXConfigurationHandler
     */
    protected final String getLocationDescription()
    {
-      if ( null == m_locator )
+      if ( null == m_locator ||
+         null == m_locator.getSystemId() )
       {
          return UNKNOWN;
       }
