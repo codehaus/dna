@@ -11,8 +11,18 @@ import org.jcontainer.dna.Logger;
 
 /**
  * Logging facade implmentation for Apache Logkit project.
+ * The following lists the mapping between DNA log levels
+ * and LogKit log levels.
  *
- * @version $Revision: 1.2 $ $Date: 2003-09-05 06:33:30 $
+ * <ul>
+ *   <li>trace ==&gt; debug</li>
+ *   <li>debug ==&gt; debug</li>
+ *   <li>info ==&gt; info</li>
+ *   <li>warn ==&gt; warn</li>
+ *   <li>error ==&gt; error</li>
+ * </ul>
+ *
+ * @version $Revision: 1.3 $ $Date: 2003-09-05 06:40:47 $
  */
 public class LogkitLogger
    implements Logger
