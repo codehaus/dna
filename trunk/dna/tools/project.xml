@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project>
+	<extend>${basedir}/../project.xml</extend>
+    <name>DNA Tools</name>
+    <id>dna-tools</id>
+    <package>org.jcontainer.dna.tools</package>
+    <shortDescription>The DNA Tools Collection.</shortDescription>
+
+    <description>
+        The DNA Tool Project contains a set of tools useful for
+        developing DNA components.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>dna</groupId>
+            <artifactId>dna-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+
+        <unitTest>
+            <resource>
+                <directory>${basedir}/src/test</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+
+            <includes>
+                <include>**/*TestCase*</include>
+            </includes>
+            <excludes>
+                <exclude>**/Abstract*</exclude>
+            </excludes>
+        </unitTest>
+    </build>
+
+</project>
