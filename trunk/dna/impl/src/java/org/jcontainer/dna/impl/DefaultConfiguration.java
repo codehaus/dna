@@ -23,7 +23,7 @@ import java.util.Set;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.16 $ $Date: 2003-09-09 01:10:18 $
+ * @version $Revision: 1.17 $ $Date: 2003-09-11 00:40:56 $
  */
 public class DefaultConfiguration
    extends AbstractFreezable
@@ -105,7 +105,7 @@ public class DefaultConfiguration
       }
       if ( null == path )
       {
-         throw new NullPointerException( "location" );
+         throw new NullPointerException( "path" );
       }
       if ( null == location )
       {
