@@ -22,7 +22,7 @@ import org.jcontainer.dna.ConfigurationException;
  * and then invoke {@link #makeReadOnly()} before passing the
  * Configuration to the client component.
  *
- * @version $Revision: 1.22 $ $Date: 2003-09-23 10:15:25 $
+ * @version $Revision: 1.23 $ $Date: 2003-09-23 10:57:28 $
  */
 public class DefaultConfiguration
     extends AbstractFreezable
@@ -647,6 +647,7 @@ public class DefaultConfiguration
             }
             catch( final NumberFormatException nfe )
             {
+                //Fall through to return defaultValue
             }
         }
         return defaultValue;
@@ -699,6 +700,7 @@ public class DefaultConfiguration
             }
             catch( final NumberFormatException nfe )
             {
+                //Fall through to return defaultValue
             }
         }
         return defaultValue;
@@ -751,6 +753,7 @@ public class DefaultConfiguration
             }
             catch( final NumberFormatException nfe )
             {
+                //Fall through to return defaultValue
             }
         }
         return defaultValue;
